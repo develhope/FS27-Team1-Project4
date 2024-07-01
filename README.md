@@ -1,4 +1,4 @@
-# REGOLE GENERALI DEL PROGETTO
+# REGOLE GENERALI DEL PROGETTO - CONSEGNA 28/08/24
 
 ## COMUNICAZIONE
 *Tenere sempre aggiornati i membri del team sui propri sviluppi.*
