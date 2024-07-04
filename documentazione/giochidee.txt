@@ -1,0 +1,2 @@
+cruciverba e/o indovina  parola mancante in una frase ,puzzle a blocchi,memory,quiz,tocco rapido(toccare elemento rapidamente possibile),labirinto. usano tutti usestate e useeffect.
+
