@@ -1,0 +1,496 @@
+$primary-color: rgb(218, 90, 247);
+
+.navbar {
+  width: 100vw;
+  height: 80px;
+  top: 0;
+  z-index: 1;
+  // overflow: hidden;
+
+  .shade {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background: linear-gradient(black, gray);
+
+    .logo-and-login-container {
+      height: 100%;
+      box-sizing: border-box;
+      padding: 20px;
+      gap: 20px;
+
+      img {
+        height: 100%;
+      }
+
+      .sidebar {
+        display: none;
+      }
+    }
+  }
+
+  .enable-search {
+    height: 50px;
+    width: 50px;
+    color: white;
+    background-color: transparent;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 2px;
+    // border: none;
+  }
+
+  .search-not-shown {
+    height: 50px;
+    border: none;
+    overflow: hidden;
+    left: -410px;
+    width: 0;
+    transition: width 0.3s linear;
+
+    .search-container {
+      width: 100%;
+      height: 100%;
+      padding: 4px 4px;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.7);
+    }
+
+    input {
+      color: black;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      border: 2px solid black;
+      &:focus {
+        outline: none;
+      }
+    }
+
+    button.close-search {
+      height: 100%;
+      width: 50px;
+    }
+  }
+
+  .search-shown {
+    width: 400px;
+    border: 2px solid rgb(15, 15, 15);
+    
+  }
+
+  .search-enabled {
+    border: 2px solid black;
+    background-color: rgb(81, 53, 81);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.7);
+
+    
+
+    .svg-search {
+      width: 24px;
+      height: 24px;
+      color: rgb(247, 193, 248);
+      border-radius: 50%;
+      background: radial-gradient(
+        circle farthest-side at center,
+        rgba(#e336fd, 0.5),
+        rgba(#ec8cfa, 0.5)
+      );
+      box-shadow: -1px -1px 10px rgba(#ec8cfa, 0.5),
+        1px -1px 10px rgba(#ec8cfa, 0.5), -1px 1px 10px rgba(#ec8cfa, 0.5),
+        1px 1px 10px rgba(#ec8cfa, 0.5);
+    }
+  }
+
+  .search-button {
+    border: 2px solid black;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+  }
+
+  .links {
+    height: 100%;
+    box-sizing: border-box;
+    gap: 40px;
+
+    .links-container {
+      height: 100%;
+      width: 130px;
+      box-sizing: border-box;
+      padding: 20px;
+    }
+
+    .outer-button {
+      width: 130px;
+      height: 50px;
+      border: 2px solid rgb(15, 15, 15);
+      border-radius: 4px;
+      box-sizing: border-box;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.7);
+      background-color: rgb(81, 53, 81);
+      padding: 0 2px;
+    }
+
+    .curtain {
+      gap: 10px;
+      color: white;
+      border-radius: 4px;
+      padding: 5px 10px;
+      z-index: 2;
+      font-size: 1.5rem;
+
+      .link-light {
+        width: 10px;
+        height: 20px;
+        background-color: rgb(251, 251, 251);
+        border: 3px solid rgb(36, 36, 36);
+        border-radius: 8px;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5),
+          0 0px 8px rgba(0, 0, 0, 0.5);
+      }
+    }
+
+    .hovered {
+      color: rgb(247, 193, 248);
+      border: 2px solid rgb(35, 35, 35);
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+
+      h4 {
+        font-size: 1.25rem;
+        text-shadow: -1px -1px 13px #e852ff, 1px -1px 13px #e852ff,
+          -1px 1px 13px #e852ff, 1px 1px 13px #e852ff;
+      }
+
+      .link-light {
+        width: 8px;
+        height: 16px;
+        background-color: rgb(250, 218, 250);
+        border: 2px solid rgb(67, 44, 67);
+        box-shadow: inset 0 0 2px rgba($color: #e852ff, $alpha: 8),
+          -1px -1px 15px #e852ff, 1px -1px 15px #e852ff, -1px 1px 15px #e852ff,
+          1px 1px 15px #e852ff;
+      }
+    }
+
+    .ghost-div-with-img {
+      top: 100%;
+      height: 224px;
+      width: 150vw;
+    }
+
+    .product-navbar-not-shown {
+      top: 104px;
+      border-radius: 12px;
+      width: 0;
+      height: 0;
+      opacity: 0;
+      background-color: rgba(0, 0, 0, 0.502);
+      transition: top 0.2s linear, width 0.2s linear, height 0.2s linear;
+    }
+
+    .product-navbar-shown {
+      top: 114px;
+      left: 50%;
+      transform: translatex(-50%);
+      border: 2px solid rgba(0, 0, 0, 0.8);
+      border-radius: 12px;
+      width: 98vw;
+      height: 200px;
+      // background-color: rgba(0, 0, 0, 0.502);
+      box-sizing: border-box;
+      padding: 20px;
+      gap: 16px;
+      z-index: 1;
+      color: white;
+      opacity: 1;
+      font-size: 1.25rem;
+      transition: top 0.2s linear, width 0.2s linear, height 0.2s linear;
+
+      div {
+        height: 100%;
+      }
+
+      img {
+        width: 70%;
+      }
+    }
+
+    .ghost-div {
+      top: 100%;
+      width: 100%;
+      height: 34px;
+    }
+
+    .link-menu-not-shown {
+      top: 24px;
+      width: 0;
+      height: 0;
+      border: 2px solid $primary-color;
+      border-radius: 12px;
+      box-sizing: border-box;
+      background-color: rgba($color: $primary-color, $alpha: 0.5);
+      color: white;
+      font-size: 1rem;
+      overflow: hidden;
+      transition: all 0.1s linear;
+
+      p {
+        margin-left: 10px;
+        z-index: 3;
+      }
+
+      /* Selector for all the direct children*/
+      > * {
+        padding: 10px 0;
+        position: relative;
+        opacity: 0;
+
+        &:hover:after {
+          width: 100%;
+        }
+      }
+
+      > *:not(:last-child)::before {
+        content: "";
+        position: absolute;
+        border-radius: 12px;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background-color: rgba($color: $primary-color, $alpha: 0.8);
+      }
+
+      > *:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background-color: rgba($color: rgb(58, 2, 132), $alpha: 0.3);
+        transition: width 0.2s linear;
+      }
+
+      *.shown {
+        opacity: 1;
+      }
+    }
+
+    .link-menu-shown {
+      top: 34px;
+      width: 150%;
+      height: auto;
+      padding: 10px;
+    }
+  }
+
+  /* I use the cascade properties to change properties based on the button hovered*/
+  .login {
+    .links-container {
+      width: 60px;
+    }
+
+    .outer-button {
+      width: 60px;
+    }
+
+    .hovered {
+      height: 44px;
+    }
+
+    .login-svg {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+
+    .svg-hovered {
+      width: 24px;
+      height: 24px;
+      background: radial-gradient(
+        circle farthest-side at center,
+        rgba(#e336fd, 0.5),
+        rgba(#ec8cfa, 0.5)
+      );
+      box-shadow: -1px -1px 10px rgba(#ec8cfa, 0.5),
+        1px -1px 10px rgba(#ec8cfa, 0.5), -1px 1px 10px rgba(#ec8cfa, 0.5),
+        1px 1px 10px rgba(#ec8cfa, 0.5);
+    }
+
+    .ghost-div {
+      height: 150px;
+      width: 200%;
+      right: 0;
+    }
+
+    .link-menu-not-shown {
+      top: 44px;
+      right: 0;
+    }
+
+    .link-menu-shown {
+      top: 54px;
+    }
+  }
+
+  .sidebar-container {
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 104px;
+    background-color: rgba($color: #000000, $alpha: 0.3);
+
+    .navbar-border,
+    .metal-bg {
+      width: 24px;
+      height: 100%;
+    }
+
+    .navbar-border {
+      box-shadow: none;
+      box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.5);
+      padding: 0 5px;
+    }
+
+    .inner-circle {
+      border-radius: 0;
+    }
+
+    .sidebar {
+      height: 100%;
+      width: 0;
+      transition: width 0.3s ease-out;
+
+      .sidebar-content {
+        width: 100%;
+        background: linear-gradient(to right, black, gray);
+        gap: 48px;
+        overflow: hidden;
+
+        .sidebar-links-container {
+          gap: 12px;
+
+          .enable-search {
+            width: 100%;
+            height: auto;
+            padding: 8px;
+
+            .sidebar-buttons {
+              width: 100%;
+              padding: 0 12px;
+              font-size: 1.5rem;
+            }
+
+            .curtain-sidebar {
+              width: 100%;
+              border: 2px solid black;
+              box-sizing: border-box;
+              padding: 32px;
+              background-color: $primary-color;
+              gap: 24px;
+
+              div {
+                padding: 8px;
+                position: relative;
+
+                &:hover:before {
+                  width: 100%;
+                }
+
+                &::before {
+                  content: "";
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 0;
+                  height: 100%;
+                  background-color: rgba(58, 2, 132, 0.3);
+                  transition: width 0.2s linear;
+                }
+              }
+            }
+          }
+
+          .sidebar-button-hover {
+            border: 2px solid black;
+            background: linear-gradient(to right, rgb(81, 53, 81), transparent);
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 1);
+
+            p {
+              font-size: 1.25rem;
+              text-shadow: -1px -1px 13px #e852ff, 1px -1px 13px #e852ff,
+                -1px 1px 13px #e852ff, 1px 1px 13px #e852ff;
+            }
+          }
+        }
+      }
+    }
+
+    .open-sidebar {
+      width: 35vw;
+    }
+  }
+
+  @media (max-width: 1280px) {
+    height: 65px;
+
+    .links {
+      display: none;
+    }
+
+    .login {
+      display: flex;
+    }
+
+    .shade {
+      .logo-and-login-container {
+        .sidebar {
+          display: flex;
+        }
+
+        .search-enabled {
+          .svg-sidebar {
+            border-radius: 0;
+          }
+        }
+      }
+    }
+
+    .sidebar-container {
+      top: 87px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    height: 60px;
+
+    .hidden-when-small {
+      display: none;
+    }
+
+    .search-shown {
+      width: 100%;
+    }
+    .sidebar-container {
+        top: 82px;
+
+      .open-sidebar {
+        width: 70vw;
+      }
+    }
+  }
+
+  @media (max-width: 320px) {
+    .sidebar-container {
+      .open-sidebar {
+        width: 90vw;
+      }
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .sidebar-container {
+      display: none;
+    }
+  }
+}
