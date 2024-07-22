@@ -2,29 +2,37 @@
   margin: 0;
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url(./style/navbar.scss);
+@import url(./style/build-your-pc.scss);
+
+$primary-color: rgb(130, 49, 251);
+
 /* src/App.css */
+
 .App {
-  height: 100vh;
-  width: 100vw;
   overflow: hidden;
-  position: relative;
+  overflow-y: scroll;
   margin: 0;
   padding: 0;
 
   .background-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
+    // position: absolute;
+    // top: 50%;
+    // left: 50%;
+    // min-width: 100%;
+    // min-height: 100%;
+    // width: auto;
+    // height: auto;
     z-index: -2;
     transform: translate(-50%, -50%);
   }
-  
+
   .opacity-background {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -34,4 +42,62 @@
   }
 }
 
+.home {
+  padding-top: 104px;
+}
 
+.metal-bg {
+  width: 100%;
+  height: 100%;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url(./assets/metal-texture.png);
+    background-size: cover;
+    opacity: 25%;
+    z-index: 0;
+    pointer-events: none;
+  }
+}
+
+.navbar-border {
+  width: 100%;
+  height: 24px;
+  background-color: rgb(175, 175, 175);
+  border-top: 2px solid rgb(70, 70, 70);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom: 2px solid rgb(0, 0, 0);
+  z-index: 3;
+  box-shadow: 0 -10px 10px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .inner-circle {
+    width: 100%;
+    height: 100%;
+    border: 2px solid rgb(98, 98, 98);
+    border-radius: 8px;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.5);
+  }
+}
+
+@media (max-width: 1280px) {
+  .home {
+    padding-top: 99px;
+  }
+}
+
+@media (max-width: 768px) {
+  .home {
+    padding-top: 94px;
+  }
+}

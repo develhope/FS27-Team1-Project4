@@ -1,0 +1,161 @@
+$textShadow: rgb(33, 5, 39);
+
+@keyframes shadow {
+  100% {
+    text-shadow: -1px -1px 10px $textShadow, 1px -1px 10px $textShadow,
+      -1px 1px 10px $textShadow, 1px 1px 10px $textShadow;
+  }
+  50% {
+    text-shadow: -1px -1px 20px $textShadow, 1px -1px 20px $textShadow,
+      -1px 1px 20px $textShadow, 1px 1px 20px $textShadow;
+  }
+  0% {
+    text-shadow: -1px -1px 10px $textShadow, 1px -1px 10px $textShadow,
+      -1px 1px 10px $textShadow, 1px 1px 10px $textShadow;
+  }
+}
+
+.build-your-pc {
+  width: 100vw;
+  height: 100%;
+
+  .image-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .text-container {
+    top: 5%;
+    left: 3%;
+    width: 60%;
+    height: 40%;
+    color: white;
+    text-shadow: -1px -1px 10px $textShadow, 1px -1px 10px $textShadow,
+      -1px 1px 10px $textShadow, 1px 1px 10px $textShadow;
+
+    h1 {
+      font-size: 5rem;
+      line-height: 1em;
+    }
+
+    .building {
+      width: 80%;
+      margin-right: 5%;
+
+      h2 {
+        font-size: 2.5rem;
+        // background-color: red;
+        text-align: center;
+      }
+    }
+  }
+
+  &:hover h2 {
+    animation: shadow 1s ease-in-out infinite;
+  }
+
+  @media (max-width: 1440px) {
+    .text-container {
+      h1 {
+        font-size: 4.5rem;
+      }
+      .building {
+        h2 {
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1280px) {
+    .text-container {
+      h1 {
+        font-size: 2.9rem;
+      }
+      .building {
+        h2 {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .text-container {
+      height: 100%;
+      width: 100%;
+
+      .h1-container {
+        position: absolute;
+        top: 0;
+        left: 45%;
+        width: 50%;
+        height: 23%;
+      }
+
+      h1 {
+        font-size: 3.5rem;
+        text-align: end;
+      }
+
+      .building {
+        position: absolute;
+        flex-direction: row;
+        align-items: center;
+        width: unset;
+        text-wrap: nowrap;
+        gap: 0.5em;
+        bottom: 13%;
+        left: 50%;
+        transform: translateX(-50%);
+
+        h2 {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 490px) {
+    .text-container {
+      h1 {
+        font-size: 2.9rem;
+      }
+      .building {
+        h2 {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 408px) {
+    .text-container {
+      h1 {
+        font-size: 2.5rem;
+      }
+      div {
+        h2 {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 351px) {
+    .text-container {
+      h1 {
+        font-size: 2rem;
+      }
+      .building {
+        flex-direction: column;
+        h2 {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  // TO DELETE FOR TESTING
+  margin-top: 2%;
+}
