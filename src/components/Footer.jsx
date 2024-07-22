@@ -37,7 +37,7 @@ const Footer = () => {
     {to: "/", text: 'Workstation Grafiche'},
   ]
   return (
-    <footer className="footer">
+    <footer className="relative footer">
       <div className="footer-section company-info">
         <img src={logo} alt="Company Logo" className="company-logo" />
         <address>
@@ -46,8 +46,8 @@ const Footer = () => {
           Partita IVA: IT0899XXXXX<br />
           Tel: 3420541376
         </address>
-        
-        <div className="social-icons">
+
+        <div className="flex social-icons">
           <a href="#"><img src={facebook} alt="Facebook" /></a>
           <a href="#"><img src={instragram} alt="Instagram" /></a>
           <a href="#"><img src={twitter} alt="Twitter" /></a>
@@ -98,7 +98,7 @@ const Footer = () => {
           Classe Fullstack27 s.p.a è una società specializzata nella distribuzione e vendita di componenti di pc e vendita di computer
         </p>
         <p>
-          Fondata nel 2024, Classe Fullstack27 s.p.a è una società di ragazzi  
+          Fondata nel 2024, Classe Fullstack27 s.p.a è una società di ragazzi
         </p>
       </div>
     </footer>
