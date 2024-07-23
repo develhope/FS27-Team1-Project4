@@ -1,0 +1,598 @@
+$primaryDeepColor: rgb(2, 203, 2);
+$secondaryDeepColor: rgba(7, 107, 7);
+$primaryDeepRed: rgb(182, 28, 28);
+$secondaryDeepRed: rgb(105, 16, 16);
+$primaryDeepGray: rgb(183, 181, 181);
+$nodePoligon: polygon(
+  88% 0,
+  100% 27%,
+  100% 100%,
+  73% 100%,
+  65% 85%,
+  9% 83%,
+  0 61%,
+  0 0
+);
+
+@mixin innerLine(
+  $width,
+  $height,
+  $borderRightColor,
+  $borderBottomColor,
+  $opacity
+) {
+  width: $width;
+  height: $height;
+  border-right: 2px solid rgba($color: $borderRightColor, $alpha: $opacity);
+  border-bottom: 2px solid rgba($color: $borderBottomColor, $alpha: $opacity);
+}
+
+@mixin borderLine($height, $top, $left) {
+  width: 6px;
+  height: $height;
+  background-color: $primaryDeepColor;
+  top: $top;
+  left: $left;
+}
+
+@mixin dots() {
+}
+
+.deep {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(10, 18, 6);
+
+  .deep-sidebar {
+    width: 10vw;
+    background-color: rgba($color: $primaryDeepColor, $alpha: 0.05);
+    border-right: 2px solid $primaryDeepColor;
+    z-index: 10;
+
+    .first-w-line {
+      @include innerLine(60%, 100%, $primaryDeepColor, transparent, 0.05);
+    }
+
+    .second-w-line {
+      @include innerLine(20%, 100%, $primaryDeepColor, transparent, 0.15);
+    }
+
+    .third-w-line {
+      @include innerLine(10%, 100%, $primaryDeepColor, transparent, 0.2);
+    }
+
+    .h-lines-container {
+      inset: 0;
+
+      .first-h-line {
+        @include innerLine(100%, 12%, transparent, $primaryDeepColor, 0.2);
+      }
+
+      .second-h-line {
+        @include innerLine(100%, 4%, transparent, $primaryDeepColor, 0.2);
+        background-color: rgba($color: $primaryDeepColor, $alpha: 0.03);
+      }
+
+      .third-h-line {
+        @include innerLine(100%, 75%, transparent, $primaryDeepColor, 0.15);
+      }
+
+      .forth-h-line {
+        @include innerLine(100%, 1%, transparent, $primaryDeepColor, 0.05);
+      }
+    }
+
+    .first-border-line {
+      @include borderLine(20%, 15%, 100%);
+    }
+
+    .second-border-line {
+      @include borderLine(12%, 63%, 100%);
+    }
+
+    .nodes-container {
+      width: 120%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      padding: 20px 0;
+      box-sizing: border-box;
+      overflow-x: scroll;
+      z-index: 2;
+      gap: 10px;
+    }
+  }
+
+  .deep-main {
+    width: 90vw;
+    box-sizing: border-box;
+    padding: 20px;
+    gap: 20px;
+
+    .top-main {
+      width: 100%;
+      height: 10%;
+      gap: 6px;
+
+      .dots {
+        width: 30%;
+        height: 100%;
+        gap: 12px;
+
+        > div {
+          width: fit-content;
+          height: 100%;
+
+          .single-dot {
+            width: 6px;
+            height: 6px;
+          }
+        }
+      }
+
+      .promo-card {
+        width: 70%;
+        height: 100%;
+        background-color: #3c3c3c;
+        border: 1px solid #707070;
+        border-radius: 8px;
+        overflow: hidden;
+
+        .mock-webmenu {
+          width: 100%;
+          height: 20%;
+        }
+
+        .card-carousel {
+          width: 100%;
+          height: 80%;
+          background-color: white;
+        }
+      }
+    }
+
+    .main-game {
+      width: 95%;
+      height: 70%;
+      background-color: black;
+      border: 2px solid $primaryDeepColor;
+
+      .game {
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+      }
+
+      .game-bg {
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+
+        .first-w-line {
+          @include innerLine(1%, 100%, $primaryDeepColor, transparent, 0.2);
+        }
+
+        .second-w-line {
+          @include innerLine(2%, 100%, $primaryDeepColor, transparent, 0.15);
+        }
+
+        .third-w-line {
+          @include innerLine(4%, 100%, $primaryDeepColor, transparent, 0.05);
+        }
+
+        .forth-w-line {
+          @include innerLine(85%, 100%, $primaryDeepColor, transparent, 0.05);
+        }
+
+        .fifth-w-line {
+          @include innerLine(5%, 100%, $primaryDeepColor, transparent, 0.15);
+        }
+
+        .sixth-w-line {
+          @include innerLine(2%, 100%, $primaryDeepColor, transparent, 0.2);
+        }
+
+        .first-h-line {
+          @include innerLine(100%, 8%, transparent, $primaryDeepColor, 0.2);
+        }
+
+        .second-h-line {
+          @include innerLine(100%, 12%, transparent, $primaryDeepColor, 0.2);
+        }
+
+        .third-h-line {
+          @include innerLine(100%, 67%, transparent, $primaryDeepColor, 0.15);
+        }
+      }
+      .first-border-line {
+        @include borderLine(10%, 8%, 100%);
+      }
+
+      .second-border-line {
+        @include borderLine(23%, 54%, 100%);
+      }
+
+      .third-border-line {
+        @include borderLine(21%, 17%, -4px);
+      }
+
+      .forth-border-line {
+        @include borderLine(16%, 62%, -4px);
+      }
+    }
+  }
+}
+
+.chat {
+  height: 15%;
+  width: 80vw;
+
+  .hacker-avatar {
+    height: 100%;
+    aspect-ratio: 1;
+    box-sizing: border-box;
+    padding: 5px;
+    clip-path: polygon(0 0, 75% 0, 100% 25%, 100% 100%, 25% 100%, 0 75%);
+    background-color: rgba($color: $primaryDeepGray, $alpha: 0.7);
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      clip-path: inherit;
+    }
+
+    &::before {
+      background-color: black;
+    }
+
+    &::after {
+      background-color: rgba($color: $primaryDeepGray, $alpha: 0.1);
+    }
+
+    img {
+      height: 100%;
+      z-index: 2;
+    }
+
+    .hacker-bg {
+      inset: 0;
+      z-index: 1;
+
+      .first-w-line {
+        @include innerLine(5%, 100%, $primaryDeepGray, transparent, 0.2);
+      }
+
+      .second-w-line {
+        @include innerLine(4%, 100%, $primaryDeepGray, transparent, 0.15);
+      }
+
+      .third-w-line {
+        @include innerLine(5%, 100%, $primaryDeepGray, transparent, 0.05);
+      }
+
+      .forth-w-line {
+        @include innerLine(75%, 100%, $primaryDeepGray, transparent, 0.05);
+      }
+
+      .fifth-w-line {
+        @include innerLine(5%, 100%, $primaryDeepGray, transparent, 0.15);
+      }
+
+      .sixth-w-line {
+        @include innerLine(4%, 100%, $primaryDeepGray, transparent, 0.2);
+      }
+
+      .first-h-line {
+        @include innerLine(100%, 7%, transparent, $primaryDeepGray, 0.2);
+      }
+
+      .second-h-line {
+        @include innerLine(100%, 4%, transparent, $primaryDeepGray, 0.2);
+      }
+
+      .third-h-line {
+        @include innerLine(100%, 80%, transparent, $primaryDeepGray, 0.15);
+      }
+    }
+
+    .dots-container {
+      width: 10%;
+      height: 10%;
+      bottom: 10%;
+      right: 7%;
+      z-index: 1;
+
+      > div {
+        gap: 10%;
+        width: 100%;
+        height: 100%;
+        grid-auto-flow: dense;
+        direction: rtl;
+        writing-mode: vertical-rl;
+      }
+
+      .single-dot {
+        background-color: $primaryDeepGray;
+      }
+    }
+  }
+
+  .hacker-chat {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding-top: 38px;
+
+    .chat-container {
+      width: 100%;
+      height: 100%;
+      background-color: $primaryDeepColor;
+      clip-path: polygon(0 0, 100% 0, 100% 75%, 95% 100%, 0 100%);
+      z-index: 1;
+
+      &::before {
+        content: "";
+        position:absolute;
+        top: 2px;
+        right: 2px;
+        bottom: 2px;
+        left: 0;
+        clip-path: inherit;
+      }
+
+      &::before {
+        background-color: black;
+      }
+
+      .chat-bg {
+        inset: 0;
+        z-index: 2;
+
+      .first-w-line {
+        @include innerLine(1%, 100%, $primaryDeepColor, transparent, 0.2);
+      }
+
+      .second-w-line {
+        @include innerLine(1%, 100%, $primaryDeepColor, transparent, 0.15);
+      }
+
+      .third-w-line {
+        @include innerLine(2%, 100%, $primaryDeepColor, transparent, 0.1);
+      }
+
+      .forth-w-line {
+        @include innerLine(92%, 100%, $primaryDeepColor, transparent, 0.1);
+      }
+
+      .fifth-w-line {
+        @include innerLine(2%, 100%, $primaryDeepColor, transparent, 0.15);
+      }
+
+      .sixth-w-line {
+        @include innerLine(1%, 100%, $primaryDeepColor, transparent, 0.2);
+      }
+
+      .first-h-line {
+        @include innerLine(100%, 12%, transparent, $primaryDeepColor, 0.2);
+      }
+
+      .second-h-line {
+        @include innerLine(100%, 4%, transparent, $primaryDeepColor, 0.2);
+        background-color: rgba($color: $primaryDeepColor, $alpha: 0.03);
+      }
+
+      .third-h-line {
+        @include innerLine(100%, 75%, transparent, $primaryDeepColor, 0.15);
+      }
+
+      .forth-h-line {
+        @include innerLine(100%, 1%, transparent, $primaryDeepColor, 0.05);
+      }
+    }
+    }
+
+    p {
+      top: 17%;
+      right: 2.5%;
+      bottom: 17%;
+      left:2%;
+      color: $primaryDeepColor;
+      font-size: 1.15rem;
+      z-index: 3;
+    }
+
+    .dots-container {
+      bottom: 0;
+      right: 0;
+      gap: 4px;
+
+      > div {
+        width: 100%;
+        height: 100%;
+        gap: 4px;
+
+        .single-dot {
+          width: 7px;
+          height: 7px;
+        }
+      }
+    }
+  }
+}
+
+.node-deep {
+  width: 100%;
+  height: 3.57vw;
+  clip-path: $nodePoligon;
+  background-color: $primaryDeepColor;
+  box-sizing: border-box;
+  padding: 5px;
+  overflow: hidden;
+  cursor: pointer;
+
+  .inner-node {
+    width: 100%;
+    height: 3vw;
+    background-color: rgba($color: $secondaryDeepColor, $alpha: 0.3);
+    clip-path: $nodePoligon;
+    z-index: 0;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      background-color: $primaryDeepColor;
+      clip-path: $nodePoligon;
+      z-index: 0;
+    }
+  }
+
+  .border-node {
+    left: -2px;
+    top: 15%;
+    width: 94%;
+    height: 65%;
+    background-color: rgba($color: $secondaryDeepColor, $alpha: 0.7);
+    clip-path: polygon(
+      88% 0,
+      100% 27%,
+      100% 100%,
+      77% 100%,
+      70% 85%,
+      0 83%,
+      0 61%,
+      0 0
+    );
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      clip-path: inherit;
+      background-color: $primaryDeepColor;
+    }
+  }
+
+  .vertical-cover {
+    left: 5px;
+    top: 6px;
+    width: 2px;
+    height: 45%;
+    background-color: rgba($color: $secondaryDeepColor, $alpha: 0.3);
+  }
+
+  .angular-cover {
+    left: calc(5px + 3.5%);
+    top: calc(6px + 41%);
+    width: 2px;
+    height: 30%;
+    background-color: rgba($color: $secondaryDeepColor, $alpha: 0.3);
+    transform: rotate(-45deg);
+  }
+
+  .sash {
+    top: 0;
+    left: 30%;
+    width: 3.57vw;
+    height: 3.57vw;
+    background-color: rgba($color: $secondaryDeepColor, $alpha: 0.5);
+    clip-path: polygon(65% 1%, 100% 0%, 35% 100%, 0 100%);
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: -10%;
+      width: 3px;
+      height: 105%;
+      background-color: rgba($color: $secondaryDeepColor, $alpha: 0.4);
+      transform: rotate(33deg);
+    }
+
+    &::before {
+      left: 38%;
+    }
+
+    &::after {
+      left: 68%;
+    }
+  }
+
+  .dots-container {
+    top: 33%;
+    left: 73%;
+    width: 18%;
+    height: 40%;
+    gap: 2px;
+    box-sizing: border-box;
+    padding: 1%;
+
+    div {
+      width: 100%;
+      height: 100%;
+      gap: 2px;
+    }
+  }
+
+  .employee {
+    top: 40%;
+    transform: translateY(-50%);
+    font-size: 100%;
+    height: 50%;
+  }
+
+
+}
+
+.single-dot {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background-color: $secondaryDeepColor;
+}
+
+.node-deep.node-gained {
+  background-color: $primaryDeepRed;
+  transform: translateX(-20%);
+
+  .inner-node {
+    background-color: rgba($color: $secondaryDeepRed, $alpha: 0.3);
+
+    &::after {
+      background-color: $primaryDeepRed;
+    }
+  }
+
+  .border-node {
+    background-color: rgba($color: $secondaryDeepRed, $alpha: 0.7);
+
+    &::after {
+      background-color: $primaryDeepRed;
+    }
+  }
+
+  .vertical-cover,
+  .angular-cover {
+    background-color: rgba($color: $secondaryDeepColor, $alpha: 0.3);
+  }
+
+  .sash {
+    background-color: rgba($color: $secondaryDeepRed, $alpha: 0.5);
+
+    &::before,
+    &::after {
+      background-color: rgba($color: $secondaryDeepRed, $alpha: 0.4);
+    }
+  }
+
+  .employee {
+    left: 22%;
+    color: white;
+  }
+
+  .single-dot {
+    background-color: $secondaryDeepRed;
+  }
+}

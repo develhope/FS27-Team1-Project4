@@ -5,6 +5,8 @@ import { Home } from "./components/Home";
 import Footer from "./components/Footer";
 import { Navbar } from "./components/Navbar";
 import { MainWebpageContainer } from "./components/MainWebpageContainer";
+import { OpeningPage } from "./components/OpeningPage";
+import { Deep } from "./components/Deep";
 
 function App() {
   return (
@@ -24,6 +26,9 @@ function App() {
       <Routes>
         <Route path="/" element={<MainWebpageContainer />}>
           <Route index element={<Home />} />
+        </Route>
+        <Route path="access" element={<OpeningPage/>}/>
+        <Route path="deep" element={<Deep />}>
         </Route>
       </Routes>
       {/* <Footer /> */}

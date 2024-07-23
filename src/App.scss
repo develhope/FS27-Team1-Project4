@@ -6,10 +6,14 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url(./style/navbar.scss);
-@import url(./style/build-your-pc.scss);
+
 @import "./style/CarouselOffer.scss";
 @import "./style/Builded.scss";
+@import "./style/navbar.scss";
+@import "./style/build-your-pc.scss";
+@import "./style/opening.scss";
+@import "./style/deep.scss";
+
 
 $primary-color: rgb(130, 49, 251);
 
