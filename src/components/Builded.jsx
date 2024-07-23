@@ -1,5 +1,4 @@
 import React from "react";
-import "./Builded.scss";
 import { Button } from "./Button";
 
 export function Builded() {

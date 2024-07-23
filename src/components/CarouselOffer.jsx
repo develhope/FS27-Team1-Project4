@@ -146,7 +146,10 @@ export function CarouselOffer() {
 
   const handleMouseUp = () => {
     setIsDragging(false);
-    const cardWidth = containerRef.current.offsetWidth / 4;
+     const cardWidth =
+      window.innerWidth <= 380
+        ? containerRef.current.offsetWidth
+        : containerRef.current.offsetWidth / 4;
     const newIndex = Math.round(-translateX / cardWidth);
     setCurrentIndex(newIndex);
   };
@@ -159,7 +162,10 @@ export function CarouselOffer() {
   };
 
   useEffect(() => {
-    const cardWidth = containerRef.current.offsetWidth / 4;
+    const cardWidth =
+      window.innerWidth <= 380
+        ? containerRef.current.offsetWidth
+        : containerRef.current.offsetWidth / 4;
     const newTranslateX = -currentIndex * cardWidth;
     setTranslateX(newTranslateX);
 
@@ -168,15 +174,13 @@ export function CarouselOffer() {
         setCurrentIndex(8);
       }, 300);
     }
-    if(currentIndex > 8 + cards.length - 1 || currentIndex <= 1) {
-      setNoTransition(true)
-    }else if (currentIndex === 9 || currentIndex === 7){
-      setNoTransition(false)
+    if (currentIndex > 8 + cards.length - 1 || currentIndex <= 1) {
+      setNoTransition(true);
+    } else if (currentIndex === 9 || currentIndex === 7) {
+      setNoTransition(false);
     }
     console.log(noTransition);
   }, [currentIndex]);
-
-
 
   return (
     <div className="carousel">
@@ -221,7 +225,7 @@ export function CarouselOffer() {
                     <div className="price-info">
                       <span className="original-price">{card.price}</span>
                       <span className="save-price">
-                        Buy and Save {card.saveAmount}
+                        Save {card.saveAmount}
                       </span>
                       <span className="discount-price">
                         {" "}
@@ -240,7 +244,7 @@ export function CarouselOffer() {
                       <div className="price-info">
                         <span className="original-price">{card.price}</span>
                         <span className="save-price">
-                          Buy and Save {card.saveAmount}
+                          Buy Now
                         </span>
                         <span className="discount-price">
                           {card.discountPrice}

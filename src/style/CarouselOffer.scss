@@ -225,6 +225,32 @@
       right: 15%;
     }
   }
+
+
+@media (max-width: 380px) {
+  .card-container {
+    width: 55vw;
+  }
+
+  .card-wrapper {
+    gap: 15px; 
+  }
+
+  .card {
+    flex: 0 0 calc(50vw + 4.5px); 
+    height: 300px; 
+  }
+
+  .arrow {
+    &.left-arrow {
+      left: 4%; 
+    }
+
+    &.right-arrow {
+      right: 4%; 
+    }
+  }
+}
 }
 
 
