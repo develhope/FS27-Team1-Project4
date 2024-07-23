@@ -237,7 +237,7 @@
   }
 
   .card {
-    flex: 0 0 calc(50vw + 4.5px); 
+    flex: 0 0 calc(50vw + 4px); 
     height: 300px; 
   }
 
@@ -248,6 +248,56 @@
 
     &.right-arrow {
       right: 4%; 
+    }
+  }
+}
+
+@media (min-width: 380px) and (max-width: 768px) {
+  .card-container {
+    width: 80vw;
+  }
+
+  .card-wrapper {
+    gap: 10px; 
+  }
+
+  .card {
+    flex: 0 0 calc(40vw - 10px); 
+    height: 300px; 
+  }
+
+  .arrow {
+    &.left-arrow {
+      left: 1%; 
+    }
+
+    &.right-arrow {
+      right: 1%; 
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1280px) {
+  .card-container {
+    width: 90vw;
+  }
+
+  .card-wrapper {
+    gap: 10px; 
+  }
+
+  .card {
+    flex: 0 0 calc(30vw - 10px); 
+    height: 300px; 
+  }
+
+  .arrow {
+    &.left-arrow {
+      left: 0; 
+    }
+
+    &.right-arrow {
+      right: 0; 
     }
   }
 }
