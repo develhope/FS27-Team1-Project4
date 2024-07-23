@@ -149,6 +149,10 @@ export function CarouselOffer() {
      const cardWidth =
       window.innerWidth <= 380
         ? containerRef.current.offsetWidth
+        : window.innerWidth > 380 && window.innerWidth <= 768
+        ? containerRef.current.offsetWidth / 2
+        : window.innerWidth > 768 && window.innerWidth <= 1280
+        ? containerRef.current.offsetWidth / 3
         : containerRef.current.offsetWidth / 4;
     const newIndex = Math.round(-translateX / cardWidth);
     setCurrentIndex(newIndex);
@@ -165,6 +169,10 @@ export function CarouselOffer() {
     const cardWidth =
       window.innerWidth <= 380
         ? containerRef.current.offsetWidth
+        : window.innerWidth > 380 && window.innerWidth <= 768
+        ? containerRef.current.offsetWidth / 2
+        : window.innerWidth > 768 && window.innerWidth <= 1280
+        ? containerRef.current.offsetWidth / 3
         : containerRef.current.offsetWidth / 4;
     const newTranslateX = -currentIndex * cardWidth;
     setTranslateX(newTranslateX);

@@ -251,6 +251,56 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .card-container {
+    width: 80vw;
+  }
+
+  .card-wrapper {
+    gap: 10px; 
+  }
+
+  .card {
+    flex: 0 0 calc(40vw - 10px); 
+    height: 300px; 
+  }
+
+  .arrow {
+    &.left-arrow {
+      left: 1%; 
+    }
+
+    &.right-arrow {
+      right: 1%; 
+    }
+  }
+}
+
+@media (max-width: 1280px) {
+  .card-container {
+    width: 90vw;
+  }
+
+  .card-wrapper {
+    gap: 10px; 
+  }
+
+  .card {
+    flex: 0 0 calc(30vw - 10px); 
+    height: 300px; 
+  }
+
+  .arrow {
+    &.left-arrow {
+      left: 0; 
+    }
+
+    &.right-arrow {
+      right: 0; 
+    }
+  }
+}
 }
 
 
