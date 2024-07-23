@@ -1,0 +1,128 @@
+.builded-container {
+  position: relative;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #b9b9b9e3;
+  padding: 20px;
+  border: 10px solid rgba(82, 82, 82, 0.838);
+  width: 40%;
+  height: 400px;
+  margin: 0 auto;
+  margin-bottom: 100px;
+}
+
+.header {
+  width: 100%;
+  position: relative;
+  top: 150px;
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.back-button,
+.next-button {
+  background-color: transparent;
+  border: none;
+  color: rgb(0, 0, 0);
+  font-size: 45px;
+  cursor: pointer;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: -15%;
+  
+}
+
+.pc-image {
+  max-width: 300px;
+  margin-right: 100px;
+}
+
+.details {
+  text-align: left;
+}
+
+.title {
+  font-size: 30px;
+  margin-bottom: 10px;
+  position: relative;
+  color: black;
+  right: 80px;
+  top: -30px;
+}
+
+.subtitle {
+  font-size: 20px;
+  position: relative;
+  right: 60px;
+  top: -50px;
+  margin-bottom: 10px;
+}
+
+.model {
+    position: relative;
+    top: -40px;
+    left: 60px;
+  font-size:25px;
+}
+
+.price-section {
+  display: flex;
+  align-items: center;
+  position: relative;
+ left: 170px;
+ top: -30px;
+}
+
+.discount {
+  color: purple;
+  font-size: 20px;
+  position: relative;
+  top: -50px;
+  left: 120px;
+}
+
+.price {
+  font-size: 2rem;
+  color: green;
+  margin-right: 10px;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: red;
+}
+
+.specs {
+  list-style: none;
+  padding: 0;
+  text-align: end;
+  position: relative;
+  right: 50px;
+}
+
+.buy-now-button {
+  background-color: #6c009ec6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1.25rem;
+  font-family: Arial, sans-serif;
+  letter-spacing: 1px;
+  position: relative;
+  left: 110%;
+  top: -20px;
+  clip-path: polygon(8% 0%, 100% 0%, 100% 80%, 92% 100%, 0% 100%, 0% 20%);
+}
+
+.buy-now-button:hover {
+  background-color: #9900e0b4;
+}
