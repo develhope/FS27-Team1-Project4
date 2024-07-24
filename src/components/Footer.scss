@@ -1,3 +1,4 @@
+/*Component author Massimo*/
 .footer {
     background: #333;
     color: #fff;
@@ -6,8 +7,23 @@
     justify-content: space-between;
     padding: 20px;
     z-index: 0;
+    box-sizing: border-box;
+    width: 100vw;
   }
+  .NavbarBorder {
+    width: 100%;
+    height: 100%;
+    
+  }
+  .toggle-button {
+    .arrow {
+      display: none;
 
+      
+      @media (max-width: 320px), (max-width: 768px) {
+        display: inline-block;
+      }
+    }}
   .footer-section {
     flex: 1;
     min-width: 200px;
@@ -59,11 +75,18 @@
     .footer {
       flex-direction: column;
       align-items: center;
-
+      box-sizing: border-box;
+      width: 100vw;
+      .footer-contect{
+        flex-direction: column;
+       width: 100%;
+      }
       .footer-section {
         width: 100%;
         text-align: center;
         margin-bottom: 20px;
+        font-size: 1rem;
+
       }
 
       .company-info,
@@ -73,6 +96,21 @@
 
       .social-icons {
         justify-content: center;
+      }
+      .toggle-button {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      
+        .arrow {
+          transition: transform 0.3s ease;
+          display: inline-block;
+        }
+      
+        .arrow.active {
+          transform: rotate(180deg);
+        }
       }
     }
   }
@@ -95,5 +133,22 @@
       .social-icons {
         justify-content: center;
       }
+      .toggle-button {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      
+        .arrow {
+          transition: transform 0.3s ease;
+          display: inline-block;
+        }
+      
+        .arrow.active {
+          transform: rotate(180deg);
+        }
+      }
     }
   }
+  
+
