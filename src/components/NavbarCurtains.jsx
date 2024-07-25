@@ -107,6 +107,7 @@ export function NavbarCurtains({ title, arrayLinks, login }) {
               <Link
                 className={`${sidebarContentShown ? "shown" : ""}`}
                 key={index}
+                to={link}
               >
                 <p>{link}</p>
               </Link>

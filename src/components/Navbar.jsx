@@ -7,6 +7,7 @@ import { NavbarBorder } from "./NavbarBorder";
 import { useEffect, useRef, useState } from "react";
 import { NavbarSidebar } from "./NavbarSidebar";
 import { NavbarSearch } from "./NavbarSearch";
+import { useNavigate } from "react-router-dom";
 
 export function Navbar() {
   const [search, setSearch] = useState(false);
@@ -16,6 +17,7 @@ export function Navbar() {
   const [searchInput, setSearchInput] = useState("");
 
   const searchRef = useRef(null);
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (search) {
@@ -43,7 +45,7 @@ export function Navbar() {
       <MetalBg>
         <div className="flex justify-between align-center shade">
           <div className="flex items-center">
-            <div className="flex logo-and-login-container">
+            <div className="flex logo-and-login-container" onClick={() => navigate("/access")}>
               <img src="../src/assets/mocking-logo.png" alt="logo" />
             </div>
             <div className="flex items-center justify-center links">
