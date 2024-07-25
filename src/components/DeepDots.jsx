@@ -1,3 +1,5 @@
+/* Component Author Andrea */
+
 export function DeepDots({
   dotsNumber = 3,
   dotsRows = 3,

@@ -1,3 +1,5 @@
+/* Component Author Andrea */
+
 import { useNavigate } from "react-router-dom";
 import { DeepDots } from "./DeepDots";
 

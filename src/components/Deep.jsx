@@ -1,16 +1,23 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { NodeDeep } from "./NodeDeep";
 import andreaHacker from "../assets/andrea-hacker.png";
 import { DeepDots } from "./DeepDots";
+import { useRandom } from "../custom-hooks/useRandom";
+import { DeepRundomString } from "./DeepRandomString";
+import { Button } from "./Button";
+import { useResponsiveWidth } from "../custom-hooks/useResponsiveWidth";
 
 export function Deep() {
+  const navigate = useNavigate();
+  const { screenWidth } = useResponsiveWidth();
+
   const testUser = {
     schiariti: false,
     provenzano: true,
   };
 
   return (
-    <div className="flex deep">
+    <div className={`flex ${screenWidth <= 1280 ? "flex-col items-center" : ""} deep`}>
       <div className="flex relative deep-sidebar">
         <div className="first-w-line"></div>
         <div className="second-w-line"></div>
@@ -23,14 +30,15 @@ export function Deep() {
         </div>
         <div className="absolute first-border-line"></div>
         <div className="absolute second-border-line"></div>
+        <div className="relative curl-effect"></div>
         <div className="flex flex-col absolute nodes-container">
           <NodeDeep
-            employee={"Schiariti A."}
+            employee={screenWidth > 1280 ? "Schiariti A." : "id 2017"}
             path={"/"}
             gameCleared={testUser.schiariti}
           />
           <NodeDeep
-            employee={"Provenzano D."}
+            employee={screenWidth > 1280 ? "Provenzano D.": "id 2013"}
             path={"/"}
             gameCleared={testUser.provenzano}
           />
@@ -40,31 +48,101 @@ export function Deep() {
       <div className="flex flex-col items-center deep-main">
         <div className="flex items-center justify-center top-main">
           <div className="flex flex-row-reverse dots">
-            <DeepDots dotsNumber={8} dotsRows={8} />
-            <DeepDots dotsNumber={8} dotsRows={8} />
-            <DeepDots dotsNumber={8} dotsRows={8} dotsOpacity={0.6} />
-            <DeepDots dotsNumber={8} dotsRows={8} dotsOpacity={0.6} />
-            <DeepDots dotsNumber={8} dotsRows={8} dotsOpacity={0.5} />
-            <DeepDots dotsNumber={8} dotsRows={8} dotsOpacity={0.5} />
-            <DeepDots dotsNumber={8} dotsRows={8} dotsOpacity={0.4} />
-            <DeepDots dotsNumber={8} dotsRows={8} dotsOpacity={0.4} />
-            <DeepDots dotsNumber={8} dotsRows={8} dotsOpacity={0.3} />
-            <DeepDots dotsNumber={8} dotsRows={8} dotsOpacity={0.3} />
-            <DeepDots dotsNumber={8} dotsRows={8} dotsOpacity={0.2} />
-            <DeepDots dotsNumber={8} dotsRows={8} dotsOpacity={0.2} />
-            <DeepDots dotsNumber={8} dotsRows={8} dotsOpacity={0.1} />
-            <DeepDots dotsNumber={8} dotsRows={8} dotsOpacity={0.1} />
-            <DeepDots dotsNumber={8} dotsRows={8} dotsOpacity={0.05} />
-            <DeepDots dotsNumber={8} dotsRows={8} dotsOpacity={0.02} />
+            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} />
+            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} />
+            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.6} />
+            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.6} />
+            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.5} />
+            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.5} />
+            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.4} />
+            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.4} />
+            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.3} />
+            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.3} />
+            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.2} />
+            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.2} />
+            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.1} />
+            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.1} />
+            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.05} />
+            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.02} />
           </div>
-          <div className="flex flex-col promo-card">
-            <div className="mock-webmenu"></div>
-            <div className="card-carousel"></div>
-          </div>
+          {screenWidth > 1280 && (
+            <div className="flex flex-col promo-card">
+              <div className="flex relative mock-webmenu">
+                <div className="flex justify-center items-center relative tab-cover">
+                  <div className="flex justify-center items-center red-dot">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-x not-show"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                    </svg>
+                  </div>
+                  <div className="flex justify-center items-center yellow-dot">
+                    <p className="mock-drop-down not-show">-</p>
+                  </div>
+                  <div className="flex flex-col justify-center items-center relative green-dot">
+                    <div className="absolute triangle up-left not-show"></div>
+                    <div className="absolute triangle bottom-right not-show"></div>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center self-end relative mock-tab">
+                  <img src={andreaHacker} alt="mock favicon" />
+                  <p>Nebula Tech 1</p>
+                  <div className="flex justify-center items-center mock-close-tab">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-x"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                    </svg>
+                  </div>
+                  <div className="absolute bottom-bg"></div>
+                </div>
+                <div className="relative tab-cover"></div>
+                <div className="flex items-center justify-center absolute mock-searching-button">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    className="bi bi-chevron-down"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div className="relative card-carousel">
+                <div
+                  className="flex items-center justify-center absolute quit-deep"
+                  onClick={() => navigate("/")}
+                >
+                  <Button text={"Quit Hacking"} />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {screenWidth <= 1280 && (
+            <div className="quit-deep">
+              <Button text={"Exit Hacking"} />{" "}
+            </div>
+          )}
         </div>
 
         <div className="relative main-game">
-          <div className="game">
+          <div className="flex justify-center items-center game">
             <Outlet />
           </div>
           <div className="flex absolute game-bg">
@@ -84,6 +162,11 @@ export function Deep() {
           <div className="absolute second-border-line"></div>
           <div className="absolute third-border-line"></div>
           <div className="absolute forth-border-line"></div>
+          <div className="flex flex-col items-start absolute random-strings">
+            <DeepRundomString stringLength={13} />
+            <DeepRundomString stringLength={8} />
+            <DeepRundomString stringLength={22} />
+          </div>
         </div>
 
         <div className="flex chat">
@@ -135,6 +218,10 @@ export function Deep() {
               <DeepDots dotsNumber={5} dotsRows={5} dotsOpacity={0.4} />
               <DeepDots dotsNumber={5} dotsRows={5} dotsOpacity={0.3} />
               <DeepDots dotsNumber={5} dotsRows={5} dotsOpacity={0.2} />
+            </div>
+            <div className="flex flex-col items-end absolute random-strings">
+              <DeepRundomString stringLength={14} />
+              <DeepRundomString stringLength={6} />
             </div>
           </div>
         </div>

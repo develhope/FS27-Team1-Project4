@@ -29,6 +29,7 @@ function App() {
         </Route>
         <Route path="access" element={<OpeningPage/>}/>
         <Route path="deep" element={<Deep />}>
+        <Route index element={<img src="./src/assets/logo-hacker.png" alt="logo hacker" className="logo-hacker"/>}/>
         </Route>
       </Routes>
       {/* <Footer /> */}
