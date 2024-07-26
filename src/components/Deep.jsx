@@ -6,10 +6,15 @@ import { useRandom } from "../custom-hooks/useRandom";
 import { DeepRundomString } from "./DeepRandomString";
 import { Button } from "./Button";
 import { useResponsiveWidth } from "../custom-hooks/useResponsiveWidth";
+import { useSpeak } from "../custom-hooks/useSpeak";
+import { useEffect } from "react";
 
 export function Deep() {
   const navigate = useNavigate();
   const { screenWidth } = useResponsiveWidth();
+  const { chat, setChat } = useSpeak();
+
+  useEffect(() => setChat("Choose a Node"), []);
 
   const testUser = {
     schiariti: false,
@@ -17,7 +22,11 @@ export function Deep() {
   };
 
   return (
-    <div className={`flex ${screenWidth <= 1280 ? "flex-col items-center" : ""} deep`}>
+    <div
+      className={`flex ${
+        screenWidth <= 1280 ? "flex-col items-center" : ""
+      } deep`}
+    >
       <div className="flex relative deep-sidebar">
         <div className="first-w-line"></div>
         <div className="second-w-line"></div>
@@ -33,37 +42,99 @@ export function Deep() {
         <div className="relative curl-effect"></div>
         <div className="flex flex-col absolute nodes-container">
           <NodeDeep
-            employee={screenWidth > 1280 ? "Schiariti A." : "id 2017"}
+            employee={screenWidth > 1280 ? "Schiariti A." : "ID 217"}
             path={"/"}
             gameCleared={testUser.schiariti}
           />
           <NodeDeep
-            employee={screenWidth > 1280 ? "Provenzano D.": "id 2013"}
+            employee={screenWidth > 1280 ? "Provenzano D." : "ID 213"}
             path={"/"}
             gameCleared={testUser.provenzano}
           />
         </div>
       </div>
 
-      <div className="flex flex-col items-center deep-main">
+      <div className="flex flex-col items-center justify-between deep-main">
         <div className="flex items-center justify-center top-main">
           <div className="flex flex-row-reverse dots">
-            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} />
-            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} />
-            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.6} />
-            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.6} />
-            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.5} />
-            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.5} />
-            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.4} />
-            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.4} />
-            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.3} />
-            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.3} />
-            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.2} />
-            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.2} />
-            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.1} />
-            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.1} />
-            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.05} />
-            <DeepDots dotsNumber={screenWidth > 1280 ? 8: 4} dotsRows={screenWidth > 1280 ? 8: 4} dotsOpacity={0.02} />
+            <DeepDots
+              dotsNumber={screenWidth > 1280 ? 8 : 4}
+              dotsRows={screenWidth > 1280 ? 8 : 4}
+            />
+            <DeepDots
+              dotsNumber={screenWidth > 1280 ? 8 : 4}
+              dotsRows={screenWidth > 1280 ? 8 : 4}
+            />
+            <DeepDots
+              dotsNumber={screenWidth > 1280 ? 8 : 4}
+              dotsRows={screenWidth > 1280 ? 8 : 4}
+              dotsOpacity={0.6}
+            />
+            <DeepDots
+              dotsNumber={screenWidth > 1280 ? 8 : 4}
+              dotsRows={screenWidth > 1280 ? 8 : 4}
+              dotsOpacity={0.6}
+            />
+            <DeepDots
+              dotsNumber={screenWidth > 1280 ? 8 : 4}
+              dotsRows={screenWidth > 1280 ? 8 : 4}
+              dotsOpacity={0.5}
+            />
+            <DeepDots
+              dotsNumber={screenWidth > 1280 ? 8 : 4}
+              dotsRows={screenWidth > 1280 ? 8 : 4}
+              dotsOpacity={0.5}
+            />
+            <DeepDots
+              dotsNumber={screenWidth > 1280 ? 8 : 4}
+              dotsRows={screenWidth > 1280 ? 8 : 4}
+              dotsOpacity={0.4}
+            />
+            <DeepDots
+              dotsNumber={screenWidth > 1280 ? 8 : 4}
+              dotsRows={screenWidth > 1280 ? 8 : 4}
+              dotsOpacity={0.4}
+            />
+            <DeepDots
+              dotsNumber={screenWidth > 1280 ? 8 : 4}
+              dotsRows={screenWidth > 1280 ? 8 : 4}
+              dotsOpacity={0.3}
+            />
+            <DeepDots
+              dotsNumber={screenWidth > 1280 ? 8 : 4}
+              dotsRows={screenWidth > 1280 ? 8 : 4}
+              dotsOpacity={0.3}
+            />
+            <DeepDots
+              dotsNumber={screenWidth > 1280 ? 8 : 4}
+              dotsRows={screenWidth > 1280 ? 8 : 4}
+              dotsOpacity={0.2}
+            />
+            <DeepDots
+              dotsNumber={screenWidth > 1280 ? 8 : 4}
+              dotsRows={screenWidth > 1280 ? 8 : 4}
+              dotsOpacity={0.2}
+            />
+            <DeepDots
+              dotsNumber={screenWidth > 1280 ? 8 : 4}
+              dotsRows={screenWidth > 1280 ? 8 : 4}
+              dotsOpacity={0.1}
+            />
+            <DeepDots
+              dotsNumber={screenWidth > 1280 ? 8 : 4}
+              dotsRows={screenWidth > 1280 ? 8 : 4}
+              dotsOpacity={0.1}
+            />
+            <DeepDots
+              dotsNumber={screenWidth > 1280 ? 8 : 4}
+              dotsRows={screenWidth > 1280 ? 8 : 4}
+              dotsOpacity={0.05}
+            />
+            <DeepDots
+              dotsNumber={screenWidth > 1280 ? 8 : 4}
+              dotsRows={screenWidth > 1280 ? 8 : 4}
+              dotsOpacity={0.02}
+            />
           </div>
           {screenWidth > 1280 && (
             <div className="flex flex-col promo-card">
@@ -135,7 +206,7 @@ export function Deep() {
           )}
 
           {screenWidth <= 1280 && (
-            <div className="quit-deep">
+            <div className="quit-deep" onClick={() => navigate("/")}>
               <Button text={"Exit Hacking"} />{" "}
             </div>
           )}
@@ -169,7 +240,7 @@ export function Deep() {
           </div>
         </div>
 
-        <div className="flex chat">
+        <div className="flex items-end chat">
           <div className="flex justify-center items-center relative hacker-avatar">
             <img src={andreaHacker} alt="hacker" />
             <div className="flex absolute hacker-bg">
@@ -196,7 +267,7 @@ export function Deep() {
           </div>
           <div className="relative hacker-chat">
             <div className="relative chat-container">
-              <p className="absolute">TEST</p>
+              <p className="absolute">{chat}</p>
               <div className="flex absolute chat-bg">
                 <div className="first-w-line"></div>
                 <div className="second-w-line"></div>

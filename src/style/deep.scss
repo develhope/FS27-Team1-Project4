@@ -49,6 +49,14 @@ $verticalNodePoligon: polygon(
   left: $left;
 }
 
+@mixin smallWidthBorderLine($width, $top, $left) {
+  width: $width;
+  height: 6px;
+  background-color: $primaryDeepColor;
+  top: $top;
+  left: $left;
+}
+
 @mixin randomStrings($top, $right, $left) {
   top: $top;
   right: $right;
@@ -153,6 +161,7 @@ $verticalNodePoligon: polygon(
 
   .deep-main {
     width: 90vw;
+    height: 100vh;
     box-sizing: border-box;
     padding: 20px;
     gap: 20px;
@@ -558,9 +567,8 @@ $verticalNodePoligon: polygon(
 
     .hacker-chat {
       width: 100%;
-      height: 100%;
+      height: 75%;
       box-sizing: border-box;
-      padding-top: 38px;
 
       .chat-container {
         width: 100%;
@@ -581,6 +589,11 @@ $verticalNodePoligon: polygon(
 
         &::before {
           background-color: black;
+        }
+
+        p {
+          font-size: 1.5rem;
+          overflow-y: scroll;
         }
 
         .chat-bg {
@@ -853,8 +866,78 @@ $verticalNodePoligon: polygon(
         overflow-x: unset;
         overflow-y: scroll;
         flex-direction: row;
-        gap: 16px;
+        gap: 12px;
         padding: 10px 10px;
+      }
+
+      .h-lines-container {
+        .second-h-line {
+          height: 18%;
+        }
+
+        .third-h-line {
+          height: 52%;
+        }
+
+        .forth-h-line {
+          height: 8%;
+        }
+      }
+
+      .first-border-line {
+        @include smallWidthBorderLine(37%, 100%, 17%);
+      }
+
+      .second-border-line {
+        @include smallWidthBorderLine(11%, 100%, 84%);
+      }
+
+      .curl-effect {
+        width: 10%;
+        height: 20%;
+        top: 82%;
+        left: -20%;
+        clip-path: polygon(25% 0, 0 100%, 100% 100%, 75% 0);
+
+        &::before,
+        &::after {
+          clip-path: inherit;
+        }
+      }
+    }
+
+    .deep-main {
+      width: 100vw;
+      height: calc(100vh - 100px);
+      gap: 20px;
+
+      .top-main {
+        height: 5%;
+        justify-content: flex-end;
+
+        .dots {
+          height: 80%;
+          align-self: flex-end;
+          gap: 6px;
+
+          > div {
+            gap: 2px;
+          }
+        }
+      }
+
+      .main-game {
+        height: 65%;
+      }
+    }
+
+    .chat {
+      .hacker-chat {
+        .chat-container {
+          p {
+            font-size: 1.25rem;
+          }
+        }
       }
     }
 
@@ -930,16 +1013,104 @@ $verticalNodePoligon: polygon(
       }
 
       .employee {
-        transform: rotate(90deg);
         transform-origin: left bottom;
         white-space: nowrap;
-        top: -40%;
-        left: -10%;
+        left: 28%;
+        top: 30%;
+        line-height: 0.8rem;
+        font-size: 0.8rem;
       }
     }
     .node-deep.node-gained {
+      transform: translateY(-20px);
       .employee {
-        left: -10%;
+        top: 37%;
+        left: 28%;
+      }
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  .deep {
+    .deep-main {
+      .main-game {
+        .game {
+          .logo-hacker {
+            width: 90%;
+            height: auto;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .deep {
+    .deep-sidebar {
+      min-height: 60px;
+    }
+
+    .deep-main {
+      .top-main {
+        gap: 0;
+
+        .dots {
+          gap: 4px;
+          div {
+            .single-dot {
+              width: 3px;
+              height: 3px;
+            }
+          }
+        }
+        .quit-deep {
+          .buy-now-button {
+            font-size: 0.7rem;
+          }
+        }
+      }
+
+      .main-game {
+        height: calc(100vh - 70px);
+        .random-strings {
+          line-height: 0.3rem;
+          p {
+           font-size: 0.3rem;
+          }
+         }
+      }
+    }
+
+    .chat {
+      .hacker-chat {
+        .chat-container {
+          p {
+            font-size: 0.75rem;
+          }
+        }
+
+        .random-strings {
+          line-height: 0.3rem;
+          p {
+           font-size: 0.3rem;
+          }
+         }
+      }
+    }
+    .node-deep {
+      width: 35px;
+
+      .employee {
+        font-size: 0.65rem;
+        line-height: 0.65rem;
+      }
+    }
+
+    .node-deep.node-gained {
+      .employee {
+        top: 40%;
       }
     }
   }

@@ -1,3 +1,5 @@
+/* Custom Hook Author Andrea */
+
 import { useEffect, useState } from "react";
 
 export function useResponsiveWidth() {
