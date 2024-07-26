@@ -1,0 +1,14 @@
+.button{
+    width: 100px;
+    height: 40px;
+    font-size: 12px;
+    color: #ffffff;
+    text-align: center;
+    padding: 2.5px 5px;
+    background-color: #60006d85;
+    clip-path: polygon(8% 0%, 100% 0%, 100% 80%, 92% 100%, 0% 100%, 0% 20%);
+    box-shadow: 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+      0px 0px 5px 2px rgba(96, 0, 152, 0.568);
+    box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+      0px 0px 25px 2px rgba(82, 0, 129, 0.568);
+}

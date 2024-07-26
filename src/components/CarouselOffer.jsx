@@ -14,7 +14,7 @@ const cards = [
     ],
     price: "$1999.99",
     discountPrice: "$1799.99",
-    saveAmount: "$200",
+    saveAmount: "$200.00",
   },
   {
     id: 2,
@@ -44,7 +44,7 @@ const cards = [
     ],
     price: "$229.99",
     discountPrice: "$189.99",
-    saveAmount: "$40",
+    saveAmount: "$40.00",
   },
   {
     id: 4,
@@ -59,7 +59,7 @@ const cards = [
     ],
     price: "$164.99",
     discountPrice: "$129.99",
-    saveAmount: "$35",
+    saveAmount: "$35.00",
   },
   {
     id: 5,
@@ -74,7 +74,7 @@ const cards = [
     ],
     price: "$265.99",
     discountPrice: "$215.99",
-    saveAmount: "$50",
+    saveAmount: "$50.00",
   },
   {
     id: 6,
@@ -89,7 +89,7 @@ const cards = [
     ],
     price: "$89.99",
     discountPrice: "£69.99",
-    saveAmount: "£20",
+    saveAmount: "£20.00",
   },
   {
     id: 7,
@@ -104,7 +104,7 @@ const cards = [
     ],
     price: "$169.99",
     discountPrice: "$99.99",
-    saveAmount: "$70",
+    saveAmount: "$70.00",
   },
   {
     id: 8,
@@ -119,7 +119,7 @@ const cards = [
     ],
     price: "$214.99",
     discountPrice: "$194.99",
-    saveAmount: "$20",
+    saveAmount: "$20.00",
   },
 ];
 
