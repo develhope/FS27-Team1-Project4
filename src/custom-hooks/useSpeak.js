@@ -2,8 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export function useSpeak(string) {
+export function useSpeak() {
   const [telling, setTelling] = useState("");
+  const [string, setString] = useState("")
   const intervalRef = useRef(null);
   const iRef = useRef(0);
 
@@ -34,5 +35,6 @@ export function useSpeak(string) {
 
   return {
     chat: telling,
+    setChat: setString
   };
 }
