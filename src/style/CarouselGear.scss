@@ -3,22 +3,50 @@
     transform: translateX(0);
   }
   to {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 
 .gear-slide {
   white-space: nowrap;
-  animation: 5s slide infinite linear;
-  width: 100vw;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.gear-slide:before,
+.gear-slide:after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 100%;
+  content: "";
+  z-index: 2;
+}
+
+.gear-slide:before {
+  left: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0), white);
+}
+
+.gear-slide:after {
+  right: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), white);
+}
+
+.gear-slide:hover .gear-slide-images {
+  animation-play-state: paused;
 }
 
 .gear-slide-images {
   display: flex;
   flex-direction: row;
-  overflow: hidden;
+  animation: 10s slide infinite linear;
+  width: 200%;
 }
 
 .gear-slide img {
-  margin: 0 25px;
+  margin: 0 35px;
+  width: 100px;
 }
