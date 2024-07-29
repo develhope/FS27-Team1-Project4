@@ -205,7 +205,7 @@ export function Deep() {
             </div>
           )}
 
-          {screenWidth <= 1280 && (
+          {screenWidth < 1280 && (
             <div className="quit-deep" onClick={() => navigate("/")}>
               <Button text={"Exit Hacking"} />{" "}
             </div>
