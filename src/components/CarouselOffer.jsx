@@ -146,7 +146,7 @@ export function CarouselOffer() {
 
   const handleMouseUp = () => {
     setIsDragging(false);
-     const cardWidth =
+    const cardWidth =
       window.innerWidth <= 380
         ? containerRef.current.offsetWidth
         : window.innerWidth > 380 && window.innerWidth <= 768
@@ -232,9 +232,7 @@ export function CarouselOffer() {
                     <h2 className="card-title">{card.title}</h2>
                     <div className="price-info">
                       <span className="original-price">{card.price}</span>
-                      <span className="save-price">
-                        Save {card.saveAmount}
-                      </span>
+                      <span className="save-price">Save {card.saveAmount}</span>
                       <span className="discount-price">
                         {" "}
                         {card.discountPrice}
@@ -251,9 +249,7 @@ export function CarouselOffer() {
                       </ul>
                       <div className="price-info">
                         <span className="original-price">{card.price}</span>
-                        <span className="save-price">
-                          Buy Now
-                        </span>
+                        <span className="save-price">Buy Now</span>
                         <span className="discount-price">
                           {card.discountPrice}
                         </span>

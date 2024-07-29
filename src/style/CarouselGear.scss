@@ -1,0 +1,24 @@
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.gear-slide {
+  white-space: nowrap;
+  animation: 5s slide infinite linear;
+  width: 100vw;
+}
+
+.gear-slide-images {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.gear-slide img {
+  margin: 0 25px;
+}
