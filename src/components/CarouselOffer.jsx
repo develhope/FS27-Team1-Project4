@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { Button } from "./Button";
 
 const cards = [
   {
@@ -22,14 +23,14 @@ const cards = [
     backgroundSize: "100%",
     title: "SAMSUNG HRM VIEW-FINITY S6",
     features: [
-      "Founder Edition",
-      "16,384 core NVIDIA CUDA",
-      "Supporta HDR 4K 120Hz, HDR 8K 60Hz e Frequenza di aggiornamento variabile come specificato in HDMI 2.1a",
-      "Nuovi multiprocessori di streaming: prestazioni fino a 2x ed efficienza energetica",
+      "ViewFinity S6 S65VC",
+      "(LS34C652VAUXEN) – 34″ Ultra-",
+      "WQHD Curved 1000R, VA LED,",
+      "5ms, 100Hz",
     ],
-    price: "$380.99",
-    discountPrice: "$341.99",
-    saveAmount: "$39.00",
+    price: "$590.99",
+    discountPrice: "$539.99",
+    saveAmount: "$51.00",
   },
   {
     id: 3,
@@ -37,10 +38,10 @@ const cards = [
     backgroundSize: "80%",
     title: "CORSAIR K-70",
     features: [
-      "Founder Edition",
-      "16,384 core NVIDIA CUDA",
-      "Supporta HDR 4K 120Hz, HDR 8K 60Hz e Frequenza di aggiornamento variabile come specificato in HDMI 2.1a",
-      "Nuovi multiprocessori di streaming: prestazioni fino a 2x ed efficienza energetica",
+      "Tastiera gaming meccanica K70 RGB PRO con keycap in policarbonato — CHERRY MX Red (IT)",
+      "La tastiera K70 RGB PRO mantiene gli elementi iconici della nostra pluripremiata serie K70",
+      "con un resistente telaio in alluminio, switch meccanici CHERRY MX e retroilluminazione RGB.",
+      "Allo stesso tempo stabilisce un nuovo record di prestazioni grazie alla tecnologia AXON",
     ],
     price: "$229.99",
     discountPrice: "$189.99",
@@ -52,10 +53,9 @@ const cards = [
     backgroundSize: "90%",
     title: "LEXAR NM789 2TB",
     features: [
-      "Founder Edition",
-      "16,384 core NVIDIA CUDA",
-      "Supporta HDR 4K 120Hz, HDR 8K 60Hz e Frequenza di aggiornamento variabile come specificato in HDMI 2.1a",
-      "Nuovi multiprocessori di streaming: prestazioni fino a 2x ed efficienza energetica",
+      "Lexar NM790 SSD Interno 2TB, M.2 2280 PCIe Gen4x4",
+      "NVMe SSD, Fino a 7400MB/s in Lettura, 6500MB/s in Scrittura",
+      "Disco a Stato Solido per PS5, PC, laptop e giocatori (LNM790X002T-RNNNG)",
     ],
     price: "$164.99",
     discountPrice: "$129.99",
@@ -67,10 +67,9 @@ const cards = [
     backgroundSize: "50%",
     title: "INTEL CORE I7",
     features: [
-      "Founder Edition",
-      "16,384 core NVIDIA CUDA",
-      "Supporta HDR 4K 120Hz, HDR 8K 60Hz e Frequenza di aggiornamento variabile come specificato in HDMI 2.1a",
-      "Nuovi multiprocessori di streaming: prestazioni fino a 2x ed efficienza energetica",
+      "Intel® Core™ i7-12700KF, processore desktop",
+      "per sistemi desktop 12 (8P+4E) core fino a 5,0 GHz",
+      "sbloccato LGA1700 serie 600 chipset 125 W",
     ],
     price: "$265.99",
     discountPrice: "$215.99",
@@ -82,10 +81,10 @@ const cards = [
     backgroundSize: "50%",
     title: "CORSAIR HS65",
     features: [
-      "Founder Edition",
-      "16,384 core NVIDIA CUDA",
-      "Supporta HDR 4K 120Hz, HDR 8K 60Hz e Frequenza di aggiornamento variabile come specificato in HDMI 2.1a",
-      "Nuovi multiprocessori di streaming: prestazioni fino a 2x ed efficienza energetica",
+      "Audio: Dolby Surround 7.1",
+      "Connettività: Via cavo",
+      "Interfaccia: USB, analogica da 3,5 mm",
+      "Compatibilità: PC, Mac, PlayStation, Xbox, dispositivo mobile",
     ],
     price: "$89.99",
     discountPrice: "£69.99",
@@ -97,10 +96,9 @@ const cards = [
     backgroundSize: "30%",
     title: "LOGITECH G502",
     features: [
-      "Founder Edition",
-      "16,384 core NVIDIA CUDA",
-      "Supporta HDR 4K 120Hz, HDR 8K 60Hz e Frequenza di aggiornamento variabile come specificato in HDMI 2.1a",
-      "Nuovi multiprocessori di streaming: prestazioni fino a 2x ed efficienza energetica",
+      "Design iconico G502 e wireless LIGHTSPEED per una connettività ultraveloce e affidabile.",
+      "sensore HERO 25K offre tracciamento submicrometrico",
+      "Compatibile con POWERPLAY per il caricamento continuo, a riposo o durante il gioco.",
     ],
     price: "$169.99",
     discountPrice: "$99.99",
@@ -112,10 +110,9 @@ const cards = [
     backgroundSize: "contain",
     title: "RAM VENGEANCE 64GB (2X32GB)",
     features: [
-      "Founder Edition",
-      "16,384 core NVIDIA CUDA",
-      "Supporta HDR 4K 120Hz, HDR 8K 60Hz e Frequenza di aggiornamento variabile come specificato in HDMI 2.1a",
-      "Nuovi multiprocessori di streaming: prestazioni fino a 2x ed efficienza energetica",
+      "Kit di memoria VENGEANCE® 64 GB (2x32 GB) DDR5 DRAM 6.000 MT/s CL38 — Nero CORSAIR VENGEANCE DDR5, ",
+      "ottimizzato per schede madri Intel®,",
+      "offre frequenze più elevate e maggiori capacità della tecnologia DDR5 in un modulo compatto e di alta qualità adatto al tuo sistema.",
     ],
     price: "$214.99",
     discountPrice: "$194.99",
@@ -230,33 +227,28 @@ export function CarouselOffer() {
                     }}
                   >
                     <h2 className="card-title">{card.title}</h2>
-                    <div className="price-info">
-                      <span className="original-price">{card.price}</span>
-                      <span className="save-price">
-                        Save {card.saveAmount}
-                      </span>
-                      <span className="discount-price">
-                        {" "}
-                        {card.discountPrice}
-                      </span>
+                    <div className="button-price-container">
+                      <div className="price-info">
+                        <span className="original-price">{card.price}</span>
+                        <span className="discount-price">
+                          {card.discountPrice}
+                        </span>
+                      </div>
+                      <Button text="Buy Now" className="buy-button" />
                     </div>
                   </div>
                   <div className="card-back">
                     <div className="back-content">
                       <h2 className="card-title">{card.title}</h2>
-                      <ul>
-                        {card.features.map((feature, idx) => (
-                          <li key={idx}>{feature}</li>
-                        ))}
-                      </ul>
-                      <div className="price-info">
-                        <span className="original-price">{card.price}</span>
-                        <span className="save-price">
-                          Buy Now
-                        </span>
-                        <span className="discount-price">
-                          {card.discountPrice}
-                        </span>
+                      <p className="card-features">{card.features}</p>
+                      <div className="button-price-container">
+                        <div className="price-info">
+                          <span className="original-price">{card.price}</span>
+                          <span className="discount-price">
+                            {card.discountPrice}
+                          </span>
+                        </div>
+                        <Button text="Buy Now" className="buy-button" />
                       </div>
                     </div>
                   </div>
