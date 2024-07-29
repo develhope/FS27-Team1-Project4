@@ -24,6 +24,7 @@ $primaryHomeColor: rgb(130, 49, 251);
   overflow-y: scroll;
   margin: 0;
   padding: 0;
+  scrollbar-width: none;
 
   .background-video {
     // position: absolute;
@@ -106,4 +107,8 @@ $primaryHomeColor: rgb(130, 49, 251);
   .home {
     padding-top: 94px;
   }
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
