@@ -248,7 +248,7 @@ export function CarouselOffer() {
                             {card.discountPrice}
                           </span>
                         </div>
-                        <Button text="Buy Now" isInOffer={true} />
+                        <Button text="Buy Now" />
                       </div>
                     </div>
                   </div>
