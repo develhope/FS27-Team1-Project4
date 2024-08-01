@@ -145,11 +145,12 @@
   }
 
   .card-image {
-    flex: 0 0 45%;
+    flex: 0 0 320px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
+    left: 20px;
   }
 
   .card-info {
@@ -322,20 +323,20 @@
     box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
       0px 0px 25px 2px rgba(82, 0, 129, 0.568);
 
-      &:hover {
-        background-color: rgba(106, 0, 118, 0.271);
-        transition: all 0.3s ease;
-        border: 2px solid rgba(177, 0, 177, 0.438);
-        box-shadow: 2px 2px 15px #8707ff inset;
-      }
-  
-      &:active{
-        box-shadow: 2px 2px 20px #8707ff inset;
-          width: 55px;
-          height: 55px;
-          background-color: #4b00915d;
-          transition: all 0.3s ease;
-      }
+    &:hover {
+      background-color: rgba(106, 0, 118, 0.271);
+      transition: all 0.3s ease;
+      border: 2px solid rgba(177, 0, 177, 0.438);
+      box-shadow: 2px 2px 15px #8707ff inset;
+    }
+
+    &:active {
+      box-shadow: 2px 2px 20px #8707ff inset;
+      width: 55px;
+      height: 55px;
+      background-color: #4b00915d;
+      transition: all 0.3s ease;
+    }
 
     &.left-arrow {
       left: 10px;
@@ -343,6 +344,274 @@
 
     &.right-arrow {
       right: 10px;
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  .builded-container {
+    max-width: 95%;
+    margin-top: 100px;
+
+   
+
+    .card-nav-buttons {
+      flex-direction: column;
+      gap: 5px;
+
+      button {
+        width: 100%;
+        font-size: 12px;
+        padding: 8px;
+      }
+    }
+
+    
+
+    .card-content {
+      flex-direction: column;
+      
+      
+
+      &.active {
+        display: flex;
+      }
+    }
+
+    .card-image {
+      flex: 0 0 150px;
+      width: 100%;
+      height: 150px;
+      background-size: contain;
+      background-position: center;
+      margin-bottom: 10px;
+    }
+
+    .card-info {
+      width: 100%;
+      padding: 5px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      margin-bottom: 8px;
+      position: relative;
+      top: 20%;
+    }
+
+    .card-description {
+      font-size: 10px;
+      margin-bottom: 10px;
+      top: 20%;
+      position: relative;
+    }
+
+    .card-divider {
+      position: relative;
+      top: 20%;
+      margin: 10px 0;
+    }
+
+    .card-price-container {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+
+      .buy-now-button {
+        font-size: 12px;
+      }
+    }
+
+    .card-original-price{
+      font-size: 0.8em;
+    }
+    .card-discounted-price {
+      font-size: 0.9em;
+    }
+
+    .arrow {
+      font-size: 20px;
+      height: 40px;
+      width: 40px;
+
+      &:active {
+        box-shadow: 2px 2px 20px #8707ff inset;
+        width: 35px;
+        height: 35px;
+        background-color: #4b00915d;
+        transition: all 0.3s ease;
+      }
+
+      &.left-arrow {
+        left: 5px;
+        top: 50%;
+      }
+
+      &.right-arrow {
+        right: 5px;
+        top: 50%;
+      }
+    }
+  }
+}
+
+@media (min-width: 380px) and (max-width: 768px) {
+  .builded-container {
+    width: 90%;
+    margin-top: 100px;
+    
+
+    .card-nav-buttons {
+      flex-wrap: wrap;
+      gap: 5px;
+
+      button {
+        flex: 1 1 calc(50% - 5px);
+        font-size: 14px;
+        padding: 8px 10px;
+      }
+    }
+
+    .card-content {
+      flex-direction: column;
+      
+
+      &.active {
+        display: flex;
+      }
+    }
+
+    .card-image {
+      flex: 0 0 200px;
+      width: 100%;
+      height: 150px;
+      background-size: contain;
+      background-position: center;
+      margin-bottom: 10px;
+      
+    }
+
+    .card-info {
+      width: 100%;
+      padding: 5px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .card-description {
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .card-divider {
+      position: relative;
+      top: 2%;
+      margin: 10px 0;
+    }
+
+    .card-price-container {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+
+      .buy-now-button {
+        font-size: 12px;
+      }
+    }
+
+    .card-original-price {
+      font-size: 0.7em;
+    }
+    .card-discounted-price {
+      font-size: 0.8em;
+    }
+
+    .arrow {
+      font-size: 20px;
+      height: 40px;
+      width: 40px;
+
+      &:active {
+        box-shadow: 2px 2px 20px #8707ff inset;
+        width: 35px;
+        height: 35px;
+        background-color: #4b00915d;
+        transition: all 0.3s ease;
+      }
+
+      &.left-arrow {
+        left: 5px;
+        top: 45%;
+      }
+
+      &.right-arrow {
+        right: 5px;
+        top: 45%;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1280px) {
+  .builded-container {
+    width: 80%;
+    margin-top: 150px;
+
+    .card-image {
+      flex: 0 0 350px;
+      left: 25px;
+    }
+
+    .card-title {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .card-description {
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .card-price-container {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+
+      .buy-now-button {
+        font-size: 14px;
+      }
+    }
+
+    .card-original-price{
+      font-size: 0.7em;
+    }
+    .card-discounted-price {
+      font-size: 0.8em;
+    }
+
+    .arrow {
+      font-size: 24px;
+      height: 50px;
+      width: 50px;
+
+      &:active {
+        box-shadow: 2px 2px 20px #8707ff inset;
+        width: 45px;
+        height: 45px;
+        background-color: #4b00915d;
+        transition: all 0.3s ease;
+      }
+
+      &.left-arrow {
+        left: 15px;
+      }
+
+      &.right-arrow {
+        right: 15px;
+      }
     }
   }
 }
