@@ -1,3 +1,17 @@
+@keyframes move-bg7234 {
+  0% {
+    background-position: 31% 0%;
+  }
+
+  50% {
+    background-position: 70% 100%;
+  }
+
+  100% {
+    background-position: 31% 0%;
+  }
+}
+
 .builded-container {
   display: flex;
   flex-direction: column;
@@ -7,7 +21,6 @@
   margin: 0 auto;
   padding: 5px;
   margin-top: 300px;
-  
 
   .carousel-wrapper {
     background-color: rgb(81, 81, 81);
@@ -15,7 +28,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative; 
+    position: relative;
     padding: 5px;
     border: 2px solid violet;
     box-shadow: 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
@@ -23,7 +36,7 @@
     box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
       0px 0px 25px 2px rgba(82, 0, 129, 0.568);
     z-index: 1;
-    overflow: hidden; 
+    overflow: hidden;
   }
 
   .metal-bg {
@@ -46,7 +59,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("/background-cards.jpeg"); 
+    background-image: url("/background-cards.jpeg");
     background-size: 100%;
     background-position: center;
     z-index: -1;
@@ -72,7 +85,7 @@
       cursor: pointer;
       transition: all 0.3s;
       font-size: 16px;
-      
+
       &:hover {
         background-color: #660080c5;
         color: white;
@@ -87,8 +100,6 @@
         box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
           0px 0px 25px 2px rgba(82, 0, 129, 0.568);
       }
-
-     
     }
   }
 
@@ -96,13 +107,11 @@
     position: relative;
     width: 100%;
     overflow: hidden;
-    
   }
 
   .card-container {
     position: relative;
     height: 400px;
-   
   }
 
   .card-content {
@@ -119,7 +128,7 @@
     box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
       0px 0px 25px 2px rgba(82, 0, 129, 0.568);
     padding: 20px;
-    
+
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
@@ -140,16 +149,16 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    position: relative ;
+    position: relative;
   }
 
   .card-info {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; 
-    align-items: center; 
-    text-align: center; 
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
     padding: 20px;
     width: 100%;
     position: relative;
@@ -180,49 +189,160 @@
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     margin: 20px 0;
     position: absolute; // Aggiunto
-    bottom: 80px; 
+    bottom: 80px;
   }
 
   .card-price-container {
     display: flex;
-    justify-content: flex-end; 
+    justify-content: flex-end;
     align-items: center;
     width: 100%;
     margin-top: auto;
-    gap: 15px; 
+    gap: 15px;
+
+    .buy-now-button {
+      --border-color: linear-gradient(-45deg, #ffae00, #7e03aa, #00fffb);
+      --border-width: 0.125em;
+      --curve-size: 0.5em;
+      --blur: 30px;
+      --bg: #080312;
+      --color: #ccffff;
+      width: unset;
+      color: var(--color);
+      cursor: pointer;
+      /* use position: relative; so that BG is only for .btn */
+      position: relative;
+      isolation: isolate;
+      display: inline-grid;
+      place-content: center;
+      padding: 0.5em 1.5em;
+      font-size: 17px;
+      border: 0;
+      text-transform: uppercase;
+      box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.6);
+      clip-path: polygon(
+        0% var(--curve-size),
+        var(--curve-size) 0,
+        100% 0,
+        100% calc(100% - var(--curve-size)),
+        calc(100% - var(--curve-size)) 100%,
+        0 100%
+      );
+      transition: color 250ms;
+
+      &::after,
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+      }
+
+      &::before {
+        background: var(--border-color);
+        background-size: 300% 300%;
+        animation: move-bg7234 5s ease infinite;
+        z-index: -2;
+      }
+
+      &::after {
+        background: var(--bg);
+        z-index: -1;
+        clip-path: polygon(
+          /* Top-left */ var(--border-width)
+            calc(var(--curve-size) + var(--border-width) * 0.5),
+          calc(var(--curve-size) + var(--border-width) * 0.5)
+            var(--border-width),
+          /* top-right */ calc(100% - var(--border-width)) var(--border-width),
+          calc(100% - var(--border-width))
+            calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5)),
+          /* bottom-right 1 */
+            calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5))
+            calc(100% - var(--border-width)),
+          /* bottom-right 2 */ var(--border-width)
+            calc(100% - var(--border-width))
+        );
+        transition: clip-path 500ms;
+      }
+
+      &:where(:hover, :focus)::after {
+        clip-path: polygon(
+          /* Top-left */ calc(100% - var(--border-width))
+            calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5)),
+          calc(100% - var(--border-width)) var(--border-width),
+          /* top-right */ calc(100% - var(--border-width)) var(--border-width),
+          calc(100% - var(--border-width))
+            calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5)),
+          /* bottom-right 1 */
+            calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5))
+            calc(100% - var(--border-width)),
+          /* bottom-right 2 */
+            calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5))
+            calc(100% - var(--border-width))
+        );
+        transition: 200ms;
+      }
+
+      &:where(:hover, :focus) {
+        color: #fff;
+      }
+    }
   }
 
   .card-original-price {
     font-size: 0.9em;
     color: red;
     text-decoration: line-through;
-    margin-right: 10px; 
+    margin-right: 10px;
   }
 
   .card-discounted-price {
     font-size: 1.4em;
     color: #00ff00;
     font-weight: bold;
-    margin-right: 20px; 
+    margin-right: 20px;
   }
 
   .arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    color: rgb(255, 255, 255);
-    border: none;
-    padding: 10px;
+    color: rgb(221, 0, 255);
     cursor: pointer;
-    font-size: 40px;
+    font-size: 30px;
+    height: 60px;
+    width: 60px;
     z-index: 10;
+    border: 2px solid violet;
+    border-radius: 25%;
+    box-shadow: 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+      0px 0px 5px 2px rgba(96, 0, 152, 0.568);
+    box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+      0px 0px 25px 2px rgba(82, 0, 129, 0.568);
+
+      &:hover {
+        background-color: rgba(106, 0, 118, 0.271);
+        transition: all 0.3s ease;
+        border: 2px solid rgba(177, 0, 177, 0.438);
+        box-shadow: 2px 2px 15px #8707ff inset;
+      }
+  
+      &:active{
+        box-shadow: 2px 2px 20px #8707ff inset;
+          width: 55px;
+          height: 55px;
+          background-color: #4b00915d;
+          transition: all 0.3s ease;
+      }
 
     &.left-arrow {
-      left: 0;
+      left: 10px;
     }
 
     &.right-arrow {
-      right: 0;
+      right: 10px;
     }
   }
 }

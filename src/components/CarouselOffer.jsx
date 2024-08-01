@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "./Button";
+import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
 
 const cards = [
   {
@@ -39,7 +40,6 @@ const cards = [
     title: "CORSAIR K-70",
     features: [
       "Tastiera gaming meccanica K70 RGB PRO con keycap in policarbonato — CHERRY MX Red (IT)",
-      "La tastiera K70 RGB PRO mantiene gli elementi iconici della nostra pluripremiata serie K70",
       "con un resistente telaio in alluminio, switch meccanici CHERRY MX e retroilluminazione RGB.",
       "Allo stesso tempo stabilisce un nuovo record di prestazioni grazie alla tecnologia AXON",
     ],
@@ -190,7 +190,7 @@ export function CarouselOffer() {
   return (
     <div className="carousel">
       <button className="arrow left-arrow" onClick={handlePrev}>
-        &lt;
+        <FaChevronLeft />
       </button>
       <div
         className="card-container"
@@ -234,7 +234,7 @@ export function CarouselOffer() {
                           {card.discountPrice}
                         </span>
                       </div>
-                      <Button text="Buy Now" className="buy-button" />
+                      <Button text="Buy Now" />
                     </div>
                   </div>
                   <div className="card-back">
@@ -248,7 +248,7 @@ export function CarouselOffer() {
                             {card.discountPrice}
                           </span>
                         </div>
-                        <Button text="Buy Now" className="buy-button" />
+                        <Button text="Buy Now" isInOffer={true} />
                       </div>
                     </div>
                   </div>
@@ -258,7 +258,7 @@ export function CarouselOffer() {
         </div>
       </div>
       <button className="arrow right-arrow" onClick={handleNext}>
-        &gt;
+        <FaChevronRight />
       </button>
     </div>
   );
