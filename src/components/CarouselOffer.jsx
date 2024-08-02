@@ -143,7 +143,7 @@ export function CarouselOffer() {
 
   const handleMouseUp = () => {
     setIsDragging(false);
-     const cardWidth =
+    const cardWidth =
       window.innerWidth <= 380
         ? containerRef.current.offsetWidth
         : window.innerWidth > 380 && window.innerWidth <= 768
