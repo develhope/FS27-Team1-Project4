@@ -1031,21 +1031,6 @@ $verticalNodePoligon: polygon(
   }
 }
 
-@media (max-width: 550px) {
-  .deep {
-    .deep-main {
-      .main-game {
-        .game {
-          .logo-hacker {
-            width: 90%;
-            height: auto;
-          }
-        }
-      }
-    }
-  }
-}
-
 @media (max-width: 768px) {
   .deep {
     .deep-sidebar {
@@ -1074,12 +1059,20 @@ $verticalNodePoligon: polygon(
 
       .main-game {
         height: calc(100vh - 70px);
+
         .random-strings {
           line-height: 0.3rem;
           p {
            font-size: 0.3rem;
           }
          }
+
+         .game {
+          .logo-hacker {
+            width: 90%;
+            height: auto;
+          }
+        }
       }
     }
 

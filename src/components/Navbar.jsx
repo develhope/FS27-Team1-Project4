@@ -46,7 +46,7 @@ export function Navbar() {
         <div className="flex justify-between align-center shade">
           <div className="flex items-center">
             <div className="flex logo-and-login-container" onClick={() => navigate("/access")}>
-              <img src="../src/assets/mocking-logo.png" alt="logo" />
+              <img src="../src/assets/nebula-tech-1-logo-col.png" alt="logo" />
             </div>
             <div className="flex items-center justify-center links">
               <NavbarCurtains title="TEST" arrayLinks={linksWithImages} />
