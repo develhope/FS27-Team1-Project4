@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../css/Banner.module.css';
-import image1 from '../images/M&DC (255).jpg'
-import image2 from '../images/M&DC (169).jpg'
+import image1 from '../images/Games (11).jpg'
+import image2 from '../images/Games (109).jpg'
 
 
 
