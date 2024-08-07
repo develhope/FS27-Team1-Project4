@@ -1,14 +1,3 @@
-const images = [
-  "/src/assets/andrea-hacker.png",
-  "/src/assets/h.webp",
-  "/src/assets/h.webp",
-  "/src/assets/h.webp",
-  "/src/assets/h.webp",
-  "/src/assets/h.webp",
-  "/src/assets/h.webp",
-  "/src/assets/domy-hacker.png",
-];
-
 const cards = [
   {
     id: 1,
@@ -59,24 +48,30 @@ const cards = [
     image: "/src/assets/h.webp",
   },
 ];
+//array per le card, da compilare
 
 export function CarouselGear() {
   return (
-    <>
-      <div className="gear-slide">
-        <div className="gear-slide-images">
-          {images.concat(images).map((src, index) => (
-            <img key={index} src={src} alt={`Slide ${index}`} />
-          ))}
-        </div>
+    <div className="gear-slider">
+      <div className="gear-slide-cards">
+        {cards.concat(cards).map((card, index) => (
+          <div key={index} className="card">
+            <div
+              className={`card-overlay ${
+                index % 2 === 0 ? "violet" : "orange"
+              }`}
+            ></div>
+            <p className="card-title">{card.title}</p>
+            <p className="card-subtitle">{card.sub_title}</p>
+            <img
+              className="card-image"
+              src={card.image}
+              alt={`Slide ${index}`}
+            />
+            <button className="card-button">SCOPRI</button>
+          </div>
+        ))}
       </div>
-      <div className="gear-slide">
-        <div className="gear-slide-images">
-          {cards.concat(cards).map((src, index) => (
-            <img key={index} src={src} alt={`Slide ${index}`} />
-          ))}
-        </div>
-      </div>
-    </>
+    </div>
   );
 }
