@@ -55,20 +55,20 @@ export function CarouselGear() {
     <div className="gear-slider">
       <div className="gear-slide-cards">
         {cards.concat(cards).map((card, index) => (
-          <div key={index} className="card">
+          <div key={index} className="cardGear">
             <div
-              className={`card-overlay ${
-                index % 2 === 0 ? "violet" : "orange"
+              className={`cardGear-overlay ${
+                index % 2 === 0 ? "color1" : "color2"
               }`}
             ></div>
-            <p className="card-title">{card.title}</p>
-            <p className="card-subtitle">{card.sub_title}</p>
+            <p className="cardGear-title">{card.title}</p>
+            <p className="cardGear-subtitle">{card.sub_title}</p>
             <img
-              className="card-image"
+              className="cardGear-image"
               src={card.image}
               alt={`Slide ${index}`}
             />
-            <button className="card-button">SCOPRI</button>
+            <button className="cardGear-button">SCOPRI</button>
           </div>
         ))}
       </div>

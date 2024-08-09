@@ -12,6 +12,7 @@
   overflow: hidden;
   width: 100vw;
   position: relative;
+  margin-bottom: 5vw;
 
   &:hover .gear-slide-cards {
     animation-play-state: paused;
@@ -22,23 +23,25 @@
   display: flex;
   animation: 15s slide infinite linear;
   width: 200%;
-  gap: 0px;
+  gap: 5px;
 }
 
-.card {
+.cardGear {
   display: flex;
   flex-direction: column;
   justify-content: center;
   color: white;
-  padding: 5px;
+  padding: 15px;
   position: relative;
   width: 12.5vw;
+  box-sizing: border-box;
+  border: solid 2px grey;
 
   &-title {
     display: flex;
     justify-content: center;
     text-transform: uppercase;
-    margin: 5px;
+    z-index: 2;
   }
 
   &-subtitle {
@@ -46,6 +49,7 @@
     justify-content: center;
     font-size: smaller;
     margin: 5px;
+    z-index: 2;
   }
 
   &-image {
@@ -72,16 +76,18 @@
     opacity: 0.7;
     z-index: 1;
 
-    .card:hover & {
+    .cardGear:hover & {
       background: none;
     }
   }
 
-  .violet {
-    background: linear-gradient(to bottom, violet, transparent);
+  .color1 {
+    /*     background: linear-gradient( to bottom,  violet, transparent);*/
+    background-color: rgba($color: rgb(123, 38, 133), $alpha: 0.5);
   }
 
-  .orange {
-    background: linear-gradient(to bottom, orange, transparent);
+  .color2 {
+    /*     background: linear-gradient( to bottom,  orange, transparent);*/
+    background-color: rgba($color: rgb(40, 204, 130), $alpha: 0.5);
   }
 }

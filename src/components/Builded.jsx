@@ -9,7 +9,7 @@ export function Builded() {
   const cards = [
     {
       title: "Player: Two Prime",
-      backgroundImage: "/public/pc1.png",
+      backgroundImage: "/public/PC1.png",
       description: "H5 Elite RTX 4070 Ti SUPER Prebuilt Gaming PC",
       originalPrice: "$2199,00",
       discountedPrice: "$1899,00",
@@ -95,7 +95,7 @@ export function Builded() {
           </div>
 
           <button className="arrow left-arrow" onClick={prevCard}>
-          <FaChevronLeft />
+            <FaChevronLeft />
           </button>
 
           <button className="arrow right-arrow" onClick={nextCard}>
