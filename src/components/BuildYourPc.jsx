@@ -5,7 +5,7 @@ import biggerWidthImg from "../assets/build-your-pc-big.png";
 import smallerWidthImg from "../assets/build-your-pc-small.png";
 import { useEffect, useState } from "react";
 
-export function BuildYourPc(link = "/") {
+export function BuildYourPc() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export function BuildYourPc(link = "/") {
 
   return (
     <Link
-      to={link}
+      to={"/contact"}
       className="flex flex-col items-center justify-center relative build-your-pc"
     >
       <div className="image-container">

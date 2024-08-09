@@ -9,7 +9,7 @@ export function Home() {
     <div id="home" className="home">
       <Builded />
       <CarouselOffer />
-      <BuildYourPc />
+      <BuildYourPc/>
       <CarouselGear />
       {/*       <SiteGuide />
        */}{" "}

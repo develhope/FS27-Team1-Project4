@@ -7,6 +7,7 @@ import { Navbar } from "./components/Navbar";
 import { MainWebpageContainer } from "./components/MainWebpageContainer";
 import { OpeningPage } from "./components/OpeningPage";
 import { Deep } from "./components/Deep";
+import { Contact } from "./components/Contact";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainWebpageContainer />}>
           <Route index element={<Home />} />
+          <Route path="contact" element={<Contact />} />
         </Route>
         <Route path="access" element={<OpeningPage/>}/>
         <Route path="deep" element={<Deep />}>
