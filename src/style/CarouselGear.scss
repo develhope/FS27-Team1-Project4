@@ -12,6 +12,7 @@
   overflow: hidden;
   width: 100vw;
   position: relative;
+  margin-bottom: 5vw;
 
   &:hover .gear-slide-cards {
     animation-play-state: paused;
@@ -82,11 +83,11 @@
 
   .color1 {
     /*     background: linear-gradient( to bottom,  violet, transparent);*/
-    background-color: rgba($color: rgb(51, 191, 207), $alpha: 0.5);
+    background-color: rgba($color: rgb(123, 38, 133), $alpha: 0.5);
   }
 
   .color2 {
     /*     background: linear-gradient( to bottom,  orange, transparent);*/
-    background-color: rgba($color: rgb(141, 20, 141), $alpha: 0.5);
+    background-color: rgba($color: rgb(40, 204, 130), $alpha: 0.5);
   }
 }
