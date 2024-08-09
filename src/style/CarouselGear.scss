@@ -22,7 +22,7 @@
   display: flex;
   animation: 15s slide infinite linear;
   width: 200%;
-  gap: 0px;
+  gap: 5px;
 }
 
 .card {
@@ -30,15 +30,17 @@
   flex-direction: column;
   justify-content: center;
   color: white;
-  padding: 5px;
+  padding: 15px;
   position: relative;
   width: 12.5vw;
+  box-sizing: border-box;
+  border: solid 2px grey;
 
   &-title {
     display: flex;
     justify-content: center;
     text-transform: uppercase;
-    margin: 5px;
+    z-index: 2;
   }
 
   &-subtitle {
@@ -46,6 +48,7 @@
     justify-content: center;
     font-size: smaller;
     margin: 5px;
+    z-index: 2;
   }
 
   &-image {
@@ -77,11 +80,13 @@
     }
   }
 
-  .violet {
-    background: linear-gradient(to bottom, violet, transparent);
+  .color1 {
+    /*     background: linear-gradient( to bottom,  violet, transparent);*/
+    background-color: rgba($color: rgb(51, 191, 207), $alpha: 0.5);
   }
 
-  .orange {
-    background: linear-gradient(to bottom, orange, transparent);
+  .color2 {
+    /*     background: linear-gradient( to bottom,  orange, transparent);*/
+    background-color: rgba($color: rgb(141, 20, 141), $alpha: 0.5);
   }
 }

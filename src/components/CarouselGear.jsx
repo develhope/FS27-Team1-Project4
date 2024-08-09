@@ -58,7 +58,7 @@ export function CarouselGear() {
           <div key={index} className="card">
             <div
               className={`card-overlay ${
-                index % 2 === 0 ? "violet" : "orange"
+                index % 2 === 0 ? "color1" : "color2"
               }`}
             ></div>
             <p className="card-title">{card.title}</p>

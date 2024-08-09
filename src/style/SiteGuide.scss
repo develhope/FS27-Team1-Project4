@@ -1,16 +1,17 @@
 .banner-guide {
+  margin: 5vw 0 0 0;
   display: flex;
-  height: 300px;
+  height: 25vw;
   width: 100vw;
   align-items: center;
 }
 
 .semi-circle {
   position: relative;
-  height: 50%;
+  height: 100%;
   width: 100vw;
   border: 2px solid white;
-  border-top-left-radius: 50vw;
-  border-top-right-radius: 50vw;
+  border-bottom: none;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
   overflow: hidden;
 }
