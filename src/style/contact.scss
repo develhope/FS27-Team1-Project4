@@ -1,0 +1,20 @@
+.contact {
+  width: 100vw;
+  margin-top: 100px;
+  box-sizing: border-box;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.sub {
+  width: 100%;
+  background-color: rgba($color: #000000, $alpha: 0.6);
+  border-radius: 12px;
+  border: 2px solid rgb(159, 159, 159);
+
+  h1 {
+    font-size: 8rem;
+    color: white;
+  }
+}
