@@ -12,6 +12,8 @@ import { ContactFAQ } from "./components/ContactFAQ";
 import { ContactCreateTicket } from "./components/ContactCreateTicket";
 import { ContactChat } from "./components/ContactChat";
 import { ContactsTicketList } from "./components/ContactTicketsList";
+import { LoginForm } from "./components/LoginForm";
+import { SignUpForm } from "./components/SignUpForm";
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
       <Routes>
         <Route path="/" element={<MainWebpageContainer />}>
           <Route index element={<Home />} />
+          <Route path="login" element={<LoginForm />} />
+          <Route path="sign-up" element={<SignUpForm />} />
           <Route path="contact" element={<Contact />} />
           <Route path="faq" element={<ContactFAQ />} />
           <Route
