@@ -1,5 +1,5 @@
 @keyframes move-bg7234 {
-  0% {
+  100% {
     background-position: 31% 0%;
   }
 
@@ -353,7 +353,7 @@
     max-width: 95%;
     margin-top: 100px;
 
-   
+
 
     .card-nav-buttons {
       flex-direction: column;
@@ -366,12 +366,12 @@
       }
     }
 
-    
+
 
     .card-content {
       flex-direction: column;
-      
-      
+
+
 
       &.active {
         display: flex;
@@ -459,7 +459,7 @@
   .builded-container {
     width: 90%;
     margin-top: 100px;
-    
+
 
     .card-nav-buttons {
       flex-wrap: wrap;
@@ -474,7 +474,7 @@
 
     .card-content {
       flex-direction: column;
-      
+
 
       &.active {
         display: flex;
@@ -488,7 +488,7 @@
       background-size: contain;
       background-position: center;
       margin-bottom: 10px;
-      
+
     }
 
     .card-info {

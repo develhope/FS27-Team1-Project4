@@ -7,6 +7,7 @@ import {
   addAlternativeAddress,
   addCreditCard,
   getCards,
+  getUserById,
   getUserByUsername,
   getUsers,
   hardDeleteUser,
@@ -22,6 +23,8 @@ import multer from "multer";
 import fs from "fs";
 import { uploadImage } from "./controllers/createImage.js";
 import { addGear, addPc, deleteGear, deletePc, getComputerByName, getComputerList, getGearBySeries, getGearList, updateGear, updateGearStock, updatePc, updatePcStock } from "./controllers/products.js";
+import { deleteFaq, getFaqs, updateFaq } from "./controllers/faqs.js";
+import { addChatAnswer, closeTicket, createNewTicket, deleteMessage, getAllTickets, getLastMessages, getLastMessagesByUserId, getTicketById, getTicketsByUserId, modifyChatMessage, updateReadMessages } from "./controllers/tickets.js";
 
 dotenv.config();
 
@@ -54,7 +57,8 @@ app.use("/uploads", express.static("uploads"));
 
 /* api users related */
 app.get("/api/users", getUsers);
-app.get("/api/user/:username", getUserByUsername);
+app.get("/api/user/id/:id", getUserById)
+app.get("/api/user/username/:username", getUserByUsername);
 app.get("/api/users/logout", authorize, logout);
 app.get("/api/users/cc", getCards);
 
@@ -87,6 +91,26 @@ app.put("/api/products/pc/:name/update/stock", updatePcStock)
 app.put("/api/products/gears/:series/delete", deleteGear)
 app.put("/api/products/pc/:name/delete", deletePc)
 
+/* api faqs related */
+app.get("/api/faqs", getFaqs)
+app.put("/api/faqs/:id", updateFaq)
+app.put("/api/faqs/:id/delete", deleteFaq)
+
+/* api ticket related */
+app.get("/api/tickets", getAllTickets)
+app.get("/api/tickets/:id", getTicketsByUserId)
+app.get("/api/ticket/:id", getTicketById)
+
+app.post("/api/ticket/create", createNewTicket)
+app.post("/api/ticket/add/:ticketId", addChatAnswer)
+
+app.put("/api/ticket/update/:messageId", modifyChatMessage)
+app.put("/api/ticket/delete/:messageId", deleteMessage)
+app.put("/api/ticket/close/:id", closeTicket)
+
+app.get("/api/last", getLastMessages)
+app.get("/api/last/user/:id", getLastMessagesByUserId)
+app.put("/api/last/:ticketId", updateReadMessages)
 
 /* api to upload images */
 app.post(

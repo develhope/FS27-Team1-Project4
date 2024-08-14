@@ -33,7 +33,7 @@ const signUpSchema = Joi.object({
     .required()
     .messages({ msg: "Value must contain only numbers" }),
   phone: Joi.string(),
-  avatarUrl: Joi.string()
+  avatarUrl: Joi.string(),
 });
 
 const alternativeAddressSchema = Joi.object({
@@ -195,6 +195,80 @@ export async function getUsers(req, res) {
   }
 }
 
+/* This function let us get one user based on thei id */
+export async function getUserById(req, res) {
+  const { id } = req.params;
+
+  try {
+    const user = await db.oneOrNone(
+      `
+      SELECT
+        u.id,
+        u.avatar_url AS "avatarUrl",
+        u.username,
+        u.password,
+        u.email,
+        u.firstname,
+        u.lastname,
+        json_build_object(
+          'country', u.country,
+          'city', u.city,
+          'address', u.address,
+          'postalCode', u.postal_code,
+          'phone', u.phone
+        ) AS "informations",
+         jsonb_agg(
+        DISTINCT jsonb_build_object(
+          'id', g.id,
+          'name', g.name,
+          'employeeId', g.employee_id,
+          'completed', g.completed
+        )
+      ) AS "games",
+        jsonb_agg(
+          DISTINCT jsonb_build_object(
+            'cardHolderName', c.card_holder_name,
+            'cardNumber', c.card_number,
+            'lastFourDigit', c.last_four_digits,
+            'expirationDate', c.expiration_date,
+            'cvv', c.cvv
+          )
+        ) AS "billingInformations",
+        jsonb_agg(
+          DISTINCT jsonb_build_object(
+            'country', a.country,
+            'city', a.city,
+            'address', a.address,
+            'postalCode', a.postal_code
+          )
+        ) AS "alternativeShipping",
+        u.admin,
+        u.token,
+        u.created_at AS "created"
+      FROM users u
+      LEFT JOIN users_games ug ON u.id = ug.user_id
+      LEFT JOIN games g ON ug.game_id = g.id
+      LEFT JOIN users_cards uc ON u.id = uc.user_id
+      LEFT JOIN credit_cards c ON uc.credit_card_id = c.id
+      LEFT JOIN users_alternative_address ua ON u.id = ua.user_id
+      LEFT JOIN alternative_address a ON ua.address_id = a.id
+      WHERE deleted_at IS NULL AND u.id=$1
+      GROUP BY u.id, u.avatar_url, u.username, u.password, u.email, u.firstname, u.lastname, u.country, u.city, u.address, u.postal_code, u.phone, u.admin, u.created_at
+    `,
+      [id]
+    );
+
+    if (!user) {
+     return res.status(404).json({msg: "user not found"})
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: error });
+  }
+}
+
 /* This function let us get one user based on their username */
 export async function getUserByUsername(req, res) {
   const { username } = req.params;
@@ -271,7 +345,7 @@ export async function signUp(req, res) {
       address,
       postalCode,
       phone,
-      avatarUrl
+      avatarUrl,
     } = req.body;
 
     const validateSignUp = signUpSchema.validate(req.body);
@@ -298,7 +372,7 @@ export async function signUp(req, res) {
         address,
         postalCode,
         phone,
-        avatarUrl
+        avatarUrl,
       ]
     );
 
@@ -459,7 +533,7 @@ export async function updateUser(req, res) {
         postalCode,
         phone,
         paramUsername,
-        avatarUrl
+        avatarUrl,
       ]
     );
 

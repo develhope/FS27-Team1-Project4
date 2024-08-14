@@ -1,0 +1,205 @@
+.contact-chat {
+  width: 100vw;
+  box-sizing: border-box;
+  padding-top: 100px;
+  padding-bottom: 40px;
+  z-index: 0;
+  color: white;
+}
+
+.contact-chat-container {
+  width: 90%;
+  background-color: rgba($color: $primaryColor, $alpha: 0.7);
+  box-sizing: border-box;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.contact-chat-header {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  border-radius: 8px 8px 0 0;
+  border: 2px solid $primaryColor;
+  box-shadow: $insetFormShadow;
+  gap: 10px;
+
+  .icon-container {
+    box-sizing: border-box;
+    padding: 8px;
+    background-color: rgba($color: #000000, $alpha: 0.8);
+    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+  }
+}
+
+.contact-chat-content {
+  width: 95%;
+  background-color: rgba($color: #000000, $alpha: 0.7);
+  // height: 50vh;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 10px 0;
+  z-index: 1;
+  box-shadow:$insetFormShadow;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -2.5%;
+    width: 2px;
+    height: 100%;
+    background-color: $primaryColor;
+    box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+    0px 0px 25px 2px rgba(82, 0, 129, 0.568);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 102%;
+    width: 2px;
+    height: 100%;
+    background-color: $primaryColor;
+    box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+    0px 0px 25px 2px rgba(82, 0, 129, 0.568);
+  }
+}
+
+.chat-line {
+  display: flex;
+  position: relative;
+  width: 100%;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.chat-baloon {
+  box-sizing: border-box;
+  padding: 5px 20px;
+  border-radius: 8px;
+  position: relative;
+  max-width: 90%;
+  text-wrap: wrap;
+}
+
+.user {
+  background-color: $primaryColor;
+}
+
+.not-user {
+  background-color: rgb(114, 34, 235);
+}
+
+.tick-user {
+  border-top-right-radius: 0;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    border-top-left-radius: 16px;
+    left: 100%;
+    top: 0;
+    box-shadow: -20px 0 0 0px $primaryColor;
+  }
+}
+
+.tick-not-user {
+  border-top-left-radius: 0;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    border-top-right-radius: 16px;
+    left: -100%;
+    top: 0;
+    box-shadow: 20px 0 0 0px rgb(114, 34, 235);
+    pointer-events: none;
+  }
+}
+
+.contact-chat-sending-form {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px 15px;
+  background-color: rgba($color: #610a75, $alpha: 0.7);
+  border: 2px solid rgb(183, 109, 232);
+  box-shadow: inset 1px 0px 12px 5px rgba(144, 96, 185, 0.615),
+  0px 0px 12px 5px rgba(155, 11, 239, 0.568);
+  border-radius: 0 0 8px 8px;
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background-color: rgba($color: #26082f, $alpha: 0.7);
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+
+    .button-icon {
+      width: 70%;
+      height: 70%;
+    }
+
+    &:hover {
+      background-color: rgba($color: $primaryColor, $alpha: 0.7);
+
+      .button-icon {
+        color: black;
+      }
+    }
+  }
+
+  .sending-message {
+    width: 83%;
+    gap: 7px;
+
+    textarea {
+      width: calc(100% - 30px);
+      background-color: rgba($color: #000000, $alpha: 0.7);
+      box-sizing: border-box;
+      padding: 5px 10px;
+      border-radius: 8px;
+      outline: none;
+      resize: none;
+      text-wrap: wrap;
+      overflow-x: none;
+      field-sizing: content;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .contact-chat {
+    padding-top: 120px;
+    padding-bottom: 60px;
+  }
+  .contact-chat-content {
+    &::after {
+      left: 102.45%
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .contact-chat {
+    padding-top: 140px;
+    padding-bottom: 80px;
+  }
+}
+

@@ -36,7 +36,6 @@ export function BuildYourPc() {
           </div>
         </div>
       </div>
-      <div></div>
     </Link>
   );
 }

@@ -8,10 +8,15 @@ import {
 import {
   createAltAddress,
   createCC,
+  createFaqs,
   createGearDatabase,
   createPCDatabase,
+  createTicket,
+  createTicketChat,
   createUser,
+  createUserLastSeenMessage,
 } from "./controllers/startingDb.js";
+import { chatBuildPc, chatOrhers, chatShippingIssues } from "./arrays_to_create_database/ticketList.js";
 
 /* Let me use the environment variables */
 dotenv.config();
@@ -27,6 +32,7 @@ const {
   EXPIRES_2,
   CVV_2,
   PASSWORD_FIRST_USER,
+  PASSWORD_SECOND_USER,
   DB_USER,
   DB_PASSWORD,
   DB_URL,
@@ -39,14 +45,15 @@ const db = pgPromise()(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_URL}:${DB_PORT_NUMBER}/${DB_NAME}`
 );
 
-function imagePath(imgName){
-  return (`/uploads/${imgName}`)
+function imagePath(imgName) {
+  return `/uploads/${imgName}`;
 }
 
 /* Setting the database by creating the tables and a list of mocking users and products */
 async function setupDB() {
   /* using bcrypt to encrypt the users passwords */
   const passwordUser1 = await bcrypt.hash(PASSWORD_FIRST_USER, 10);
+  const passwordUser2 = await bcrypt.hash(PASSWORD_SECOND_USER, 10);
 
   /* using the function extracted from the controller users to encrypt all the credit cards informations */
   const creditCard1 = createEncryptedCCForMockUsers(
@@ -67,6 +74,10 @@ async function setupDB() {
 
   /* Creating (CREATE) the tables for the database and filling them (INSERT INTO) with some mocking data */
   await db.none(`
+    DROP TABLE IF EXISTS last_message;
+    DROP TABLE IF EXISTS chat_messages;
+    DROP TABLE IF EXISTS tickets;
+    DROP TABLE IF EXISTS faqs;
     DROP TABLE IF EXISTS pc;
     DROP TABLE IF EXISTS gear;
     DROP TABLE IF EXISTS users_alternative_address ;
@@ -171,6 +182,46 @@ async function setupDB() {
     stock INT,
     created_at TIMESTAMP DEFAULT NOW(),
     deleted_at TIMESTAMP
+    );
+
+    CREATE TABLE faqs(
+    id SERIAL NOT NULL PRIMARY KEY,
+    question TEXT NOT NULL,
+    awnser TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    deleted_at TIMESTAMP
+    );
+
+    CREATE TABLE tickets(
+    id SERIAL NOT NULL PRIMARY KEY,
+    opened_by INT NOT NULL,
+    category VARCHAR(255),
+    ticket_title VARCHAR(255),
+    number_of_messages INT,
+    created_at TIMESTAMP DEFAULT NOW(),
+    closed_at TIMESTAMP,
+    FOREIGN KEY (opened_by) REFERENCES users(id)
+    );
+
+    CREATE TABLE chat_messages(
+    id SERIAL NOT NULL PRIMARY KEY,
+    ticket_id INT NOT NULL,
+    author_id INT NOT NULL,
+    image TEXT,
+    content TEXT,
+    created_at TIMESTAMP DEFAULT NOW(),
+    deleted_at TIMESTAMP,
+    FOREIGN KEY (ticket_id) REFERENCES tickets(id),
+    FOREIGN KEY (author_id) REFERENCES users(id)
+    );
+
+    CREATE TABLE last_message(
+    id SERIAL NOT NULL PRIMARY KEY,
+    ticket_id INT NOT NULL,
+    user_id INT NOT NULL,
+    last_message INT NOT NULL,
+    FOREIGN KEY (ticket_id) REFERENCES tickets(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
     )
     `);
 
@@ -186,6 +237,20 @@ async function setupDB() {
     "00100",
     true,
     imagePath("avatar_bredina.png")
+  );
+
+  await createUser(
+    "Dorothy",
+    passwordUser2,
+    "oz@gmail.com",
+    "Dorothy",
+    "Gale",
+    "USA",
+    "Kansas City",
+    "Yellow Brick Road 90210",
+    "00100",
+    false,
+    imagePath("dorothy.webp")
   );
 
   await createCC(
@@ -208,9 +273,40 @@ async function setupDB() {
 
   await createAltAddress("Italy", "Rome", "Via Quella 13", "00100", 1);
 
-  createGearDatabase()
-  createPCDatabase()
+  await createGearDatabase();
+  await createPCDatabase();
+  await createFaqs();
 
+  await createTicket(
+    2,
+    "build-your-pc",
+    "I would like to build an optimized pc for digital paintings",
+    chatBuildPc.length
+  );
+
+  await createTicketChat(chatBuildPc);
+
+  await createUserLastSeenMessage(1, 1, chatBuildPc.length);
+  await createUserLastSeenMessage(1, 2, chatBuildPc.length - 1);
+
+  await createTicket(2, "shipping", "123456 - Delivery is late", chatShippingIssues.length)
+
+  await createTicketChat(chatShippingIssues)
+
+  await createUserLastSeenMessage(2, 1, chatShippingIssues.length - 1)
+  await createUserLastSeenMessage(2, 2, chatShippingIssues.length)
+
+  await createTicket(
+    2,
+    "others",
+    "Help for mantainance of a component",
+    chatOrhers.length
+  )
+
+  await createTicketChat(chatOrhers)
+
+  await createUserLastSeenMessage(3, 1, chatOrhers.length - 1)
+  await createUserLastSeenMessage(3, 2, chatOrhers.length)
 }
 
 setupDB();
