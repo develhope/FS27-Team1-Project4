@@ -1,0 +1,231 @@
+$insetFormShadow: inset 1px 0px 12px 5px rgba(79, 17, 93, 0.615),
+  0px 0px 12px 5px rgba(103, 24, 148, 0.568);
+
+.create-ticket {
+  width: 100vw;
+  box-sizing: border-box;
+  padding-top: 80px;
+  padding-bottom: 40px;
+  z-index: 0;
+  color: white;
+
+  input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border-radius: 8px;
+    background-color: rgba($color: #000000, $alpha: 0.7);
+  }
+}
+
+.create-ticket-header {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.05) 10%,
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0.05) 90%,
+    rgba(0, 0, 0, 0) 100%
+  );
+
+  h1 {
+    font-size: 2.4rem;
+  }
+}
+
+.create-ticket-form {
+  width: 90%;
+  box-sizing: border-box;
+  background-color: rgba($color: $primaryColor, $alpha: 0.6);
+  border-radius: 48px 48px 12px 12px;
+  border: 2px solid $primaryColor;
+  overflow: hidden;
+}
+
+.form-create-ticket-category {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px;
+  border-bottom: 2px solid $primaryColor;
+  border-radius: 48px 48px 0 0;
+  box-shadow: $insetFormShadow;
+  gap: 10px;
+
+  img {
+    height: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+.form-create-ticket-info {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: center;
+  box-shadow: $insetFormShadow;
+  border-bottom: 2px solid $primaryColor;
+  gap: 20px;
+}
+
+.shipping-input {
+  width: 100%;
+  gap: 5px;
+
+
+}
+
+.create-ticket-comment {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  gap: 10px;
+  box-shadow: $insetFormShadow;
+
+  textarea {
+    box-sizing: border-box;
+    position: relative;
+    padding: 5px 10px;
+    background-color: rgba($color: #000000, $alpha: 0.7);
+    height: 300px;
+    border-radius: 8px;
+  }
+}
+
+.create-ticket-button-placer {
+  box-sizing: border-box;
+  padding: 5px 10px;
+
+  .buy-now-button {
+    background-color: transparent;
+    box-shadow: 1px 0px 25px 2px rgba(32, 5, 43, 0.615),
+      0px 0px 5px 2px rgba(96, 0, 152, 0.568);
+    box-shadow: inset 1px 0px 25px 2px rgba(55, 8, 66, 0.615),
+      0px 0px 25px 2px rgba(82, 0, 129, 0.568);
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background-color: rgba(96, 0, 160, 0.8);
+      box-shadow: inherit;
+      clip-path: inherit;
+      pointer-events: none;
+      transition: width 0.1s linear;
+      z-index: -1;
+    }
+
+    &:hover {
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .create-ticket {
+    padding-bottom: 60px;
+  }
+
+  .create-ticket-header {
+    padding: 40px;
+
+    h1 {
+      font-size: 3.5rem;
+    }
+  }
+
+  .form-create-ticket-category {
+    gap: 15px;
+
+    img {
+      height: 3rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+    }
+  }
+
+  .form-create-ticket-info {
+    p {
+      width: 70%;
+      font-size: 1.25rem;
+    }
+  }
+
+  .create-ticket-button-placer {
+    .buy-now-button {
+      width: 130px;
+      height: 52px;
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .create-ticket {
+    padding-bottom: 80px;
+  }
+  .create-ticket-header {
+    h1 {
+      font-size: 4.5rem;
+    }
+  }
+
+  .create-ticket-form {
+    border-radius: 100px 100px 12px 12px;
+  }
+
+  .form-create-ticket-category {
+    border-radius: 100px 100px 0 0;
+
+    gap: 30px;
+    img {
+      height: 5rem;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+    }
+  }
+
+  .form-create-ticket-content {
+    flex-direction: row;
+  }
+
+  .form-create-ticket-info {
+    justify-content: space-between;
+    width: 40%;
+    padding: 20px;
+    border-bottom: none;
+    border-right: 2px solid $primaryColor;
+  }
+
+  .create-ticket-button-placer {
+    padding: 10px 20px;
+    .buy-now-button {
+      width: 150px;
+      height: 60px;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+@media(min-width: 1440px) {
+  .form-create-ticket-info {
+    p {
+      font-size: 1.5rem;
+    }
+  }
+}

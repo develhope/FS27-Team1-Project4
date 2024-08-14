@@ -1,20 +1,202 @@
-.contact {
-  width: 100vw;
-  margin-top: 100px;
-  box-sizing: border-box;
-  padding: 20px;
-  position: relative;
-  z-index: 1;
+@keyframes linkHover {
+  100% {
+    box-shadow: 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+      0px 0px 5px 2px rgba(96, 0, 152, 0.568);
+    box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+      0px 0px 25px 2px rgba(82, 0, 129, 0.568);
+    border-color: violet;
+  }
+  50% {
+    box-shadow: 1px 0px 35px 5px rgba(221, 88, 251, 0.615),
+      0px 0px 15px 5px rgba(103, 24, 148, 0.568);
+    box-shadow: inset 1px 0px 35px 5px rgba(221, 88, 251, 0.615),
+      0px 0px 35px 5px rgba(103, 24, 148, 0.568);
+    border-color: rgb(235, 171, 235);
+  }
+  0% {
+    box-shadow: 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+      0px 0px 5px 2px rgba(96, 0, 152, 0.568);
+    box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+      0px 0px 25px 2px rgba(82, 0, 129, 0.568);
+    border-color: violet;
+  }
 }
 
-.sub {
-  width: 100%;
-  background-color: rgba($color: #000000, $alpha: 0.6);
-  border-radius: 12px;
-  border: 2px solid rgb(159, 159, 159);
+.contact {
+  width: 100vw;
+  padding-top: 80px;
+  box-sizing: border-box;
+  z-index: 0;
+  gap: 30px;
+  padding-bottom: 40px;
 
-  h1 {
-    font-size: 8rem;
-    color: white;
+  .banner {
+    text-align: center;
+  }
+}
+
+.contact-header {
+  width: 100%;
+  gap: 10px;
+  color: white;
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 1);
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.2) 20%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.2) 80%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  box-sizing: border-box;
+  padding: 20px;
+
+  .header-title {
+    gap: 5px;
+  }
+
+  h3 {
+    font-size: 2rem;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+  }
+}
+
+.contact-links-container {
+  width: 95%;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(auto, 1fr);
+  gap: 10px;
+}
+
+.contact-link {
+  border: 2px solid violet;
+  border-radius: 12px;
+  background-color: rgba($color: #000000, $alpha: 0.6);
+  color: white;
+  cursor: pointer;
+
+  .image-container {
+    border-right: 2px solid violet;
+    box-shadow: 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+      0px 0px 5px 2px rgba(96, 0, 152, 0.568);
+    box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+      0px 0px 25px 2px rgba(82, 0, 129, 0.568);
+    box-sizing: border-box;
+    padding: 10px;
+  }
+
+  .link-details {
+    width: 300%;
+    box-shadow: 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+      0px 0px 5px 2px rgba(96, 0, 152, 0.568);
+    box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+      0px 0px 25px 2px rgba(82, 0, 129, 0.568);
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+
+    h4 {
+      font-size: 2rem;
+    }
+
+    p {
+      display: none;
+    }
+  }
+
+  &:hover {
+    .image-container {
+      animation: linkHover 1s ease-in infinite;
+    }
+    .link-details {
+      animation: linkHover 1s ease-in infinite;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .contact {
+    gap: 50px;
+    padding-bottom: 80px;
+  }
+
+  .contact-header {
+    gap: 30px;
+
+    h3 {
+      font-size: 3rem;
+    }
+
+    h4 {
+      font-size: 2rem;
+    }
+
+    h5 {
+      font-size: 1.25rem;
+    }
+  }
+
+  .contact-link {
+    .link-details {
+      h4 {
+        font-size: 3rem;
+      }
+
+      p {
+        display: block;
+        width: 95%;
+      }
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .contact {
+    gap: 60px
+  }
+
+  .contact-header {
+    gap: 50px;
+
+    .header-title {
+      gap: 10px;
+    }
+
+    h3 {
+      font-size: 5rem;
+    }
+
+    h4 {
+      font-size: 3rem;
+    }
+
+    h5 {
+      width: 75%;
+      font-size: 2rem;
+    }
+  }
+
+  .contact-links-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .contact-header {
+
+    .header-title {
+
+      h3 {
+        font-size: 6rem;
+      }
+
+      h4 {
+        font-size: 4.5rem;
+      }
+    }
   }
 }

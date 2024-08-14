@@ -1,6 +1,7 @@
 import { db } from "../db.js";
 import dotenv from "dotenv";
-import { productsSingleGear, preBuiltPc } from "../productsList.js";
+import { productsSingleGear, preBuiltPc } from "../arrays_to_create_database/productsList.js";
+import {faqs} from "../arrays_to_create_database/faqList.js"
 dotenv.config();
 
 /* Module created to generate the base mocking data on the database,
@@ -151,5 +152,56 @@ export async function createPCDatabase() {
     } catch (error) {
       console.log(error);
     }
+  }
+}
+
+export async function createFaqs() {
+  for (const faq of faqs) {
+    try {
+      await db.none(
+        `INSERT INTO faqs (question, awnser)
+        VALUES ($1, $2)`,
+        [faq.question,  faq.answer]
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export async function createTicket(openedBy, category, ticketTitle, numberOFMessages) {
+  try {
+    await db.none(
+      `INSERT INTO tickets (opened_by, category, ticket_title, number_of_messages)
+    VALUES ($1, $2, $3, $4)`,
+    [openedBy, category, ticketTitle, numberOFMessages])
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function createTicketChat(array) {
+  try {
+    for (const chat of array) {
+      await db.none(
+        `INSERT INTO chat_messages(ticket_id, author_id, image, content)
+        VALUES ($1, $2, $3, $4)`,
+        [chat.ticketId, chat.author === "Bredina" ? 1 : 2, chat.image, chat.content ]
+      )
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function createUserLastSeenMessage(ticketId, userId, lastMessage) {
+  try {
+    await db.none(
+      `INSERT INTO last_message(ticket_id, user_id, last_message)
+      VALUES ($1, $2, $3)`,
+      [ticketId, userId, lastMessage]
+    )
+  } catch(error) {
+    console.log(error)
   }
 }

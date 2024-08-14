@@ -2,8 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { upperCaseString } from "../custom-hooks/uppercaseString.js";
 
-export function NavbarCurtains({ title, arrayLinks, login }) {
+export function NavbarCurtains({ title, arrayLinks , login }) {
   const [sidebarIsShown, setSidebarIsShown] = useState(false);
   const [sidebarContentShown, setSidebarContentShow] = useState(false);
 
@@ -109,11 +110,15 @@ export function NavbarCurtains({ title, arrayLinks, login }) {
                 key={index}
                 to={link}
               >
-                <p>{link}</p>
+                <p>{upperCaseString(link)}</p>
               </Link>
             ))}
           </div>
         </div>
+      )}
+
+      {!arrayLinks[0] && (
+        <></>
       )}
     </div>
   );
