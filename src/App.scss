@@ -1,7 +1,3 @@
-* {
-  margin: 0;
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -20,10 +16,33 @@
 @import "./style/contact-create-ticket.scss";
 @import "./style/contact-chat.scss";
 @import "./style/contact-ticket-list.scss";
+@import "./style/LoginForm.scss";
+@import "./style/SignUpForm.scss";
+@font-face {
+  font-family: Nebula;
+  src: url(./assets/fonts/Nebula-Hollow.otf);
+}
+@font-face {
+  font-family: NebulaR;
+  src: url(./assets/fonts/Nebula-Regular.otf);
+}
+@font-face {
+  font-family: nasa;
+  src: url(./assets/fonts/nasalization-rg.otf);
+}
+@font-face {
+  font-family: deep;
+  src: url(./assets/fonts/ShareTechMono-Regular.ttf);
+}
 
 $primaryHomeColor: rgb(130, 49, 251);
 
 /* src/App.css */
+
+* {
+  font-family: nasa;
+  margin: 0;
+}
 
 .App {
   overflow: hidden;
