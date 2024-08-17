@@ -20,21 +20,24 @@ export function useGetFetch(path) {
 
         setLoading(false)
       } else {
-        setError("Something wen wrong, could't get the data")
+        const errorMessage = "Something went wrong, could't get the data"
+        setError(errorMessage)
         setLoading(false)
+        throw new Error(errorMessage)
       }
     } catch (error) {
       setLoading(false)
       setError(error.message)
+      throw new Error(error.message)
     }
   }
 
   useEffect(() => {
     getData()
   }, [path])
-  
-  function onRefresh() {
-    getData()
+
+  async function onRefresh() {
+   await getData()
   }
 
   return {data, error, loading, onRefresh}

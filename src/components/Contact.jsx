@@ -39,7 +39,7 @@ export function Contact() {
       name: "Other Problems",
       description:
         "Are you having an issue that we didn't take in consideration? Let our operators know so that they can try to do something about it!",
-      path: "/create-ticket/other",
+      path: "/create-ticket/others",
     },
   ];
 

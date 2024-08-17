@@ -5,23 +5,23 @@
   50% {
     transform: translateY(-2px);
   }
-  0%{
+  0% {
     transform: translateY(0);
   }
 }
 
-@keyframes hover{
+@keyframes hover {
   100% {
     box-shadow: inset 4px 4px 8px rgba($color: #ffffff, $alpha: 0.2),
-    inset -4px -4px 8px rgba($color: #ffffff, $alpha: 0.2);
+      inset -4px -4px 8px rgba($color: #ffffff, $alpha: 0.2);
   }
   50% {
     box-shadow: inset 8px 8px 12px rgba($color: #ffffff, $alpha: 0.2),
-    inset -8px -8px 12px rgba($color: #ffffff, $alpha: 0.2);
+      inset -8px -8px 12px rgba($color: #ffffff, $alpha: 0.2);
   }
-  0%{
+  0% {
     box-shadow: inset 4px 4px 8px rgba($color: #ffffff, $alpha: 0.2),
-    inset -4px -4px 8px rgba($color: #ffffff, $alpha: 0.2);
+      inset -4px -4px 8px rgba($color: #ffffff, $alpha: 0.2);
   }
 }
 
@@ -122,7 +122,7 @@
     border-bottom: 1px solid rgba($color: #ffffff, $alpha: 0.4);
     background: linear-gradient(transparent 90%, rgba(255, 255, 255, 0.1)),
       linear-gradient(to left, transparent 93%, rgba(255, 255, 255, 0.1));
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
 
   .date {
@@ -168,16 +168,125 @@
       -2px 2px 3px rgba($color: #81e4ff, $alpha: 0.4),
       -2px -2px 3px rgba($color: #81e4ff, $alpha: 0.4);
 
-      .chevron {
-        background: radial-gradient(rgba($color: #81e4ff, $alpha: 0.6) ,transparent);
-        border-radius: 50%;
-        box-shadow: inset 2px 2px 6px rgba($color: #000000, $alpha: 0.3),
-        inset -2px -2px 6px rgba($color: #000000, $alpha: 0.3);
-        animation: upAndDown 1s infinite;
-      }
+    .chevron {
+      background: radial-gradient(
+        rgba($color: #81e4ff, $alpha: 0.6),
+        transparent
+      );
+      border-radius: 50%;
+      box-shadow: inset 2px 2px 6px rgba($color: #000000, $alpha: 0.3),
+        inset -2px -2px 6px rgba($color: #000000, $alpha: 0.3),
+        inset -2px 2px 6px rgba($color: #000000, $alpha: 0.3),
+        inset 2px -2px 6px rgba($color: #000000, $alpha: 0.3);
+      animation: upAndDown 1s infinite;
+    }
   }
 }
 
 @media (min-width: 768px) {
-  
+  .ticket-list {
+    padding-top: 140px;
+    padding-bottom:480px;
+  }
+
+  .single-ticket {
+    grid-template-areas:
+      "img title title title notice"
+      "date date date status status";
+    grid-template-columns: 1fr 1fr 2fr 2fr 1fr;
+
+    h3 {
+      background: linear-gradient(transparent 90%, rgba(255, 255, 255, 0.1)),
+        linear-gradient(to left, transparent 97%, rgba(255, 255, 255, 0.1)),
+        linear-gradient(to right, transparent 97%, rgba(255, 255, 255, 0.1));
+      font-size: 2rem;
+    }
+
+    .notice {
+      border-left: 1px solid rgba($color: #ffffff, $alpha: 0.4);
+      border-bottom: 1px solid rgba($color: #ffffff, $alpha: 0.4);
+      background: linear-gradient(transparent 90%, rgba(255, 255, 255, 0.1)),
+        linear-gradient(to left, transparent 90%, rgba(255, 255, 255, 0.1));
+      font-size: 1.8rem;
+
+      .chevron {
+        box-shadow: inset 3px 3px 8px rgba($color: #000000, $alpha: 0.3),
+          inset -3px -3px 8px rgba($color: #000000, $alpha: 0.3),
+          inset -3px 3px 8px rgba($color: #000000, $alpha: 0.3),
+          inset 3px -3px 8px rgba($color: #000000, $alpha: 0.3);
+      }
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .ticket-list {
+    padding-top: 180px;
+    padding-bottom: 430px;
+  }
+
+  .single-ticket {
+    grid-template-areas: "img title date status notice";
+    grid-template-columns: 1fr 5fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+
+    .img-grid-container {
+      background: linear-gradient(
+        to right,
+        transparent 90%,
+        rgba(255, 255, 255, 0.1)
+      );
+      border-bottom: none;
+    }
+
+    h3 {
+      background: linear-gradient(
+          to left,
+          transparent 97%,
+          rgba(255, 255, 255, 0.1)
+        ),
+        linear-gradient(to right, transparent 97%, rgba(255, 255, 255, 0.1));
+      border-bottom: none;
+    }
+
+    .date {
+      border-left: 1px solid rgba($color: #ffffff, $alpha: 0.4);
+      border-right: 1px solid rgba($color: #ffffff, $alpha: 0.4);
+    }
+
+    .date,
+    .status {
+      background: linear-gradient(
+          to left,
+          transparent 90%,
+          rgba(255, 255, 255, 0.1)
+        ),
+        linear-gradient(to right, transparent 90%, rgba(255, 255, 255, 0.1));
+    }
+  }
+}
+
+@media(min-width: 1608px) {
+  .ticket-list {
+    padding-top: 200px;
+    padding-bottom: 350px;
+  }
+
+  .single-ticket {
+    h3 {
+      padding: 20px 120px;
+    }
+  }
+}
+
+@media(min-width: 2040px) {
+  .ticket-list {
+  padding-bottom: 400px;
+  }
+
+  .single-ticket {
+    h3 {
+      padding: 20px 233px;
+    }
+  }
 }

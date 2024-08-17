@@ -38,6 +38,7 @@ function App() {
             element={<ContactCreateTicket />}
           />
           <Route path="tickets" element={<ContactsTicketList />} />
+          <Route path="tickets/:id" element={<ContactChat />} />
         </Route>
         <Route path="access" element={<OpeningPage />} />
         <Route path="deep" element={<Deep />}>

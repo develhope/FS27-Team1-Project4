@@ -1,6 +1,8 @@
-import { useParams } from "react-router-dom";
+/* Component Author Andrea */
+
+import { useNavigate, useParams } from "react-router-dom";
 import { upperCaseString } from "../custom-hooks/uppercaseString";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import buildYourPcIcon from "../assets/build_pc_icon.png";
 import shipping from "../assets/space-travel_violet.png";
 import others from "../assets/assistant_violet.png";
@@ -8,12 +10,99 @@ import buildYourPcBanner from "../assets/build_your_pc_banner.png";
 import shippingBanner from "../assets/shipping_banner.png";
 import othersBanner from "../assets/others_banner.png";
 import { Button } from "./Button";
+import { useFetch } from "../custom-hooks/useFetch";
 
 export function ContactCreateTicket() {
   const { category } = useParams();
   const [shippingNumber, setShippingNumber] = useState("");
   const [comment, setComment] = useState("");
   const [ticketTitle, setTicketTitle] = useState("");
+  const idNewTicketRef = useRef(null);
+
+  const navigate = useNavigate();
+
+  const [onCreateTicket, newTicketData, newTicketError] = useFetch(
+    "ticket/create",
+    "POST"
+  );
+  const [onAddFirstMessage, firstMessage, firstMessageError] = useFetch(
+    `ticket/add/${idNewTicketRef.current}`,
+    "POST"
+  );
+  const [onAddLastMessage, addedLastMessage, lastMessageError] = useFetch(
+    "last/add",
+    "POST"
+  );
+
+  const user = 2;
+
+  useEffect(() => {
+    console.log(comment);
+    console.log(category)
+  }, [comment]);
+
+  async function createNewTicket(event) {
+    event.preventDefault();
+
+    try {
+
+      let createdTicket = null
+
+      if (category === "shipping") {
+        createdTicket = await onCreateTicket({
+          openedBy: user,
+          category,
+          ticketTitle: `${shippingNumber} - ${ticketTitle}`,
+        });
+      } else {
+        console.log({ openedBy: user, category, ticketTitle })
+        createdTicket = await onCreateTicket({ openedBy: user, category, ticketTitle });
+        console.log(createdTicket)
+      }
+
+      if (newTicketError && !createdTicket) {
+        console.log("Error creating new ticket", newTicketError);
+        return;
+      }
+
+      console.log(createdTicket)
+
+      idNewTicketRef.current = createdTicket.id;
+
+      console.log(idNewTicketRef.current)
+
+      if (comment !== "") {
+        await onAddFirstMessage({
+          authorId: user,
+          content: comment,
+          ticketId: idNewTicketRef.current,
+        }, `ticket/add/${idNewTicketRef.current}`);
+
+        if (firstMessageError && !firstMessage) {
+          console.log("Error adding the first message", firstMessageError);
+          return;
+        }
+      }
+
+      console.log("payload:", {userId: user, ticketId: idNewTicketRef.current, lastMessage: 0})
+      const response = await onAddLastMessage({
+        userId: user,
+        ticketId: idNewTicketRef.current,
+      });
+
+      console.log("res", response)
+
+
+      if (lastMessageError && !addedLastMessage) {
+        console.log("Error adding the message count", lastMessageError);
+        return
+      }
+
+      navigate(`/tickets/${idNewTicketRef.current}`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className="flex flex-col items-center relative create-ticket">
@@ -30,7 +119,10 @@ export function ContactCreateTicket() {
       <div className="flex flex-col items-center create-ticket-header">
         <h1>Create Ticket</h1>
       </div>
-      <form className="flex flex-col items-center create-ticket-form">
+      <form
+        className="flex flex-col items-center create-ticket-form"
+        onSubmit={createNewTicket}
+      >
         <div className="flex justify-center items-center form-create-ticket-category">
           <img
             src={
@@ -75,7 +167,9 @@ export function ContactCreateTicket() {
               name="ticket-title"
               placeholder="Ticket Title"
               value={ticketTitle}
-              onChange={(event) => {setTicketTitle(event.target.value)}}
+              onChange={(event) => {
+                setTicketTitle(event.target.value);
+              }}
             />
             <label for="comment">Comment:</label>
             <textarea

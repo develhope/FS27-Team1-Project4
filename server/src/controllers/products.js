@@ -2,7 +2,6 @@ import { db } from "../db.js";
 import Joi from "joi";
 
 const gearSchema = Joi.object({
-  id: Joi.number(),
   image: Joi.string(),
   type: Joi.string().valid("Perihperal", "Component").required(),
   gear: Joi.string().required(),
@@ -16,7 +15,6 @@ const gearSchema = Joi.object({
 });
 
 const pcSchema = Joi.object({
-  id: Joi.number(),
   name: Joi.string().required(),
   image: Joi.string(),
   description: Joi.string().required(),
