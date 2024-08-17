@@ -5,7 +5,7 @@ export function SiteGuide() {
       <div className="steps">
         <div className="steps-1st-row">
           <div className="step">
-            <div className="circle-guide1">
+            <div className="circle-guide">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="guide-icons"
