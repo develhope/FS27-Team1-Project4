@@ -14,7 +14,7 @@ export function SignUpForm() {
               <input type="text" className="input" placeholder="Username*" />
               <input type="password" className="input" placeholder="Password*" />
               <input type="select" className="input" placeholder="City*" />
-              <input type="text" className="input" placeholder="Address" />
+              <input type="text" className="input" placeholder="Address*" />
               <input type="tel" className="input" placeholder="Phone Number" />
             </div>
             <div className="form-column">
