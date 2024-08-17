@@ -252,7 +252,7 @@ export const preBuiltPc = [
   {
     type: "PC",
     name: "Lenovo Legio T5",
-    image: "/uploads/pc3.png",
+    img: "/uploads/pc3.png",
     description: "Intel Core i7-13700F 16GB Geforce RTX 4070 Ti 1TB Windows 11",
     originalPrice: 2599.99,
     discount: 2350.00,
@@ -261,7 +261,7 @@ export const preBuiltPc = [
   {
     type: "PC",
     name: "MSI MAG Codex 5",
-    image: "/uploads/pc4.png",
+    img: "/uploads/pc4.png",
     description:
       "PC Desktop Gaming MSI MAG Codex 5 13NUC5-1649IT – Intel Core i5-13400F, 16GB(8GB*2), GeForce RTX 4060, SSD 1TB, Windows 11 Home",
     originalPrice: 1599.99,

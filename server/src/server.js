@@ -21,10 +21,11 @@ import { authorize, checkGearUnique, checkPcUnique, checkUsernameOrEmailUnique }
 import "./passport.js";
 import multer from "multer";
 import fs from "fs";
-import { uploadImage } from "./controllers/createImage.js";
+import { deleteImage, uploadImage } from "./controllers/createImage.js";
 import { addGear, addPc, deleteGear, deletePc, getComputerByName, getComputerList, getGearBySeries, getGearList, updateGear, updateGearStock, updatePc, updatePcStock } from "./controllers/products.js";
-import { deleteFaq, getFaqs, updateFaq } from "./controllers/faqs.js";
-import { addChatAnswer, closeTicket, createNewTicket, deleteMessage, getAllTickets, getLastMessages, getLastMessagesByUserId, getTicketById, getTicketsByUserId, modifyChatMessage, updateReadMessages } from "./controllers/tickets.js";
+import { createFaq, deleteFaq, getFaqs, updateFaq } from "./controllers/faqs.js";
+import { addChatAnswer, closeTicket, createLastMessages, createNewTicket, deleteMessage, getAllTickets, getLastMessages, getLastMessagesByUserId, getTicketById, getTicketsByUserId, modifyChatMessage, updateReadMessages } from "./controllers/tickets.js";
+import path from "path"
 
 dotenv.config();
 
@@ -47,7 +48,7 @@ const storage = multer.diskStorage({
     cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    cb(null, Date.now() + path.extname(file.originalname));
   },
 });
 
@@ -67,11 +68,11 @@ app.post("/api/users/signup", checkUsernameOrEmailUnique, signUp);
 app.post("/api/users/address/add", addAlternativeAddress);
 app.post("/api/users/cc/add", addCreditCard);
 
-app.put("/api/user/:username/update", checkUsernameOrEmailUnique, updateUser);
+app.put("/api/user/update/:username", checkUsernameOrEmailUnique, updateUser);
 
-app.patch("/api/user/:username/soft", softUserDelete)
+app.patch("/api/user/soft/:id", softUserDelete)
 
-app.delete("/api/user/:username/hard", hardDeleteUser)
+app.delete("/api/user/hard/:id", hardDeleteUser)
 
 /* api products related */
 app.get("/api/products/gears", getGearList)
@@ -82,23 +83,24 @@ app.get("/api/products/pc/:name", getComputerByName)
 app.post("/api/products/gears/add",checkGearUnique, addGear)
 app.post("/api/products/pc/add",checkPcUnique, addPc)
 
-app.put("/api/products/gears/:series/update", checkGearUnique, updateGear)
-app.put("/api/products/gears/:series/update/stock", updateGearStock)
+app.put("/api/products/gears/update/:series", checkGearUnique, updateGear)
+app.put("/api/products/gears/update/stock/:series", updateGearStock)
 
-app.put("/api/products/pc/:name/update", checkPcUnique, updatePc)
-app.put("/api/products/pc/:name/update/stock", updatePcStock)
+app.put("/api/products/pc/update/:name", checkPcUnique, updatePc)
+app.put("/api/products/pc/update/stock/:name", updatePcStock)
 
-app.put("/api/products/gears/:series/delete", deleteGear)
-app.put("/api/products/pc/:name/delete", deletePc)
+app.put("/api/products/gears/delete/:series", deleteGear)
+app.put("/api/products/pc/delete/:name", deletePc)
 
 /* api faqs related */
 app.get("/api/faqs", getFaqs)
+app.post("/api/faqs/add", createFaq)
 app.put("/api/faqs/:id", updateFaq)
-app.put("/api/faqs/:id/delete", deleteFaq)
+app.put("/api/faqs/delete/:id", deleteFaq)
 
 /* api ticket related */
 app.get("/api/tickets", getAllTickets)
-app.get("/api/tickets/:id", getTicketsByUserId)
+app.get("/api/tickets/user/:id", getTicketsByUserId)
 app.get("/api/ticket/:id", getTicketById)
 
 app.post("/api/ticket/create", createNewTicket)
@@ -110,6 +112,7 @@ app.put("/api/ticket/close/:id", closeTicket)
 
 app.get("/api/last", getLastMessages)
 app.get("/api/last/user/:id", getLastMessagesByUserId)
+app.post("/api/last/add", createLastMessages)
 app.put("/api/last/:ticketId", updateReadMessages)
 
 /* api to upload images */
@@ -118,6 +121,8 @@ app.post(
   upload.single("image"),
   uploadImage
 );
+
+app.delete("/api/upload/delete", deleteImage)
 
 app.listen(port, () => {
   console.log(`Server API listening on port ${port}`);

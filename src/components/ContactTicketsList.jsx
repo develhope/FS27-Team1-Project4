@@ -4,6 +4,7 @@ import buildYourPCIcon from "../assets/build_pc_icon.png";
 import shipping from "../assets/space-travel_violet.png";
 import others from "../assets/assistant_violet.png";
 import { HiMiniChevronDoubleUp } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
 
 export function ContactsTicketList() {
   const [userId, setUserId] = useState(2);
@@ -13,28 +14,41 @@ export function ContactsTicketList() {
   const ticketsData = useGetFetch("tickets");
   const userData = useGetFetch(`user/id/${userId}`);
   const readData = useGetFetch(`last/user/${userId}`);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTickets(ticketsData.data);
     setUser(userData.data);
     setRead(readData.data);
+    console.log(tickets)
+    console.log(read)
   }, [ticketsData, userData, readData]);
 
-  function checkMessageRead(readMessage, ticket) {
-    const relativeReadMessage = readMessage.find(
-      (read) => read.ticketId === ticket.id
-    );
+  useEffect(() => {
+    changeUserFetch()
+    console.log(userId)
+  }, [userId])
 
-    if (relativeReadMessage.lastMessage === ticket.numberOfMessages) {
-      return false;
-    } else {
-      return ticket.numberOfMessages - relativeReadMessage.lastMessage;
-    }
+  async function changeUserFetch() {
+    await userData.onRefresh()
+    await readData.onRefresh()
   }
 
-  console.log(tickets);
-  console.log(user);
-  console.log(read);
+  function checkMessageRead(readMessage, ticket) {
+    if (readMessage) {
+      const relativeReadMessage = readMessage.find(
+        (read) => read.ticketId === ticket.id
+      );
+
+      if (relativeReadMessage) {
+        if (relativeReadMessage.lastMessage === ticket.numberOfMessages) {
+          return false;
+        } else {
+          return ticket.numberOfMessages - relativeReadMessage.lastMessage;
+        }
+      }
+    }
+  }
 
   return (
     <div className="flex flex-col items-center relative ticket-list">
@@ -51,7 +65,11 @@ export function ContactsTicketList() {
           {tickets &&
             user &&
             tickets.map((ticket) => (
-              <div key={ticket.id} className="grid single-ticket">
+              <div
+                key={ticket.id}
+                className="grid single-ticket"
+                onClick={() => navigate(`/tickets/${ticket.id}`)}
+              >
                 <div className="flex justify-center items-center img-grid-container">
                   <img
                     src={
@@ -75,14 +93,20 @@ export function ContactsTicketList() {
                   <p>{ticket.closedAt ? "closed" : "open"}</p>
                 </div>
                 <div className="flex items-center justify-center notice">
-                  {checkMessageRead(read, ticket) && <div className="flex justify-center items-center notification">
-                    <HiMiniChevronDoubleUp className="chevron"/>
-                    <p>{checkMessageRead(read, ticket)}</p></div>}
+                  {checkMessageRead(read, ticket) && (
+                    <div className="flex justify-center items-center notification">
+                      <HiMiniChevronDoubleUp className="chevron" />
+                      <p>{checkMessageRead(read, ticket)}</p>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
         </div>
       </div>
+      <button onClick={() => setUserId(userId === 2 ? 1 : 2)}>
+        Switch User
+      </button>
     </div>
   );
 }

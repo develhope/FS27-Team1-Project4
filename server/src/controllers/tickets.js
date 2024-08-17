@@ -2,21 +2,30 @@ import Joi from "joi";
 import { db } from "../db.js";
 
 const createTicketSchema = Joi.object({
-  openedBy : Joi.number().required(),
-  category: Joi.string().valid("build-your-pc", "shipping", "others").required(),
-  ticketTitle: Joi.string().required()
-})
+  openedBy: Joi.number().required(),
+  category: Joi.string()
+    .valid("build-your-pc", "shipping", "others")
+    .required(),
+  ticketTitle: Joi.string().required(),
+});
 
 const chatAnswerSchema = Joi.object({
   authorId: Joi.number().required(),
   image: Joi.string().allow(null).optional(),
   ticketId: Joi.number().required(),
-  content: Joi.string().required(),
+  content: Joi.string().allow("").required(),
 });
 
 const messageUpdateSchema = Joi.object({
   messageId: Joi.number().required(),
-  content: Joi.string().required(),
+  content: Joi.string().allow("").required(),
+
+});
+
+const lastMessageSchema = Joi.object({
+  userId: Joi.number().required(),
+  ticketId: Joi.number().required(),
+  lastMessage: Joi.number(),
 });
 
 export async function getAllTickets(req, res) {
@@ -56,10 +65,10 @@ export async function getAllTickets(req, res) {
     `
     );
 
-    res.status(200).json(tickets);
+    return res.status(200).json(tickets);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: error });
+    return res.status(500).json({ msg: error });
   }
 }
 
@@ -104,14 +113,14 @@ export async function getTicketsByUserId(req, res) {
       [Number(id)]
     );
 
-    if (tickets) {
-      res.status(200).json(tickets);
-    } else {
-      res.status(404).json({ msg: "Tickets not found" });
+    if (!tickets) {
+      return res.status(404).json({ msg: "Tickets not found" });
     }
+
+    return res.status(200).json(tickets);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: error });
+    return res.status(500).json({ msg: error });
   }
 }
 
@@ -156,35 +165,41 @@ export async function getTicketById(req, res) {
       [Number(id)]
     );
 
-    res.status(200).json(ticket);
+    if (!ticket) {
+      return res.status(404).json({ msg: "Ticket not found" });
+    }
+
+    return res.status(200).json(ticket);
+
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: error });
+    return res.status(500).json({ msg: error });
   }
 }
 
 export async function createNewTicket(req, res) {
-  const {openedBy, category, ticketTitle} = req.body
+  const { openedBy, category, ticketTitle } = req.body;
 
   try {
-    const validateCreateTicket = createTicketSchema.validate(req.body)
+    const validateCreateTicket = createTicketSchema.validate(req.body);
 
     if (validateCreateTicket.error) {
-      return res.status(400).json({msg:validateCreateTicket.error.details[0].message})
+      return res
+        .status(400)
+        .json({ msg: validateCreateTicket.error.details[0].message });
     }
 
-    const {id} = await db.one(
+    const { id } = await db.one(
       `INSERT INTO tickets (opened_by, category, ticket_title)
       VALUES ($1, $2, $3)
       RETURNING id`,
       [openedBy, category, ticketTitle]
-    )
+    );
 
-    res.status(201).json({msg: "Ticket opened", id})
-
+    return res.status(201).json({ msg: "Ticket opened", id });
   } catch (error) {
-    console.log(error)
-    res.status(500).json({msg: error})
+    console.log(error);
+    return res.status(500).json({ msg: error });
   }
 }
 
@@ -213,10 +228,10 @@ export async function addChatAnswer(req, res) {
       [authorId, image, ticketId, content]
     );
 
-    res.status(201).json({ msg: "Message added", message });
+    return res.status(201).json({ msg: "Message added", message });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: error });
+    return res.status(500).json({ msg: error });
   }
 }
 
@@ -244,10 +259,10 @@ export async function modifyChatMessage(req, res) {
       [messageId, content]
     );
 
-    res.status(201).json({ msg: "Message updated", message });
+    return res.status(200).json({ msg: "Message updated", message });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: error });
+   return res.status(500).json({ msg: error });
   }
 }
 
@@ -263,10 +278,10 @@ export async function deleteMessage(req, res) {
       [messageId]
     );
 
-    res.status(201).json({ msg: "Message deleted", message });
+   return res.status(200).json({ msg: "Message deleted", message });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: error });
+   return res.status(500).json({ msg: error });
   }
 }
 
@@ -282,14 +297,39 @@ export async function closeTicket(req, res) {
       [id]
     );
 
-    res.status(201).json({ msg: "Ticket Closed", ticket });
+   return res.status(201).json({ msg: "Ticket Closed", ticket });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: error });
+   return res.status(500).json({ msg: error });
   }
 }
 
-export async function getLastMessages (req, res) {
+export async function createLastMessages(req, res) {
+  const { userId, ticketId } = req.body;
+  try {
+    const createLastMessageValidation = lastMessageSchema.validate(req.body);
+
+    if (createLastMessageValidation.error) {
+      console.log(createLastMessageValidation.error.details[0].message);
+      return res
+        .status(400)
+        .json({ msg: createLastMessageValidation.error.details[0].message });
+    }
+
+    db.none(
+      `INSERT INTO last_message (ticket_id, user_id, last_message)
+      VALUES ($1, $2, 0)`,
+      [ticketId, userId]
+    );
+
+    return res.status(201).json({ msg: "last message count added" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ msg: error });
+  }
+}
+
+export async function getLastMessages(req, res) {
   try {
     const lastMessages = await db.manyOrNone(
       `SELECT
@@ -300,18 +340,17 @@ export async function getLastMessages (req, res) {
       FROM last_message
       ORDER BY id
       `
-    )
+    );
 
-    res.status(200).json(lastMessages)
-
+   return res.status(200).json(lastMessages);
   } catch (error) {
-    console.log(error)
-    res.status(500).json({msg: error})
+    console.log(error);
+   return res.status(500).json({ msg: error });
   }
 }
 
-export async function getLastMessagesByUserId (req, res) {
-  const {id} = req.params
+export async function getLastMessagesByUserId(req, res) {
+  const { id } = req.params;
 
   try {
     const lastMessages = await db.manyOrNone(
@@ -324,35 +363,36 @@ export async function getLastMessagesByUserId (req, res) {
       WHERE user_id=$1
       `,
       [id]
-    )
+    );
 
-    res.status(200).json(lastMessages)
-
+   return res.status(200).json(lastMessages);
   } catch (error) {
-    console.log(error)
-    res.status(500).json({msg: error})
+    console.log(error);
+   return res.status(500).json({ msg: error });
   }
 }
 
 export async function updateReadMessages(req, res) {
-  const {ticketId} = req.params
-  const {userId} = req.body
+  const { ticketId } = req.params;
+  const { userId } = req.body;
 
   try {
-    const ticket = await db.one(
-      `SELECT * FROM tickets WHERE id=$1`, [ticketId]
-    )
+    const ticket = await db.one(`SELECT * FROM tickets WHERE id=$1`, [
+      ticketId,
+    ]);
     await db.none(
       `UPDATE last_message
       SET last_message = t.number_of_messages
       FROM tickets t
       WHERE last_message.ticket_id=$1 AND last_message.ticket_id = t.id AND last_message.user_id=$2`,
       [ticketId, userId]
-    )
+    );
 
-    res.status(200).json({msg: "Last Message seen updated succesfully", ticket})
+   return res
+      .status(200)
+      .json({ msg: "Last Message seen updated succesfully", ticket });
   } catch (error) {
-    console.log(error)
-    res.status(500).json({msg:error})
+    console.log(error);
+   return res.status(500).json({ msg: error });
   }
 }

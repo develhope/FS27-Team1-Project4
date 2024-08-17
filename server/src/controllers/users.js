@@ -188,10 +188,10 @@ export async function getUsers(req, res) {
     `);
 
     console.log(users);
-    res.status(200).json(users);
+   return res.status(200).json(users);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: error });
+   return res.status(500).json({ msg: error });
   }
 }
 
@@ -548,13 +548,13 @@ export async function updateUser(req, res) {
 }
 
 export async function softUserDelete(req, res) {
-  const { id, username } = req.body;
+  const { id } = req.params;
 
   try {
     const userCreditCards = await db.manyOrNone(
       `SELECT id, credit_card_id FROM users_cards
       WHERE user_id=$1`,
-      [id]
+      [Number(id)]
     );
 
     const linkId = userCreditCards.map((cc) => cc.id);
@@ -574,9 +574,9 @@ export async function softUserDelete(req, res) {
     const { deleted_at } = await db.one(
       `UPDATE users
        SET deleted_at=NOW()
-       WHERE username=$1
+       WHERE id=$1
        RETURNING deleted_at`,
-      [username]
+      [Number(id)]
     );
 
     res
@@ -589,25 +589,25 @@ export async function softUserDelete(req, res) {
 }
 
 export async function hardDeleteUser(req, res) {
-  const { id, username } = req.body;
+  const { id } = req.params;
 
   try {
     const userCreditCards = await db.manyOrNone(
       `SELECT id, credit_card_id FROM users_cards
       WHERE user_id=$1`,
-      [id]
+      [Number(id)]
     );
 
     const userGames = await db.manyOrNone(
       `SELECT id, game_id FROM users_games
       WHERE user_id=$1`,
-      [id]
+      [Number(id)]
     );
 
     const userAddresses = await db.manyOrNone(
       `SELECT id, address_id FROM users_alternative_address
       WHERE user_id=$1`,
-      [id]
+      [Number(id)]
     );
 
     const linkId = userCreditCards.map((cc) => cc.id);
@@ -652,11 +652,11 @@ export async function hardDeleteUser(req, res) {
 
     await db.none(
       `DELETE from users
-       WHERE username=$1`,
-      [username]
+       WHERE id=$1`,
+      [Number(id)]
     );
 
-    res.status(200).json({ msg: `User ${username} has been annihilated` });
+    res.status(200).json({ msg: `User ${id} has been annihilated` });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: error });

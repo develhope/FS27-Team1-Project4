@@ -142,7 +142,7 @@ export const chatOrhers = [
   },
   {
     id: 2,
-    author: "Support",
+    author: "Bredina",
     image: null,
     ticketId: 3,
     content: "Hello Dorothy! I'd be happy to help. Which component are you referring to, and what kind of maintenance are you looking to perform?"
@@ -156,7 +156,7 @@ export const chatOrhers = [
   },
   {
     id: 4,
-    author: "Support",
+    author: "Bredina",
     image: null,
     ticketId: 3,
     content: "Got it. For cleaning the graphics card, you'll need to carefully remove it from your PC. Make sure to turn off and unplug your computer before you start. Have you done this before, or would you like step-by-step instructions?"
@@ -170,7 +170,7 @@ export const chatOrhers = [
   },
   {
     id: 6,
-    author: "Support",
+    author: "Bredina",
     image: null,
     ticketId: 3,
     content: "No problem. Here’s what you need to do: \n\n1. Power down your PC and unplug it. \n2. Open your PC case. \n3. Locate the graphics card and unscrew it from the bracket. \n4. Gently release the card from the PCIe slot. \n5. Use a can of compressed air to blow out any dust from the card and the fans. \n6. If there is any visible dirt on the fans or heatsink, use a soft brush to clean it. \n7. Reinstall the graphics card by reversing the steps. \n\nLet me know if you need any more help!"
@@ -184,7 +184,7 @@ export const chatOrhers = [
   },
   {
     id: 8,
-    author: "Support",
+    author: "Bredina",
     image: null,
     ticketId: 3,
     content: "You’re welcome! Feel free to reach out if you need further assistance. We’re here to help!"

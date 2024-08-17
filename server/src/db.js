@@ -219,7 +219,7 @@ async function setupDB() {
     id SERIAL NOT NULL PRIMARY KEY,
     ticket_id INT NOT NULL,
     user_id INT NOT NULL,
-    last_message INT NOT NULL,
+    last_message INT,
     FOREIGN KEY (ticket_id) REFERENCES tickets(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
     )
