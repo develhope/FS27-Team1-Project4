@@ -1,21 +1,33 @@
 .banner-guide {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 30vw;
+  height: 40vw;
   width: 100vw;
   overflow: hidden;
+  padding-top: 10vw;
 }
 
 .semi-circle {
   position: absolute;
+  top: 7.5vw;
   height: 35vw;
-  width: 100vw;
-  border: 2px solid white;
-  border-bottom: none;
+  width: 104vw;
+  border: 5px solid rgba(238, 238, 238, 0.82);
   border-radius: 50% 50% 0 0 / 100% 100% 0 0;
   border-bottom: none;
-  z-index: 1;
+  bottom: 0;
+  z-index: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  box-shadow: 0px -5px 7px 3px rgba(238, 238, 238, 0.7),
+    inset 0px 8px 7px 0px rgba(238, 238, 238, 0.7);
+
+  /* -webkit-mask-image: radial-gradient(black, transparent 30%);
+  mask-image: radial-gradient(black, transparent 30%); */
+  //https://www.w3schools.com/csSref/tryit.php?filename=trycss3_gradient-radial_size
 }
 
 .steps {
@@ -36,22 +48,126 @@
   }
 
   &-1st-row {
-    width: 55vw;
+    width: 44vw;
     bottom: 9vw;
-    /*border: solid 1px blue;*/
   }
 
   &-2nd-row {
-    width: 81vw;
-    bottom: 8vw;
-    /*border: solid 1px red;*/
+    width: 88vw;
+    bottom: 11vw;
   }
 }
 
 .step {
-  width: 4vw;
-  height: 4vw;
-  border: 3px solid white;
-  border-radius: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vw;
+  height: 100%;
+}
+
+.circle-guide {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 9vw;
+  height: 9vw;
+  border-radius: 50%;
+  box-shadow: 0px 0px 9px 10px rgba(238, 238, 238, 0.7);
   z-index: 3;
+  background-color: rgba(238, 238, 238, 0.95);
+}
+
+.text-guide {
+  position: absolute;
+  top: 120%;
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: calc(0.2rem + 1vw);
+  font-weight: bold;
+  width: 130%;
+}
+
+.guide-icons {
+  height: 60%;
+  width: 60%;
+  color: #dd00ff;
+  fill: currentColor;
+
+  &-rocket {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+}
+
+@media (max-width: 380px) {
+  .banner-guide {
+    position: relative;
+    height: 125vw;
+    width: 100vw;
+    padding-top: 0vw;
+    padding-bottom: 45vw;
+    margin-bottom: 5vw;
+  }
+
+  .semi-circle {
+    height: 50vw;
+    width: 50vw;
+    border: 1px solid rgba(238, 238, 238, 0.82);
+    border-radius: 0;
+    border-bottom: 1px solid rgba(238, 238, 238, 0.82);
+    bottom: none;
+    margin-bottom: 15vw;
+    left: auto;
+    align-self: center;
+    transform: rotate(45deg);
+    box-shadow: 0px 0px 10px 5px rgba(238, 238, 238, 0.7),
+      inset 0px 0px 10px 2px rgba(238, 238, 238, 0.7);
+  }
+
+  .steps {
+    &-1st-row {
+      width: 87vw;
+      bottom: -30vw;
+    }
+
+    &-1st-row .text-guide {
+      font-size: calc(0.5rem + 1vw);
+    }
+
+    &-2nd-row {
+      width: 87vw;
+      bottom: -5vw;
+      transform: rotate(90deg);
+    }
+
+    &-2nd-row .circle-guide {
+      transform: rotate(-90deg);
+    }
+
+    &-2nd-row .text-guide {
+      top: 0%;
+      left: 100%;
+      font-size: calc(0.5rem + 1vw);
+      transform: rotate(-90deg);
+    }
+  }
+
+  .circle-guide {
+    width: 20vw;
+    height: 20vw;
+    box-shadow: 0px 0px 10px 7px rgba(238, 238, 238, 0.7);
+  }
+}
+
+@media (min-width: 380px) and (max-width: 768px) {
+}
+
+@media (min-width: 768px) and (max-width: 1280px) {
 }
