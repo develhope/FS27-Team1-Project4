@@ -20,7 +20,7 @@
 
 .gear-slide-cards {
   display: flex;
-  animation: 15s slide infinite linear;
+  animation: 20s slide infinite linear;
   width: 200%;
   gap: 5px;
 }
@@ -32,7 +32,7 @@
   color: white;
   padding: 15px;
   position: relative;
-  width: 12.5vw;
+  flex-basis: 12.5%;
   box-sizing: border-box;
   border: solid 2px grey;
 
@@ -92,7 +92,29 @@
 }
 
 @media (max-width: 380px) {
+  /* .gear-slider {
+    width: auto;
+  } */
+
   .gear-slide-cards {
-    gap: 3vw;
+    gap: 0px;
+    margin-left: 5px;
+    height: 250px;
+    /*     animation: 12s slide infinite linear;*/
+    animation: none;
+  }
+
+  .cardGear {
+    margin: 0px 5px;
+    gap: 5px;
+
+    &-image {
+      margin: 10px 0;
+      width: 100%;
+    }
+
+    &-button {
+      width: 110%;
+    }
   }
 }
