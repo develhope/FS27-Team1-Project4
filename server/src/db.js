@@ -33,6 +33,7 @@ const {
   CVV_2,
   PASSWORD_FIRST_USER,
   PASSWORD_SECOND_USER,
+  PASSWORD_THIRD_USER,
   DB_USER,
   DB_PASSWORD,
   DB_URL,
@@ -54,6 +55,8 @@ async function setupDB() {
   /* using bcrypt to encrypt the users passwords */
   const passwordUser1 = await bcrypt.hash(PASSWORD_FIRST_USER, 10);
   const passwordUser2 = await bcrypt.hash(PASSWORD_SECOND_USER, 10);
+  const passwordUser3 = await bcrypt.hash(PASSWORD_THIRD_USER, 10);
+
 
   /* using the function extracted from the controller users to encrypt all the credit cards informations */
   const creditCard1 = createEncryptedCCForMockUsers(
@@ -251,6 +254,19 @@ async function setupDB() {
     "00100",
     false,
     imagePath("dorothy.webp")
+  );
+
+  await createUser(
+    "Emvee",
+    passwordUser3,
+    "emvee@gmail.com",
+    "Emvee",
+    "K",
+    "Italy",
+    "Rome",
+    "Piazza la bomba e scappa, 60",
+    "00100",
+    true,
   );
 
   await createCC(
