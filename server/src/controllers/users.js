@@ -32,7 +32,7 @@ const signUpSchema = Joi.object({
     .pattern(/^\d+$/)
     .required()
     .messages({ msg: "Value must contain only numbers" }),
-  phone: Joi.string(),
+  phone: Joi.string().allow(""),
   avatarUrl: Joi.string(),
 });
 
