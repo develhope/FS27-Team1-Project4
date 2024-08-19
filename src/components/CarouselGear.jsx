@@ -58,7 +58,7 @@ export function CarouselGear() {
           <div key={index} className="cardGear">
             <div
               className={`cardGear-overlay ${
-                index % 2 === 0 ? "color1" : "color2"
+                index % 2 === 0 ? "gradientColor1" : "gradientColor2"
               }`}
             ></div>
             <p className="cardGear-title">{card.title}</p>
@@ -68,7 +68,13 @@ export function CarouselGear() {
               src={card.image}
               alt={`Slide ${index}`}
             />
-            <button className="cardGear-button">SCOPRI</button>
+            <button
+              className={`cardGear-button ${
+                index % 2 === 0 ? "button-text-color2" : "button-text-color1"
+              }`}
+            >
+              SCOPRI
+            </button>
           </div>
         ))}
       </div>

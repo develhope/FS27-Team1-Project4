@@ -12,7 +12,8 @@
   overflow: hidden;
   width: 100vw;
   position: relative;
-
+  /*   flex-basis: 25%;
+ */
   &:hover .gear-slide-cards {
     animation-play-state: paused;
   }
@@ -58,7 +59,6 @@
 
   &-button {
     background-color: white;
-    color: purple;
     font-weight: 600;
     width: 40%;
     align-self: center;
@@ -80,41 +80,45 @@
     }
   }
 
-  .color1 {
-    /*     background: linear-gradient( to bottom,  violet, transparent);*/
+  .gradientColor1 {
     background-color: rgba($color: rgb(123, 38, 133), $alpha: 0.5);
   }
 
-  .color2 {
-    /*     background: linear-gradient( to bottom,  orange, transparent);*/
-    background-color: rgba($color: rgb(40, 204, 130), $alpha: 0.5);
+  .gradientColor2 {
+    background-color: rgba($color: rgb(239, 152, 96), $alpha: 0.5);
   }
 }
 
-@media (max-width: 380px) {
-  /* .gear-slider {
-    width: auto;
-  } */
+.button-text-color1 {
+  color: purple;
+}
 
+.button-text-color2 {
+  color: rgb(239, 152, 96);
+}
+
+@media (max-width: 380px) {
   .gear-slide-cards {
     gap: 0px;
-    margin-left: 5px;
+    margin-left: 2vw;
     height: 250px;
-    /*     animation: 12s slide infinite linear;*/
-    animation: none;
+    animation: /* none */ 10s slide infinite linear;
+    width: max-content;
   }
 
   .cardGear {
-    margin: 0px 5px;
+    margin: 0px 2vw;
     gap: 5px;
+    width: 40vw;
+    padding: 1vw;
 
     &-image {
       margin: 10px 0;
-      width: 100%;
+      width: 50%;
     }
 
     &-button {
-      width: 110%;
+      width: 60%;
     }
   }
 }
