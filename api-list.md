@@ -221,6 +221,32 @@ path: *"products/pc/delete/:name"* - parametro: stringa -
 method: *"PUT"*
 req.body: *""*
 
+### fetch legati ai brands
+
+[Recuperare] tutti i [brand]
+path: *"brands"*
+method: *"GET"*
+req.body: *""*
+
+[Aggiungere] un [brand]
+path: *"brands/add"*
+method: *"POST"*
+req.body: {
+  * brand: stringa
+}
+
+[Modificare] un [brand]
+path: *"brands/update/:id"* - parametro: numero -
+method: *"PUT"*
+req.body: {
+  * brand: stringa
+}
+
+[Cancellare] un [brand]
+path: *"brands/delete/:id"* - parametro: numero -
+method: *"PUT"*
+req.body: *""*
+
 ### fetch legati alle faqs
 
 [Recuperare] le [faqs]

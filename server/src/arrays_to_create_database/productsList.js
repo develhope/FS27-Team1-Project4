@@ -62,7 +62,7 @@ export const productsSingleGear = [
   {
     img: "/uploads/samsung-viewfinity.png",
     type: "Peripheral",
-    gear: "monitor",
+    gear: "Monitor",
     brand: "Samsung",
     series: "SAMSUNG HRM VIEW-FINITY S6",
     features: [
@@ -80,7 +80,7 @@ export const productsSingleGear = [
   {
     img: "/uploads/corsair-k70.png",
     type: "Peripheral",
-    gear: "keyboard",
+    gear: "Keyboard",
     brand: "Corsair",
     series: "CORSAIR K-70",
     features: [
@@ -236,9 +236,9 @@ export const preBuiltPc = [
     name: "Player: Two Prime",
     img: "/uploads/pc1.png",
     description: "H5 Elite RTX 4070 Ti SUPER Prebuilt Gaming PC",
-    originalPrice: 2199.00,
+    originalPrice: 2199.0,
     discount: 1899.0,
-    stock: 14
+    stock: 14,
   },
   {
     type: "PC",
@@ -247,7 +247,7 @@ export const preBuiltPc = [
     description: "Intel Core i7-13900KF 32GB RTX 4090 SSD 1TB+2TB Windows 11",
     originalPrice: 3599.99,
     discount: 3299.99,
-    stock: 53
+    stock: 53,
   },
   {
     type: "PC",
@@ -255,8 +255,8 @@ export const preBuiltPc = [
     img: "/uploads/pc3.png",
     description: "Intel Core i7-13700F 16GB Geforce RTX 4070 Ti 1TB Windows 11",
     originalPrice: 2599.99,
-    discount: 2350.00,
-    stock: 42
+    discount: 2350.0,
+    stock: 42,
   },
   {
     type: "PC",
@@ -266,6 +266,16 @@ export const preBuiltPc = [
       "PC Desktop Gaming MSI MAG Codex 5 13NUC5-1649IT – Intel Core i5-13400F, 16GB(8GB*2), GeForce RTX 4060, SSD 1TB, Windows 11 Home",
     originalPrice: 1599.99,
     discount: 1448.99,
-    stock: 3
+    stock: 3,
   },
-]
+];
+
+const productsBrand = productsSingleGear.map((product) => product.brand);
+
+for (let i = productsBrand.length - 1; i >= 0; i--) {
+  if (productsBrand.indexOf(productsBrand[i]) !== i) {
+    productsBrand.splice(i, 1);
+  }
+}
+
+export { productsBrand };

@@ -17,12 +17,12 @@ import {
   softUserDelete,
   updateUser,
 } from "./controllers/users.js";
-import { authorize, checkGearUnique, checkPcUnique, checkUsernameOrEmailUnique } from "./middleware.js";
+import { authorize, checkBrandUnique, checkGearUnique, checkPcUnique, checkUsernameOrEmailUnique } from "./middleware.js";
 import "./passport.js";
 import multer from "multer";
 import fs from "fs";
 import { deleteImage, uploadImage } from "./controllers/createImage.js";
-import { addGear, addPc, deleteGear, deletePc, getComputerByName, getComputerList, getGearBySeries, getGearList, updateGear, updateGearStock, updatePc, updatePcStock } from "./controllers/products.js";
+import { addBrand, addGear, addPc, deleteBrand, deleteGear, deletePc, getAllBrands, getComputerByName, getComputerList, getGearBySeries, getGearList, updateBrand, updateGear, updateGearStock, updatePc, updatePcStock } from "./controllers/products.js";
 import { createFaq, deleteFaq, getFaqs, updateFaq } from "./controllers/faqs.js";
 import { addChatAnswer, closeTicket, createLastMessages, createNewTicket, deleteMessage, getAllTickets, getLastMessages, getLastMessagesByUserId, getTicketById, getTicketsByUserId, modifyChatMessage, updateReadMessages } from "./controllers/tickets.js";
 import path from "path"
@@ -91,6 +91,11 @@ app.put("/api/products/pc/update/stock/:name", updatePcStock)
 
 app.put("/api/products/gears/delete/:series", deleteGear)
 app.put("/api/products/pc/delete/:name", deletePc)
+
+app.get("/api/brands", getAllBrands)
+app.post("/api/brands/add", checkBrandUnique ,addBrand)
+app.put("/api/brands/update/:id", checkBrandUnique, updateBrand)
+app.put("/api/brands/delete/:id", deleteBrand)
 
 /* api faqs related */
 app.get("/api/faqs", getFaqs)

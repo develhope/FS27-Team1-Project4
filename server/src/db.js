@@ -7,6 +7,7 @@ import {
 } from "./controllers/users.js";
 import {
   createAltAddress,
+  createBrands,
   createCC,
   createFaqs,
   createGearDatabase,
@@ -77,6 +78,7 @@ async function setupDB() {
 
   /* Creating (CREATE) the tables for the database and filling them (INSERT INTO) with some mocking data */
   await db.none(`
+    DROP TABLE IF EXISTS brands;
     DROP TABLE IF EXISTS last_message;
     DROP TABLE IF EXISTS chat_messages;
     DROP TABLE IF EXISTS tickets;
@@ -225,6 +227,13 @@ async function setupDB() {
     last_message INT,
     FOREIGN KEY (ticket_id) REFERENCES tickets(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
+    );
+
+    CREATE TABLE brands(
+    id SERIAL NOT NULL PRIMARY KEY,
+    brand VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    deleted_at TIMESTAMP
     )
     `);
 
@@ -323,6 +332,8 @@ async function setupDB() {
 
   await createUserLastSeenMessage(3, 1, chatOrhers.length - 1)
   await createUserLastSeenMessage(3, 2, chatOrhers.length)
+
+  await createBrands()
 }
 
 setupDB();

@@ -21,7 +21,7 @@ const loginSchema = Joi.object({
 const signUpSchema = Joi.object({
   id: Joi.number(),
   username: Joi.string().required(),
-  password: Joi.string().required(),
+  password: Joi.string().min(8).pattern(new RegExp("(?=.*[a-z])")).pattern(new RegExp("(?=.*[A-Z])")).pattern(new RegExp("(?=.*[0-9])")).required(),
   email: Joi.string().email().required(),
   firstname: Joi.string().required(),
   lastname: Joi.string().required(),
@@ -67,7 +67,7 @@ const addCreditCardSchema = Joi.object({
     .messages({ msg: "Value must contain only numbers" }),
 });
 
-export async function selectUserByUsername(username) {
+export async function selectUserByUsernameOrEmail(username) {
   const user = await db.oneOrNone(
     `
     SELECT
@@ -120,7 +120,7 @@ export async function selectUserByUsername(username) {
     LEFT JOIN credit_cards c ON uc.credit_card_id = c.id
     LEFT JOIN users_alternative_address ua ON u.id = ua.user_id
     LEFT JOIN alternative_address a ON ua.address_id = a.id
-    WHERE u.username=$1 AND deleted_at IS NULL
+    WHERE u.username=$1 OR u.email=$1 AND deleted_at IS NULL
     GROUP BY u.id, u.avatar_url, u.username, u.password, u.email, u.firstname, u.lastname, u.country, u.city, u.address, u.postal_code, u.phone, u.admin, u.created_at
     `,
     [username]
@@ -128,6 +128,7 @@ export async function selectUserByUsername(username) {
 
   return user;
 }
+
 
 /* This function let us get the users informations*/
 export async function getUsers(req, res) {
@@ -274,7 +275,7 @@ export async function getUserByUsername(req, res) {
   const { username } = req.params;
 
   try {
-    const user = await selectUserByUsername(username);
+    const user = await selectUserByUsernameOrEmail(username);
 
     if (user) {
       res.status(200).json(user);
@@ -298,7 +299,7 @@ export async function login(req, res) {
         .json({ msg: validateLogin.error.details[0].message });
     }
 
-    const user = await selectUserByUsername(username);
+    const user = await selectUserByUsernameOrEmail(username);
     console.log(user);
 
     if (user && (await bcrypt.compare(password, user.password))) {
@@ -317,7 +318,7 @@ export async function login(req, res) {
         [user.id, token]
       );
 
-      const updatedUser = await selectUserByUsername(username);
+      const updatedUser = await selectUserByUsernameOrEmail(username);
 
       res
         .status(200)
@@ -390,7 +391,7 @@ export async function signUp(req, res) {
       [user.id, schiariti.id, provenzano.id]
     );
 
-    const newUser = await selectUserByUsername(user.username);
+    const newUser = await selectUserByUsernameOrEmail(user.username);
     res
       .status(201)
       .json({ msg: `User ${newUser.username} created`, user: newUser });
@@ -537,7 +538,7 @@ export async function updateUser(req, res) {
       ]
     );
 
-    const newUser = await selectUserByUsername(user.username);
+    const newUser = await selectUserByUsernameOrEmail(user.username);
     res
       .status(201)
       .json({ msg: `User ${newUser.username} updated`, user: newUser });

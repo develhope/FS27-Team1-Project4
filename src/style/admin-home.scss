@@ -1,0 +1,65 @@
+.admin-home {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  padding-top: 70px;
+}
+
+.admin-sidebar {
+  width: 25vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba($color: #000000, $alpha: 0.7);
+}
+
+.admin-sidebar-content {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 100px 5px 5px 5px;
+  gap: 60px;
+
+  .link-list {
+    font-size: 0.7rem;
+    color: white;
+    gap: 20px;
+
+    .link {
+      &:hover {
+        color: $primaryColor;
+      }
+    }
+  }
+}
+
+.admin-sidebar-border {
+  width: 15px;
+  height: 100%;
+  background-color: gray;
+  box-sizing: border-box;
+  padding: 0 3px;
+  border-left: 1px solid rgb(48, 48, 48);
+  border-right: 1px solid rgb(48, 48, 48);
+
+  .border-line {
+    width: 100%;
+    height: 100%;
+    border-left: 1px solid rgb(48, 48, 48);
+    border-left: 1px solid rgb(48, 48, 48);
+    box-shadow: inset 0 1px 4px rgba($color: #000000, $alpha: 0.6),
+      inset 0 -1px 4px rgba($color: #000000, $alpha: 0.6);
+  }
+}
+
+.admin-outlet {
+  height: 100%;
+  width: 75vw;
+}
+
+.admin-menu {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 40px 10px;
+}

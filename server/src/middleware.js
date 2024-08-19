@@ -58,10 +58,10 @@ export async function checkGearUnique(req, res, next) {
     );
 
     if (existingGear) {
-     return res.status(409).json({ msg: "Series already exists" });
+      return res.status(409).json({ msg: "Series already exists" });
     }
 
-    next()
+    next();
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: error });
@@ -69,21 +69,55 @@ export async function checkGearUnique(req, res, next) {
 }
 
 export async function checkPcUnique(req, res, next) {
-  const {id, name} = req.body
+  const { id, name } = req.body;
 
   try {
     const existingPc = await db.oneOrNone(
       `SELECT id, name FROM pc WHERE name=$1 AND id<>$2`,
       [name, id]
-    )
+    );
 
-  if (existingPc) {
-    return res.status(409).json({ msg: "PC already exists"})
+    if (existingPc) {
+      return res.status(409).json({ msg: "PC already exists" });
+    }
+
+    next();
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: error });
   }
+}
 
-  next()
-  } catch(error) {
-    console.log(error)
-    res.status(500).json({msg: error})
+/* check if there are brands with the same name */
+
+export async function checkBrandUnique(req, res, next) {
+  const { id } = req.params;
+  const { brand } = req.body;
+
+  try {
+    if (id) {
+      const existingGear = await db.oneOrNone(
+        `SELECT (id, brand) FROM brands WHERE brand=$1 AND id<>$2`,
+        [brand, id]
+      );
+
+      if (existingGear) {
+        return res.status(409).json({ msg: "Brand already exists" });
+      }
+    } else {
+      const existingGear = await db.oneOrNone(
+        `SELECT (brand) FROM brands WHERE brand=$1`,
+        [brand]
+      );
+
+      if (existingGear) {
+        return res.status(409).json({ msg: "Brand already exists" });
+      }
+    }
+
+    next();
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: error });
   }
 }

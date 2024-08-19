@@ -1,6 +1,6 @@
 import { db } from "../db.js";
 import dotenv from "dotenv";
-import { productsSingleGear, preBuiltPc } from "../arrays_to_create_database/productsList.js";
+import { productsSingleGear, preBuiltPc, productsBrand } from "../arrays_to_create_database/productsList.js";
 import {faqs} from "../arrays_to_create_database/faqList.js"
 dotenv.config();
 
@@ -203,5 +203,20 @@ export async function createUserLastSeenMessage(ticketId, userId, lastMessage) {
     )
   } catch(error) {
     console.log(error)
+  }
+}
+
+export async function createBrands() {
+  for (const brand of productsBrand) {
+    try {
+      await db.none(
+        `INSERT INTO brands(brand)
+        VALUES ($1)`,
+        [brand]
+      )
+    }
+    catch(error) {
+      console.log(error)
+    }
   }
 }

@@ -14,6 +14,9 @@ import { ContactChat } from "./components/ContactChat";
 import { ContactsTicketList } from "./components/ContactTicketsList";
 import { LoginForm } from "./components/LoginForm";
 import { SignUpForm } from "./components/SignUpForm";
+import { AdminHome } from "./components/AdminHome";
+import { AdminMenu } from "./components/AdminMenu";
+import { AdminCreateProducts } from "./components/AdminCreateProducts";
 
 function App() {
   return (
@@ -43,6 +46,10 @@ function App() {
           />
           <Route path="tickets" element={<ContactsTicketList />} />
           <Route path="tickets/:id" element={<ContactChat />} />
+          <Route path="admin" element={<AdminHome />}>
+            <Route index element={<AdminMenu />} />
+            <Route path="add-product/:type" element={<AdminCreateProducts />} />
+          </Route>
         </Route>
         <Route path="access" element={<OpeningPage />} />
         <Route path="deep" element={<Deep />}>

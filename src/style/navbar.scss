@@ -9,7 +9,8 @@ $primaryColor: rgb(218, 90, 247);
 
   .home-link {
     color: white;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    font-family: NebulaR;
   }
 
   .shade {
@@ -80,15 +81,12 @@ $primaryColor: rgb(218, 90, 247);
   .search-shown {
     width: 400px;
     border: 2px solid rgb(15, 15, 15);
-
   }
 
   .search-enabled {
     border: 2px solid black;
     background-color: rgb(81, 53, 81);
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.7);
-
-
 
     .svg-search {
       width: 24px;
@@ -144,6 +142,10 @@ $primaryColor: rgb(218, 90, 247);
       z-index: 2;
       font-size: 1.5rem;
 
+      h4 {
+        font-family: NebulaR;
+      }
+
       .link-light {
         width: 10px;
         height: 20px;
@@ -165,6 +167,7 @@ $primaryColor: rgb(218, 90, 247);
         font-size: 1.25rem;
         text-shadow: -1px -1px 13px #e852ff, 1px -1px 13px #e852ff,
           -1px 1px 13px #e852ff, 1px 1px 13px #e852ff;
+        font-family: NebulaR;
       }
 
       .link-light {
@@ -478,7 +481,7 @@ $primaryColor: rgb(218, 90, 247);
       width: 100%;
     }
     .sidebar-container {
-        top: 82px;
+      top: 82px;
 
       .open-sidebar {
         width: 70vw;

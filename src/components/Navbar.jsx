@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { NavbarSidebar } from "./NavbarSidebar";
 import { NavbarSearch } from "./NavbarSearch";
 import { useNavigate, Link } from "react-router-dom";
+import nebulaLogo from "../assets/nebula-tech-1-logo-b.png"
 
 export function Navbar() {
   const [search, setSearch] = useState(false);
@@ -34,6 +35,7 @@ export function Navbar() {
 
   const links = ["Link1", "Link2", "Link3"];
   const contacts = ["contact", "faq", "tickets"]
+  const admin = ["admin"]
   const linksWithImages = [
     { img: "../src/assets/mock-product-navbar.png", product: "LINK 1" },
     { img: "../src/assets/mock-product-navbar.png", product: "LINK 2" },
@@ -47,14 +49,14 @@ export function Navbar() {
         <div className="flex justify-between align-center shade">
           <div className="flex items-center">
             <div className="flex logo-and-login-container" >
-              <img src="../src/assets/nebula-tech-1-logo-col.png" alt="logo" onClick={() => navigate("/access")} />
-              <Link to="/" className="flex items-center link"><h4 className="home-link">Nebula Tech 1</h4></Link>
+              <img src={nebulaLogo} alt="logo" onClick={() => navigate("/access")} />
+              <Link to="/" className="flex items-center link"><h4 className="home-link">NEBULA TECH 1</h4></Link>
             </div>
             <div className="flex items-center justify-center links">
               <NavbarCurtains title="TEST" arrayLinks={linksWithImages} />
               <NavbarCurtains title="TEST" arrayLinks={links} />
               <NavbarCurtains title="Contact Us" arrayLinks={contacts} />
-              <NavbarCurtains title="TEST" arrayLinks={links} />
+              <NavbarCurtains title="admin" arrayLinks={admin} />
             </div>
           </div>
           <div className="flex items-center logo-and-login-container">
