@@ -4,14 +4,16 @@
   align-items: center;
   justify-content: center;
   width: 100vw;
-  height: 100vh;
+  height: 500px;
   position: relative;
   border-radius: 10px;
   gap: 4%;
+  margin-bottom: 150px;
+  margin-top: 150px;
 
   .card-container {
     width: 60vw;
-    height: 100vh;
+    height: 500px;
     overflow: hidden;
     border-radius: 10px;
     z-index: 1;
@@ -45,7 +47,7 @@
       width: 100%;
       height: 100%;
       background-image: url("/background-cards.jpeg"); /* Percorso dell'immagine */
-      background-size: cover;
+      background-size:cover;
       background-position: center;
       opacity: 0.8;
       z-index: -1;
@@ -138,7 +140,13 @@
     width: 100%;
     height: 60%;
     color: white;
-    font-size: 12px;
+    font-size: 10px;
+    position: relative;
+    top: -20px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
   }
 
   .back-content {
@@ -166,7 +174,6 @@
 
     .buy-now-button {
       color: #b8e7ff;
-
       padding: 10px 25px;
       background: transparent;
       width: unset;
@@ -197,12 +204,13 @@
   }
 
   .original-price {
+    font-size: 18px;
     text-decoration: line-through;
     color: red;
   }
 
   .discount-price {
-    font-weight: bold;
+    font-size: 18px;
     color: #03a800;
   }
 
