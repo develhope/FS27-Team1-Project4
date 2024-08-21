@@ -19,11 +19,11 @@
     position: absolute;
     width: 450px;
     height: 250px;
-    top: 10%;
+    top: 14%;
     left: calc(42% - 100px);
     transform-style: preserve-3d;
     transform: perspective(1000px);
-    animation: autoRun 20s linear infinite;
+    animation: autoRun 14s linear infinite;
     z-index: 2;
 }
 @keyframes autoRun {
@@ -52,7 +52,7 @@
     transform: translateX(-50%);
     width: min(1400px, 100vw);
     height: max-content;
-    padding-bottom: 100px;
+    padding-bottom: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
