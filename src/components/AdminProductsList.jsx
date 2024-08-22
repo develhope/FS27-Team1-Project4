@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useGetFetch } from "../custom-hooks/useGetFetch";
 import { AdminProductsFilter } from "./AdminProductsFilters";
-import { useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 import { BsFilterLeft } from "react-icons/bs";
 
@@ -18,7 +18,7 @@ export function AdminProductsList() {
   const [gearsArray, setGearsArray] = useState([]);
   const [brandsArray, setBrandsArray] = useState([]);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const gearsList = useGetFetch("products/gears");
   const pcList = useGetFetch("products/pc");
@@ -138,7 +138,13 @@ export function AdminProductsList() {
                 <div
                   key={index}
                   className="flex flex-col items-center admin-product"
-                  onClick={() => navigate(product.series ? `/admin/product/gear/${product.id}` : `/admin/product/pc/${product.id}`)}
+                  onClick={() =>
+                    navigate(
+                      product.series
+                        ? `/admin/product/gear/${product.id}`
+                        : `/admin/product/pc/${product.id}`
+                    )
+                  }
                 >
                   {product.series && (
                     <>
@@ -170,7 +176,13 @@ export function AdminProductsList() {
                           <p className="product-discount">{product.discount}</p>
                         </div>
                         <div className="stock-product">
-                          <p>{product.stock}</p>
+                          <p
+                            className={`${
+                              product.stock <= 10 ? "alert-stock" : ""
+                            }`}
+                          >
+                            {product.stock}
+                          </p>
                         </div>
                       </div>
                     </>
@@ -195,8 +207,12 @@ export function AdminProductsList() {
                         <div className="type-product">
                           <p>{product.type}</p>
                         </div>
-                        <div className="hidden gear-product"><p></p></div>
-                        <div className="brand-product"><p></p></div>
+                        <div className="hidden gear-product">
+                          <p></p>
+                        </div>
+                        <div className="brand-product">
+                          <p></p>
+                        </div>
                         <div className="hidden price-product">
                           <p>{product.originalPrice} $</p>
                           <p className="product-discount">
@@ -204,7 +220,13 @@ export function AdminProductsList() {
                           </p>
                         </div>
                         <div className="stock-product">
-                          <p className={`${product.stock <= 10 ? "alert-stock" : ""}`}>{product.stock}</p>
+                          <p
+                            className={`${
+                              product.stock <= 10 ? "alert-stock" : ""
+                            }`}
+                          >
+                            {product.stock}
+                          </p>
                         </div>
                       </div>
                     </>
