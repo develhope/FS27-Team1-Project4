@@ -16,6 +16,7 @@ export const productsSingleGear = [
     originalPrice: 289.0,
     discount: null,
     stock: 57,
+    incomingStock: null,
     linkInfo:
       "https://www.nvidia.com/en-gb/geforce/graphics-cards/40-series/rtx-4060-4060ti/",
   },
@@ -36,6 +37,7 @@ export const productsSingleGear = [
     originalPrice: 529.0,
     discount: null,
     stock: 21,
+    incomingStock: null,
     linkInfo:
       "https://www.nvidia.com/en-gb/geforce/graphics-cards/40-series/rtx-4070-family/",
   },
@@ -56,13 +58,14 @@ export const productsSingleGear = [
     originalPrice: 1699.0,
     discount: 1499.0,
     stock: 12,
+    incomingStock: 6,
     linkInfo:
       "https://www.nvidia.com/en-gb/geforce/graphics-cards/40-series/rtx-4090/",
   },
   {
     img: "/uploads/samsung-viewfinity.png",
     type: "Peripheral",
-    gear: "monitor",
+    gear: "Monitor",
     brand: "Samsung",
     series: "SAMSUNG HRM VIEW-FINITY S6",
     features: [
@@ -74,13 +77,14 @@ export const productsSingleGear = [
     originalPrice: 590.0,
     discount: 539.99,
     stock: 17,
+    incomingStock: null,
     linkInfo:
       "https://www.samsung.com/it/monitors/high-resolution/s65ua-34-inch-ls34a650ubuxen/",
   },
   {
     img: "/uploads/corsair-k70.png",
     type: "Peripheral",
-    gear: "keyboard",
+    gear: "Keyboard",
     brand: "Corsair",
     series: "CORSAIR K-70",
     features: [
@@ -93,6 +97,7 @@ export const productsSingleGear = [
     originalPrice: 229.99,
     discount: 189.99,
     stock: 17,
+    incomingStock: null,
     linkInfo:
       "https://www.corsair.com/it/en/p/keyboards/ch-9109410-na/k70-rgb-pro-mechanical-gaming-keyboard-with-pbt-double-shot-pro-keycaps-cherry-mx-red-ch-9109410-na",
   },
@@ -112,6 +117,7 @@ export const productsSingleGear = [
     originalPrice: 164.99,
     discount: 129.99,
     stock: 49,
+    incomingStock: null,
     linkInfo: null,
   },
   {
@@ -127,6 +133,7 @@ export const productsSingleGear = [
     originalPrice: 265.99,
     discount: 215.99,
     stock: 49,
+    incomingStock: null,
     linkInfo:
       "https://www.intel.com/content/www/us/en/products/sku/134595/intel-core-i712700kf-processor-25m-cache-up-to-5-00-ghz/specifications.html?wapkw=i7-12700kf",
   },
@@ -145,6 +152,7 @@ export const productsSingleGear = [
     originalPrice: 89.99,
     discount: 69.99,
     stock: 83,
+    incomingStock: null,
     linkInfo:
       "https://www.corsair.com/it/en/p/gaming-headsets/ca-9011270-eu/hs65-surround-wired-gaming-headset-carbon-eu-ca-9011270-eu",
   },
@@ -163,6 +171,7 @@ export const productsSingleGear = [
     originalPrice: 169.99,
     discount: 99.99,
     stock: 23,
+    incomingStock: null,
     linkInfo:
       "https://www.logitechg.com/it-it/products/gaming-mice/g502-hero-gaming-mouse.910-005471.html",
   },
@@ -180,6 +189,7 @@ export const productsSingleGear = [
     originalPrice: 214.99,
     discount: 194.99,
     stock: 2,
+    incomingStock: 14,
     linkInfo:
       "https://www.corsair.com/it/it/p/memory/cmk64gx4m2e3200c16/vengeancea-lpx-64gb-2-x-32gb-ddr4-dram-3200mhz-c16-memory-kit-black-cmk64gx4m2e3200c16",
   },
@@ -195,6 +205,7 @@ export const productsSingleGear = [
     originalPrice: 286.0,
     discount: null,
     stock: 14,
+    incomingStock: null,
     linkInfo:
       "https://www.intel.com/content/www/us/en/products/sku/230491/intel-core-i713700f-processor-30m-cache-up-to-5-20-ghz/ordering.html?wapkw=i7%2013700f",
   },
@@ -210,6 +221,7 @@ export const productsSingleGear = [
     originalPrice: 286.0,
     discount: null,
     stock: 14,
+    incomingStock: null,
     linkInfo:
       "https://www.intel.com/content/www/us/en/products/sku/230491/intel-core-i713700f-processor-30m-cache-up-to-5-20-ghz/ordering.html?wapkw=i7%2013700f",
   },
@@ -225,6 +237,7 @@ export const productsSingleGear = [
     originalPrice: 475.99,
     discount: null,
     stock: 30,
+    incomingStock: null,
     linkInfo:
       "https://www.intel.com/content/www/us/en/products/sku/230497/intel-core-i913900kf-processor-36m-cache-up-to-5-80-ghz/specifications.html?wapkw=i9-13900kf",
   },
@@ -236,9 +249,10 @@ export const preBuiltPc = [
     name: "Player: Two Prime",
     img: "/uploads/pc1.png",
     description: "H5 Elite RTX 4070 Ti SUPER Prebuilt Gaming PC",
-    originalPrice: 2199.00,
+    originalPrice: 2199.0,
     discount: 1899.0,
-    stock: 14
+    stock: 14,
+    incomingStock: null,
   },
   {
     type: "PC",
@@ -247,7 +261,8 @@ export const preBuiltPc = [
     description: "Intel Core i7-13900KF 32GB RTX 4090 SSD 1TB+2TB Windows 11",
     originalPrice: 3599.99,
     discount: 3299.99,
-    stock: 53
+    stock: 53,
+    incomingStock: null,
   },
   {
     type: "PC",
@@ -255,8 +270,9 @@ export const preBuiltPc = [
     img: "/uploads/pc3.png",
     description: "Intel Core i7-13700F 16GB Geforce RTX 4070 Ti 1TB Windows 11",
     originalPrice: 2599.99,
-    discount: 2350.00,
-    stock: 42
+    discount: 2350.0,
+    stock: 42,
+    incomingStock: null,
   },
   {
     type: "PC",
@@ -266,6 +282,17 @@ export const preBuiltPc = [
       "PC Desktop Gaming MSI MAG Codex 5 13NUC5-1649IT – Intel Core i5-13400F, 16GB(8GB*2), GeForce RTX 4060, SSD 1TB, Windows 11 Home",
     originalPrice: 1599.99,
     discount: 1448.99,
-    stock: 3
+    stock: 3,
+    incomingStock: 6,
   },
-]
+];
+
+const productsBrand = productsSingleGear.map((product) => product.brand);
+
+for (let i = productsBrand.length - 1; i >= 0; i--) {
+  if (productsBrand.indexOf(productsBrand[i]) !== i) {
+    productsBrand.splice(i, 1);
+  }
+}
+
+export { productsBrand };

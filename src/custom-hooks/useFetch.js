@@ -26,11 +26,11 @@ export function useFetch(path, method) {
 
         return jsonData
       } else {
-        const jsonError = response.json()
+        const jsonError = await response.json()
         setError(jsonError)
         setLoading(false)
 
-        return null
+        return jsonError
       }
     } catch (error) {
       setLoading(false)

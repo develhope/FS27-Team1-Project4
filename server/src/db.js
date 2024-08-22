@@ -7,9 +7,11 @@ import {
 } from "./controllers/users.js";
 import {
   createAltAddress,
+  createBrands,
   createCC,
   createFaqs,
   createGearDatabase,
+  createMockingNewsletter,
   createPCDatabase,
   createTicket,
   createTicketChat,
@@ -77,6 +79,8 @@ async function setupDB() {
 
   /* Creating (CREATE) the tables for the database and filling them (INSERT INTO) with some mocking data */
   await db.none(`
+    DROP TABLE IF EXISTS newsletter_subscribers;
+    DROP TABLE IF EXISTS brands;
     DROP TABLE IF EXISTS last_message;
     DROP TABLE IF EXISTS chat_messages;
     DROP TABLE IF EXISTS tickets;
@@ -170,6 +174,7 @@ async function setupDB() {
     discount NUMERIC,
     link_info VARCHAR(255),
     stock INT,
+    incoming_stock INT,
     created_at TIMESTAMP DEFAULT NOW(),
     deleted_at TIMESTAMP
     );
@@ -183,6 +188,7 @@ async function setupDB() {
     original_price NUMERIC NOT NULL,
     discount NUMERIC,
     stock INT,
+    incoming_stock INT,
     created_at TIMESTAMP DEFAULT NOW(),
     deleted_at TIMESTAMP
     );
@@ -225,6 +231,20 @@ async function setupDB() {
     last_message INT,
     FOREIGN KEY (ticket_id) REFERENCES tickets(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
+    );
+
+    CREATE TABLE brands(
+    id SERIAL NOT NULL PRIMARY KEY,
+    brand VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    deleted_at TIMESTAMP
+    );
+
+    CREATE TABLE newsletter_subscribers(
+    id SERIAL NOT NULL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT NOW(),
+    deleted_at TIMESTAMP
     )
     `);
 
@@ -323,6 +343,10 @@ async function setupDB() {
 
   await createUserLastSeenMessage(3, 1, chatOrhers.length - 1)
   await createUserLastSeenMessage(3, 2, chatOrhers.length)
+
+  await createBrands()
+
+  await createMockingNewsletter()
 }
 
 setupDB();

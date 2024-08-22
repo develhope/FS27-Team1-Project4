@@ -9,17 +9,18 @@
     z-index: 0;
     box-sizing: border-box;
     width: 100vw;
+    bottom: 0;
   }
   .NavbarBorder {
     width: 100%;
     height: 100%;
-    
+
   }
   .toggle-button {
     .arrow {
       display: none;
 
-      
+
       @media (max-width: 320px), (max-width: 768px) {
         display: inline-block;
       }
@@ -102,12 +103,12 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-      
+
         .arrow {
           transition: transform 0.3s ease;
           display: inline-block;
         }
-      
+
         .arrow.active {
           transform: rotate(180deg);
         }
@@ -138,12 +139,12 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-      
+
         .arrow {
           transition: transform 0.3s ease;
           display: inline-block;
         }
-      
+
         .arrow.active {
           transform: rotate(180deg);
         }

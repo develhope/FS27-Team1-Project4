@@ -1,7 +1,8 @@
 import { db } from "../db.js";
 import dotenv from "dotenv";
-import { productsSingleGear, preBuiltPc } from "../arrays_to_create_database/productsList.js";
+import { productsSingleGear, preBuiltPc, productsBrand } from "../arrays_to_create_database/productsList.js";
 import {faqs} from "../arrays_to_create_database/faqList.js"
+import { newsletterEmails } from "../arrays_to_create_database/newsletterEmails.js";
 dotenv.config();
 
 /* Module created to generate the base mocking data on the database,
@@ -112,8 +113,8 @@ export async function createGearDatabase() {
   for (const product of productsSingleGear) {
     try {
       await db.none(
-        `INSERT INTO gear (type, image, gear, brand, series, features, original_price, discount, link_info, stock)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+        `INSERT INTO gear (type, image, gear, brand, series, features, original_price, discount, link_info, stock, incoming_stock)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
         [
           product.type,
           product.img,
@@ -124,7 +125,8 @@ export async function createGearDatabase() {
           product.originalPrice,
           product.discount,
           product.linkInfo,
-          product.stock
+          product.stock,
+          product.incomingStock
         ]
       );
     } catch (error) {
@@ -137,8 +139,8 @@ export async function createPCDatabase() {
   for (const pc of preBuiltPc) {
     try {
       await db.none(
-        `INSERT INTO pc (type, name, image, description, original_price, discount, stock)
-      VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+        `INSERT INTO pc (type, name, image, description, original_price, discount, stock, incoming_stock)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
         [
           pc.type,
           pc.name,
@@ -146,7 +148,8 @@ export async function createPCDatabase() {
           pc.description,
           pc.originalPrice,
           pc.discount,
-          pc.stock
+          pc.stock,
+          pc.incomingStock
         ]
       );
     } catch (error) {
@@ -203,5 +206,34 @@ export async function createUserLastSeenMessage(ticketId, userId, lastMessage) {
     )
   } catch(error) {
     console.log(error)
+  }
+}
+
+export async function createBrands() {
+  for (const brand of productsBrand) {
+    try {
+      await db.none(
+        `INSERT INTO brands(brand)
+        VALUES ($1)`,
+        [brand]
+      )
+    }
+    catch(error) {
+      console.log(error)
+    }
+  }
+}
+
+export async function createMockingNewsletter() {
+  for (const email of newsletterEmails) {
+    try {
+      await db.none(
+        `INSERT INTO newsletter_subscribers(email)
+        VALUES ($1)`,
+        [email]
+      )
+    } catch(error) {
+      console.log(error)
+    }
   }
 }

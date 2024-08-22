@@ -19,6 +19,10 @@
 @import "./style/contact-ticket-list.scss";
 @import "./style/LoginForm.scss";
 @import "./style/SignUpForm.scss";
+@import "./style/admin-home.scss";
+@import "./style/admin-create-products.scss";
+@import "./style/admin-products.scss";
+
 @font-face {
   font-family: Nebula;
   src: url(./assets/fonts/Nebula-Hollow.otf);
@@ -45,6 +49,9 @@ $primaryHomeColor: rgb(130, 49, 251);
   margin: 0;
 }
 
+body {
+  min-height: 100vh;
+}
 .App {
   overflow: hidden;
   overflow-y: scroll;

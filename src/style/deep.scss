@@ -73,6 +73,10 @@ $verticalNodePoligon: polygon(
   height: 100vh;
   background-color: $bgColor;
 
+  * {
+    font-family: deep;
+  }
+
   .deep-sidebar {
     width: 10vw;
     min-height: 100vh;

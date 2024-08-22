@@ -23,6 +23,7 @@ $primary-deep-color: rgb(2, 203, 2);
   height: 100vh;
   overflow: hidden;
 
+
   .opening-grid {
     width: 100%;
     height: 100%;
@@ -34,6 +35,9 @@ $primary-deep-color: rgb(2, 203, 2);
     gap: 10px;
     font-size: 1rem;
 
+    div {
+      font-family: deep;
+    }
   }
 
   .opened-page {
