@@ -1,6 +1,6 @@
 /*Component Author Andrea */
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { imageDomain, usePostImage } from "../custom-hooks/usePostImage.js";
 
@@ -38,20 +38,26 @@ export function AdminCreateProducts() {
   const { type } = useParams();
   const [newProduct, setNewProduct] = useState({});
   const [newImage, setNewImage] = useState(null);
+  const inputFileRef = useRef(null)
+
+  const [typeChecking, setTypeCheking] = useState(false)
 
   const [offer, setOffer] = useState(false);
   const [discount, setDiscount] = useState("");
 
   const [onUploadImage, imageError] = usePostImage(setNewImage);
 
+
   const [onDeleteImage, deletedImageData, deletedImageError] = useFetch(
     "upload/delete",
     "DELETE"
   );
-  const [onGetProducts, productsData, productsError] = useFetch(
+  const [onGetGears, productsGear, productsGearError] = useFetch(
     "products/gears",
     "GET"
   );
+
+  const [onGetPc, productsPc, productsPcError] = useFetch("products/pc", "GET");
 
   const [onPostNewProduct, postProductData, postProductError] = useFetch(
     "products/gears/add",
@@ -61,7 +67,14 @@ export function AdminCreateProducts() {
   /* This Effect will fetch all products list */
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [type]);
+
+  /* This effect gives a little delay to let the type params be calculated
+  before setting the state */
+
+  useEffect (() => {
+    setTimeout(()=> setTypeCheking(!typeChecking), 200)
+  }, [])
 
   useEffect(() => {
     if (type === "gear") {
@@ -71,12 +84,27 @@ export function AdminCreateProducts() {
     if (type === "pc") {
       setNewProduct(blankPc);
     }
-  }, [type]);
+
+    return () => {
+      if (type === "gear") {
+        setNewProduct(blankGear);
+      }
+
+      if (type === "pc") {
+        setNewProduct(blankPc);
+      }
+    };
+  }, [typeChecking]);
 
   useEffect(() => {
-    console.log(productsData);
-    console.log(productsError);
-  }, [productsData, productsError]);
+    if (type === "gear") {
+      console.log(productsGear);
+      console.log(productsGearError);
+    } else {
+      console.log(productsPc);
+      console.log(productsPcError);
+    }
+  }, [productsGear, productsGearError, productsPc, productsPcError]);
 
   useEffect(() => {
     setNewProduct({ ...newProduct, image: newImage });
@@ -127,6 +155,7 @@ export function AdminCreateProducts() {
       }
 
       setNewImage(null);
+      inputFileRef.current.value = ""
     } catch (error) {
       console.log(error);
       throw new Error(error);
@@ -137,7 +166,7 @@ export function AdminCreateProducts() {
     if (name === "originalPrice" || name === "discount") {
       value = Number(value);
     }
-    if (name === "stock" & value !== "") {
+    if ((name === "stock") & (value !== "")) {
       value = parseInt(value, 10);
     }
     setNewProduct({ ...newProduct, [name]: value });
@@ -145,57 +174,56 @@ export function AdminCreateProducts() {
 
   async function getProducts() {
     if (type === "gear") {
-      await onGetProducts();
+      await onGetGears();
     } else {
-      await onGetProducts(null, "products/pc");
+      await onGetPc();
     }
   }
 
   async function handleSubmitPost() {
     try {
-      if (productsData) {
+      if (productsGear || productsPc) {
+        let createdProduct = null;
+
+        if (newProduct.discount && newProduct.originalPrice < newProduct.discount) {
+          const errorMessage = "Discount can't be bigger than the Original Price"
+          alert(errorMessage)
+          throw new Error(errorMessage)
+        }
+
         if (type === "gear") {
           if (
-            productsData.map((gear) => gear.series).includes(newProduct.series)
+            productsGear.map((gear) => gear.series).includes(newProduct.series)
           ) {
             const errorMessage = "Series already exists";
             alert(errorMessage);
             throw new Error(errorMessage);
           }
+          createdProduct = await onPostNewProduct(newProduct);
         }
 
         if (type === "pc") {
-          if (productsData.map((pc) => pc.name).includes(newProduct.name)) {
+          if (productsPc.map((pc) => pc.name).includes(newProduct.name)) {
             const errorMessage = "Name already exists";
             alert(errorMessage);
             throw new Error(errorMessage);
           }
+          createdProduct = await onPostNewProduct(
+            newProduct,
+            "products/pc/add"
+          );
         }
 
-        let createdProduct = null;
-
-        if (type === "gear") {
-          createdProduct = await onPostNewProduct(newProduct);
-
-          if (type === "pc") {
-            createdProduct = await onPostNewProduct(
-              newProduct,
-              "products/pc/add"
-            );
-          }
-
-          if (postProductError) {
-            throw new Error(postProductError.msg);
-          }
-
-          console.log(createdProduct);
-
-          alert(createdProduct.msg);
+        if (postProductError) {
+          throw new Error(JSON.stringify(createdProduct));
         }
+
+        console.log(createdProduct);
+
+        alert(JSON.stringify(createdProduct.msg));
       }
     } catch (error) {
-      console.log(JSON.stringify(error));
-      throw new Error(JSON.stringify(error));
+      throw new Error(error);
     }
   }
 
@@ -214,6 +242,7 @@ export function AdminCreateProducts() {
             <label htmlFor="image"> Image </label>
             {newProduct.image && (
               <button
+                type="button"
                 onClick={(event) => {
                   event.stopPropagation();
                   handleImageDeleting();
@@ -236,6 +265,7 @@ export function AdminCreateProducts() {
             name="image"
             id="image"
             className="input-file"
+            ref={inputFileRef}
             onChange={(event) => handleImageUploading(event.target.files[0])}
           />
         </div>
@@ -263,8 +293,8 @@ export function AdminCreateProducts() {
               type="number"
               step={0.01}
               name="originalPrice"
-              id="original-price"
-              value={newProduct.originalPrice}
+              id="originalPrice"
+              value={newProduct.originalPrice || ""}
               onChange={(event) =>
                 handleInputChange(event.target.name, event.target.value)
               }
@@ -286,14 +316,15 @@ export function AdminCreateProducts() {
                 step={0.01}
                 name="discount"
                 id="discount"
-                value={discount}
+                value={discount || ""}
                 onChange={(event) =>
                   setDiscount(
                     event.target.value === "" ? "" : event.target.value
                   )
                 }
                 disabled={!offer}
-                placeholder={!offer ? "disabled" : "00.00"}
+                placeholder={!offer ? "No Discount" : "00.00"}
+                className={!offer ? "disabled" : ""}
               />
             </div>
           </div>
@@ -305,21 +336,9 @@ export function AdminCreateProducts() {
             id="stock"
             name="stock"
             className="admin-create-stock"
-            value={newProduct.stock}
+            value={newProduct.stock || ""}
             placeholder="0"
             step="1"
-            onChange={(event) =>
-              handleInputChange(event.target.name, event.target.value)
-            }
-          />
-        </div>
-        <div className="input-container">
-          <label htmlFor="linkInfo">Link Info</label>
-          <input
-            type="text"
-            id="link-info"
-            name="linkInfo"
-            value={newProduct.linkInfo}
             onChange={(event) =>
               handleInputChange(event.target.name, event.target.value)
             }

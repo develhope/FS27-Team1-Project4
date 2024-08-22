@@ -172,6 +172,7 @@ async function setupDB() {
     discount NUMERIC,
     link_info VARCHAR(255),
     stock INT,
+    incoming_stock INT,
     created_at TIMESTAMP DEFAULT NOW(),
     deleted_at TIMESTAMP
     );
@@ -185,6 +186,7 @@ async function setupDB() {
     original_price NUMERIC NOT NULL,
     discount NUMERIC,
     stock INT,
+    incoming_stock INT,
     created_at TIMESTAMP DEFAULT NOW(),
     deleted_at TIMESTAMP
     );

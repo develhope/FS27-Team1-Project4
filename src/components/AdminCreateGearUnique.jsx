@@ -1,4 +1,5 @@
-/* Component Autor Andrea */
+/* Component Author Andrea */
+
 import { useEffect, useState } from "react";
 import { useGetFetch } from "../custom-hooks/useGetFetch.js";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
@@ -95,7 +96,7 @@ export function AdminCreateGearUnique({
           <select
             name="type"
             id="type"
-            value={newProduct.type}
+            value={newProduct.type || ""}
             onChange={(event) =>
               handleInputChange(event.target.name, event.target.value)
             }
@@ -109,7 +110,7 @@ export function AdminCreateGearUnique({
           <select
             name="gear"
             id="gear"
-            value={newProduct.gear}
+            value={newProduct.gear || ""}
             onChange={(event) =>
               handleInputChange(event.target.name, event.target.value)
             }
@@ -144,7 +145,7 @@ export function AdminCreateGearUnique({
               <select
                 name="brand"
                 id="brand"
-                value={newProduct.brand}
+                value={newProduct.brand || ""}
                 onChange={(event) =>
                   handleInputChange(event.target.name, event.target.value)
                 }
@@ -176,7 +177,7 @@ export function AdminCreateGearUnique({
           type="text"
           id="series"
           name="series"
-          value={newProduct.series}
+          value={newProduct.series || ""}
           onChange={(event) =>
             handleInputChange(event.target.name, event.target.value)
           }
@@ -221,6 +222,18 @@ export function AdminCreateGearUnique({
               )}
             </div>
           ))}
+          <div className="input-container">
+            <label htmlFor="linkInfo">Link Info</label>
+            <input
+              type="text"
+              id="linkInfo"
+              name="linkInfo"
+              value={newProduct.linkInfo || ""}
+              onChange={(event) =>
+                handleInputChange(event.target.name, event.target.value)
+              }
+            />
+          </div>
         </div>
       </div>
       {addingBrand && (
@@ -236,17 +249,17 @@ export function AdminCreateGearUnique({
               handleAddBrand();
             }}
           >
-            <label htmlFor="add-brand">Add New Brand</label>
+            <label htmlFor="addBrand">Add New Brand</label>
             <input
               type="text"
-              name="add-brand"
-              id="add-brand"
+              name="addBrand"
+              id="addBrand"
               value={newBrand}
               onChange={(event) => setNewBrand(event.target.value)}
               onKeyDown={(event) => {
                 if (event.key === "Enter" && !event.shiftKey) {
-                  event.preventDefault()
-                  event.stopPropagation()
+                  event.preventDefault();
+                  event.stopPropagation();
                   handleAddBrand(event);
                 }
               }}
@@ -256,7 +269,7 @@ export function AdminCreateGearUnique({
               <button
                 onClick={(event) => {
                   event.stopPropagation();
-                  event.preventDefault()
+                  event.preventDefault();
                   handleAddBrand();
                 }}
               >

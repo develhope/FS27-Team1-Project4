@@ -5,6 +5,7 @@ $createProductInput: rgb(98, 8, 166);
   height: 100%;
   box-sizing: border-box;
   padding-top: 40px;
+  padding-bottom: 40px;
   gap: 30px;
 
   h1 {
@@ -20,7 +21,7 @@ $createProductInput: rgb(98, 8, 166);
   border: 2px solid $primaryColor;
   border-radius: 12px;
   box-sizing: border-box;
-  padding: 20px 10px;
+  padding: 20px 20px;
   box-shadow: inset 5px 5px 10px rgba($color: rgb(225, 78, 222), $alpha: 0.4),
     inset -5px -5px 10px rgba($color: rgb(225, 78, 222), $alpha: 0.4),
     5px 5px 20px rgba($color: rgb(225, 78, 222), $alpha: 0.2),
@@ -62,7 +63,8 @@ $createProductInput: rgb(98, 8, 166);
   }
 
   input,
-  select {
+  select,
+  textarea {
     color: white;
     background-color: $createProductInput;
     box-sizing: border-box;
@@ -77,12 +79,18 @@ $createProductInput: rgb(98, 8, 166);
     margin: 0;
   }
 
-  input[type=number] {
+  input[type="number"] {
     -moz-appearance: textfield;
   }
 
   select {
     width: 100%;
+  }
+
+  textarea {
+    resize: none;
+    overflow-x: none;
+    field-sizing: content;
   }
 
   input.input-file {
@@ -114,6 +122,7 @@ $createProductInput: rgb(98, 8, 166);
     img {
       width: auto;
       height: 100%;
+      max-height: inherit
     }
   }
 
@@ -182,13 +191,18 @@ $createProductInput: rgb(98, 8, 166);
 }
 
 .create-discount-container {
+  gap: 20px;
   input {
     width: 100%;
   }
 
   .checkbox {
-    width: 30%;
-    height: 70%;
+    width: 30px;
+    height: 30px;
+  }
+
+  input.disabled {
+    background-color: rgb(58, 38, 88);
   }
 }
 
@@ -226,6 +240,102 @@ $createProductInput: rgb(98, 8, 166);
 
     &:hover {
       background-color: $primaryColor;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .create-products {
+    padding-bottom: 50px;
+
+    h1 {
+      font-size: 2.2rem;
+    }
+  }
+
+  .add-product-container {
+    width: 90%;
+    padding: 20px;
+    gap: 20px;
+
+    .input-container {
+      gap: 10px;
+    }
+
+    .image-container {
+      max-height: 300px;
+    }
+
+    .selects-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .brand-container {
+      align-items: start;
+    }
+  }
+
+  .create-price-container {
+    flex-direction: row;
+    gap: 25px;
+  }
+
+  .admin-create-stock {
+    width: 70px;
+  }
+
+  .admin-create-button-container {
+    .buy-now-button {
+      width: unset;
+      height: unset;
+      padding: 10px 25px;
+      font-size: 1rem;
+    }
+  }
+  .add-brand-form-container {
+    .add-product-container {
+      width: 50vw;
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .create-products {
+    padding-top: 60px;
+    padding-bottom: 60px;
+
+    h1 {
+      font-size: 2.8rem;
+    }
+  }
+
+  .add-product-container {
+    .selects-container {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .brand-container {
+      align-items: end;
+    }
+  }
+
+  .add-brand-form-container {
+    .add-product-container {
+      width: 35vw;
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .create-products {
+    h1 {
+      font-size: 3.5rem;
+    }
+  }
+  .add-brand-form-container {
+    .add-product-container {
+      width: 30vw;
     }
   }
 }

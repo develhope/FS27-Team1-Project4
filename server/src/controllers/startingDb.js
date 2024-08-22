@@ -112,8 +112,8 @@ export async function createGearDatabase() {
   for (const product of productsSingleGear) {
     try {
       await db.none(
-        `INSERT INTO gear (type, image, gear, brand, series, features, original_price, discount, link_info, stock)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+        `INSERT INTO gear (type, image, gear, brand, series, features, original_price, discount, link_info, stock, incoming_stock)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
         [
           product.type,
           product.img,
@@ -124,7 +124,8 @@ export async function createGearDatabase() {
           product.originalPrice,
           product.discount,
           product.linkInfo,
-          product.stock
+          product.stock,
+          product.incomingStock
         ]
       );
     } catch (error) {
@@ -137,8 +138,8 @@ export async function createPCDatabase() {
   for (const pc of preBuiltPc) {
     try {
       await db.none(
-        `INSERT INTO pc (type, name, image, description, original_price, discount, stock)
-      VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+        `INSERT INTO pc (type, name, image, description, original_price, discount, stock, incoming_stock)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
         [
           pc.type,
           pc.name,
@@ -146,7 +147,8 @@ export async function createPCDatabase() {
           pc.description,
           pc.originalPrice,
           pc.discount,
-          pc.stock
+          pc.stock,
+          pc.incomingStock
         ]
       );
     } catch (error) {

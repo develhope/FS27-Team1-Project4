@@ -16,7 +16,8 @@ const gearSchema = Joi.object({
 
 const pcSchema = Joi.object({
   name: Joi.string().required(),
-  image: Joi.string(),
+  type: Joi.string().valid("PC"),
+  image: Joi.string().allow(null, ""),
   description: Joi.string().required(),
   originalPrice: Joi.number().required(),
   discount: Joi.number(),
@@ -24,10 +25,8 @@ const pcSchema = Joi.object({
 });
 
 const stockSchema = Joi.object({
-  series: Joi.string(),
-  name: Joi.string(),
-  stock: Joi.number().required(),
-}).or("series", "name");
+  stock: Joi.number().allow(null).required(),
+})
 
 const brandSchema = Joi.object({
   brand: Joi.string().required(),
@@ -48,6 +47,7 @@ export async function getGearList(req, res) {
         discount,
         link_info AS "linkInfo",
         stock,
+        incoming_stock AS "incomingStock",
         created_at AS "createdAt"
       FROM gear
       WHERE deleted_at IS NULL`
@@ -72,6 +72,7 @@ export async function getComputerList(req, res) {
         original_price AS "originalPrice",
         discount,
         stock,
+        incoming_stock AS "incomingStock",
         created_at AS "createdAt"
       FROM pc
       WHERE deleted_at IS NULL`
@@ -99,12 +100,48 @@ export async function getGearBySeries(req, res) {
         original_price AS "originalPrice",
         discount,
         stock,
+        incoming_stock AS "incomingStock",
         link_info AS "linkInfo",
         created_at AS "createdAt"
       FROM gear
       WHERE series=$1
         AND deleted_at IS NULL`,
       [series]
+    );
+
+    if (gears) {
+      res.status(200).json(gears);
+    } else {
+      res.status(404).json({ msg: "Gear not found" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: error });
+  }
+}
+
+export async function getGearById(req, res) {
+  const { id } = req.params;
+  try {
+    const gears = await db.oneOrNone(
+      `SELECT
+        id,
+        type,
+        image,
+        gear,
+        brand,
+        series,
+        features,
+        original_price AS "originalPrice",
+        discount,
+        stock,
+        incoming_stock AS "incomingStock",
+        link_info AS "linkInfo",
+        created_at AS "createdAt"
+      FROM gear
+      WHERE id=$1
+        AND deleted_at IS NULL`,
+      [Number(id)]
     );
 
     if (gears) {
@@ -131,11 +168,44 @@ export async function getComputerByName(req, res) {
         original_price AS "originalPrice",
         discount,
         stock,
+        incoming_stock AS "incomingStock",
         created_at AS "createdAt"
       FROM pc
       WHERE name=$1
         AND deleted_at IS NULL`,
       [name]
+    );
+
+    if (pc) {
+      res.status(200).json(pc);
+    } else {
+      res.status(404).json({ msg: "PC not found" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: error });
+  }
+}
+
+export async function getComputerById(req, res) {
+  const { id } = req.params;
+  try {
+    const pc = await db.oneOrNone(
+      `SELECT
+        id,
+        type,
+        name,
+        image,
+        description,
+        original_price AS "originalPrice",
+        discount,
+        stock,
+        incoming_stock AS "incomingStock",
+        created_at AS "createdAt"
+      FROM pc
+      WHERE id=$1
+        AND deleted_at IS NULL`,
+      [Number(id)]
     );
 
     if (pc) {
@@ -243,7 +313,7 @@ export async function addPc(req, res) {
 }
 
 export async function updateGear(req, res) {
-  const paramSeries = req.params.series;
+  const {id} = req.params
   const {
     type,
     image,
@@ -278,10 +348,10 @@ export async function updateGear(req, res) {
           discount=$8,
           link_info=$9,
           stock=$10
-          WHERE series=$1
+          WHERE id=$1
           RETURNING *`,
       [
-        paramSeries,
+        id,
         type,
         gear,
         brand,
@@ -295,7 +365,7 @@ export async function updateGear(req, res) {
       ]
     );
 
-    res.status(201).json({ msg: `${series} updated`, gear: newGear });
+    res.status(201).json({ msg: `${newGear.series} updated`, gear: newGear });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: error });
@@ -303,11 +373,11 @@ export async function updateGear(req, res) {
 }
 
 export async function updateGearStock(req, res) {
-  const { series } = req.params;
+  const { id } = req.params;
   const { stock } = req.body;
 
   try {
-    const stockValidation = stockSchema.validate({ series, stock });
+    const stockValidation = stockSchema.validate({ stock });
 
     if (stockValidation.error) {
       return res
@@ -318,14 +388,44 @@ export async function updateGearStock(req, res) {
     const newStock = await db.one(
       `UPDATE gear
      SET stock=$2
-     WHERE series=$1
+     WHERE id=$1
      RETURNING stock`,
-      [series, stock]
+      [id, stock]
     );
 
     res
       .status(201)
-      .json({ msg: `Updated ${series}'s stock to ${newStock.stock}` });
+      .json({ msg: `Updated stock to ${newStock.stock}` });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: error });
+  }
+}
+
+export async function updateGearIncomingStock(req, res) {
+  const { id } = req.params;
+  const { stock } = req.body;
+
+  try {
+    const stockValidation = stockSchema.validate({ stock });
+
+    if (stockValidation.error) {
+      return res
+        .status(400)
+        .json({ msg: stockValidation.error.details[0].message });
+    }
+
+    const newStock = await db.one(
+      `UPDATE gear
+     SET incoming_stock=$2
+     WHERE id=$1
+     RETURNING stock`,
+      [id, stock]
+    );
+
+    res
+      .status(201)
+      .json({ msg: `Updated incoming stock to ${newStock.stock}` });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: error });
@@ -333,7 +433,7 @@ export async function updateGearStock(req, res) {
 }
 
 export async function updatePc(req, res) {
-  const paramName = req.params.name;
+  const {id} = req.params;
   const { image, name, description, originalPrice, discount, stock } = req.body;
 
   try {
@@ -353,12 +453,12 @@ export async function updatePc(req, res) {
            original_price=$5,
            discount=$6,
            stock=$7
-           WHERE name=$1
+           WHERE id=$1
            RETURNING *`,
-      [paramName, image, name, description, originalPrice, discount, stock]
+      [id, image, name, description, originalPrice, discount, stock]
     );
 
-    res.status(201).json({ msg: `${name} updated`, gear: newPc });
+    res.status(201).json({ msg: `${newPc.name} updated`, gear: newPc });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: error });
@@ -366,11 +466,11 @@ export async function updatePc(req, res) {
 }
 
 export async function updatePcStock(req, res) {
-  const { name } = req.params;
+  const { id } = req.params;
   const { stock } = req.body;
 
   try {
-    const stockValidation = stockSchema.validate({ name, stock });
+    const stockValidation = stockSchema.validate({ stock });
 
     if (stockValidation.error) {
       return res
@@ -381,14 +481,44 @@ export async function updatePcStock(req, res) {
     const newStock = await db.one(
       `UPDATE pc
        SET stock=$2
-       WHERE name=$1
+       WHERE id=$1
        RETURNING stock`,
-      [name, stock]
+      [id, stock]
     );
 
     res
       .status(201)
-      .json({ msg: `Updated ${name}'s stock to ${newStock.stock}` });
+      .json({ msg: `Updated stock to ${newStock.stock}` });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: error });
+  }
+}
+
+export async function updatePcIncomingStock(req, res) {
+  const { id } = req.params;
+  const { stock } = req.body;
+
+  try {
+    const stockValidation = stockSchema.validate({ stock });
+
+    if (stockValidation.error) {
+      return res
+        .status(400)
+        .json({ msg: stockValidation.error.details[0].message });
+    }
+
+    const newStock = await db.one(
+      `UPDATE pc
+       SET incoming_stock=$2
+       WHERE id=$1
+       RETURNING stock`,
+      [id, stock]
+    );
+
+    res
+      .status(201)
+      .json({ msg: `Updated incoming stock to ${newStock.stock}` });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: error });

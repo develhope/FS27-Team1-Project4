@@ -94,7 +94,7 @@ req.body: {
 }
 
 [Modifica] [Utente]
-path: *"user/update/:username"* -parametro: stringa-
+path: *"user/update/:id"* -parametro: numero-
 method: *"PUT"*
 req.body: {
   * username: stringa,
@@ -126,8 +126,13 @@ path: *"products/gears"*
 method: *"GET"*
 req.body: *""*
 
-[Recuperare] un prodotto [gear]
-path: *"products/gears/:series"* -parametro: stringa-
+[Recuperare] un prodotto [gear] con [Id]
+path: *"products/gears/id/:id"* -parametro: numero-
+method: *"GET"*
+req.body: *""*
+
+[Recuperare] un prodotto [gear] dalla [Serie]
+path: *"products/gears/series/:series"* -parametro: stringa-
 method: *"GET"*
 req.body: *""*
 
@@ -136,8 +141,13 @@ path: *"products/pc"*
 method: *"GET"*
 req.body: *""*
 
-[Recuperare] un prodotto [pc]
-path: *"products/pc/:name"* -parametro: stringa-
+[Recuperare] un prodotto [pc] con [id]
+path: *"products/pc/id/:id"* -parametro: numero-
+method: *"GET"*
+req.body: *""*
+
+[Recuperare] un prodotto [pc] dal [nome]
+path: *"products/pc/name/:name"* -parametro: stringa-
 method: *"GET"*
 req.body: *""*
 
@@ -170,7 +180,7 @@ req.body: {
 }
 
 [Aggiornare] un prodotto [gear]
-path: *"products/gears/update/:series"* -parametro: stringa -
+path: *"products/gears/update/:id"* -parametro: numero -
 method: *"PUT"*
 req.body: {
    image: string,
@@ -186,14 +196,21 @@ req.body: {
 }
 
 [Aggiornare] [stock] [gear]
-path: *"products/gears/update/stock/:series"* - parametro: stringa -
+path: *"products/gears/update/stock/:id"* - parametro: stringa -
+method: *"PUT"*
+{
+  * stock: number
+}
+
+[Aggiornare] [incoming] [stock] [gear]
+path: *"products/gears/update/incoming-stock/:id"* - parametro: stringa -
 method: *"PUT"*
 {
   * stock: number
 }
 
 [Aggiornare] un prodotto [pc]
-path: *"products/pc/update/:name"* -parametro: stringa-
+path: *"products/pc/update/:id"* -parametro: numero-
 method: *"PUT"*
 req.body: {
   * name: string,
@@ -205,7 +222,14 @@ req.body: {
 }
 
 [Aggiornare] [stock] [pc]
-path: *"products/pc/update/stock/:name"* - parametro: stringa -
+path: *"products/pc/update/stock/:id"* - parametro: numero -
+method: *"PUT"*
+req.body: {
+  * stock: number
+}
+
+[Aggiornare] [incoming] [stock] [pc]
+path: *"products/pc/update/stock/:id"* - parametro: numero -
 method: *"PUT"*
 req.body: {
   * stock: number

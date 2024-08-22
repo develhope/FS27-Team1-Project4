@@ -22,7 +22,7 @@ import "./passport.js";
 import multer from "multer";
 import fs from "fs";
 import { deleteImage, uploadImage } from "./controllers/createImage.js";
-import { addBrand, addGear, addPc, deleteBrand, deleteGear, deletePc, getAllBrands, getComputerByName, getComputerList, getGearBySeries, getGearList, updateBrand, updateGear, updateGearStock, updatePc, updatePcStock } from "./controllers/products.js";
+import { addBrand, addGear, addPc, deleteBrand, deleteGear, deletePc, getAllBrands, getComputerById, getComputerByName, getComputerList, getGearById, getGearBySeries, getGearList, updateBrand, updateGear, updateGearIncomingStock, updateGearStock, updatePc, updatePcIncomingStock, updatePcStock } from "./controllers/products.js";
 import { createFaq, deleteFaq, getFaqs, updateFaq } from "./controllers/faqs.js";
 import { addChatAnswer, closeTicket, createLastMessages, createNewTicket, deleteMessage, getAllTickets, getLastMessages, getLastMessagesByUserId, getTicketById, getTicketsByUserId, modifyChatMessage, updateReadMessages } from "./controllers/tickets.js";
 import path from "path"
@@ -68,7 +68,7 @@ app.post("/api/users/signup", checkUsernameOrEmailUnique, signUp);
 app.post("/api/users/address/add", addAlternativeAddress);
 app.post("/api/users/cc/add", addCreditCard);
 
-app.put("/api/user/update/:username", checkUsernameOrEmailUnique, updateUser);
+app.put("/api/user/update/:id", checkUsernameOrEmailUnique, updateUser);
 
 app.patch("/api/user/soft/:id", softUserDelete)
 
@@ -76,18 +76,22 @@ app.delete("/api/user/hard/:id", hardDeleteUser)
 
 /* api products related */
 app.get("/api/products/gears", getGearList)
-app.get("/api/products/gears/:series", getGearBySeries)
+app.get("/api/products/gears/id/:id", getGearById)
+app.get("/api/products/gears/series/:series", getGearBySeries)
 app.get("/api/products/pc", getComputerList)
-app.get("/api/products/pc/:name", getComputerByName)
+app.get("/api/products/pc/id/:id", getComputerById)
+app.get("/api/products/pc/name/:name", getComputerByName)
 
 app.post("/api/products/gears/add",checkGearUnique, addGear)
 app.post("/api/products/pc/add",checkPcUnique, addPc)
 
-app.put("/api/products/gears/update/:series", checkGearUnique, updateGear)
-app.put("/api/products/gears/update/stock/:series", updateGearStock)
+app.put("/api/products/gears/update/:id", checkGearUnique, updateGear)
+app.put("/api/products/gears/update/stock/:id", updateGearStock)
+app.put("/api/products/gears/update/incoming-stock/:id", updateGearIncomingStock)
 
-app.put("/api/products/pc/update/:name", checkPcUnique, updatePc)
-app.put("/api/products/pc/update/stock/:name", updatePcStock)
+app.put("/api/products/pc/update/:id", checkPcUnique, updatePc)
+app.put("/api/products/pc/update/stock/:id", updatePcStock)
+app.put("/api/products/pc/update/incoming-stock/:id", updatePcIncomingStock)
 
 app.put("/api/products/gears/delete/:series", deleteGear)
 app.put("/api/products/pc/delete/:name", deletePc)

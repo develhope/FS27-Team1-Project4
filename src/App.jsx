@@ -17,6 +17,9 @@ import { SignUpForm } from "./components/SignUpForm";
 import { AdminHome } from "./components/AdminHome";
 import { AdminMenu } from "./components/AdminMenu";
 import { AdminCreateProducts } from "./components/AdminCreateProducts";
+import { AdminProductsList } from "./components/AdminProductsList";
+import { AdminSingleProductGear } from "./components/AdminSingleProductGear";
+import { AdminSingleProductPc } from "./components/AdminSingleProductPc";
 
 function App() {
   return (
@@ -49,6 +52,9 @@ function App() {
           <Route path="admin" element={<AdminHome />}>
             <Route index element={<AdminMenu />} />
             <Route path="add-product/:type" element={<AdminCreateProducts />} />
+            <Route path="products-list" element={<AdminProductsList />} />
+            <Route path="product/gear/:id" element={<AdminSingleProductGear />} />
+            <Route path="product/pc/:id" element={<AdminSingleProductPc />} />
           </Route>
         </Route>
         <Route path="access" element={<OpeningPage />} />

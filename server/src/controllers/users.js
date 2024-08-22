@@ -482,7 +482,7 @@ export async function addCreditCard(req, res) {
 
 export async function updateUser(req, res) {
   try {
-    const paramUsername = req.params.username;
+    const {id} = req.params;
     const {
       username,
       password,
@@ -520,7 +520,7 @@ export async function updateUser(req, res) {
            address=$8,
            postal_code=$9,
            phone=$10
-        WHERE username=$11
+        WHERE id=$11
         RETURNING username`,
       [
         username,
@@ -533,7 +533,7 @@ export async function updateUser(req, res) {
         address,
         postalCode,
         phone,
-        paramUsername,
+        id,
         avatarUrl,
       ]
     );

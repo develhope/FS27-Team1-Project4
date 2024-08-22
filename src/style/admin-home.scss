@@ -1,8 +1,8 @@
 .admin-home {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   box-sizing: border-box;
-  padding-top: 70px;
+  padding-top: 100px;
 }
 
 .admin-sidebar {
@@ -62,4 +62,44 @@
   height: 100%;
   box-sizing: border-box;
   padding: 40px 10px;
+}
+
+@media(min-width: 768px) {
+  .admin-sidebar {
+    width: 22vw;
+  }
+  .admin-sidebar-content {
+    padding: 120px 20px 20px 20px;
+    .link-list {
+      font-size: 1rem;
+    }
+  }
+
+  .admin-outlet {
+    width: 78vw;
+  }
+}
+
+@media (min-width: 1280px) {
+  .admin-sidebar {
+    width: 20vw;
+  }
+
+  .admin-sidebar-content {
+    padding-top: 140px;
+  }
+
+  .admin-outlet {
+    width: 80vw;
+  }
+}
+
+@media (min-width: 1440px) {
+  .admin-sidebar {
+    width: 15vw;
+  }
+
+  .admin-outlet {
+    width: 85vw;
+  }
 }
