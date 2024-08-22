@@ -2,6 +2,7 @@ import { db } from "../db.js";
 import dotenv from "dotenv";
 import { productsSingleGear, preBuiltPc, productsBrand } from "../arrays_to_create_database/productsList.js";
 import {faqs} from "../arrays_to_create_database/faqList.js"
+import { newsletterEmails } from "../arrays_to_create_database/newsletterEmails.js";
 dotenv.config();
 
 /* Module created to generate the base mocking data on the database,
@@ -218,6 +219,20 @@ export async function createBrands() {
       )
     }
     catch(error) {
+      console.log(error)
+    }
+  }
+}
+
+export async function createMockingNewsletter() {
+  for (const email of newsletterEmails) {
+    try {
+      await db.none(
+        `INSERT INTO newsletter_subscribers(email)
+        VALUES ($1)`,
+        [email]
+      )
+    } catch(error) {
       console.log(error)
     }
   }

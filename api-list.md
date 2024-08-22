@@ -376,6 +376,25 @@ req.body {
   * userId: numero
 }
 
+### fetch legati alle newsletter
+
+[Recuperare] tutti i [Subscribers]
+path: *"newsletter/subscribers"*
+method: *"GET"*
+req.body: *""*
+
+[Aggiungere] [subscribers]
+path: *"newsletter/subscriber/add"*
+method: *"POST"*
+req.body: {
+  email: stinga -formato email-
+}
+
+[Cancellare][Subscribers] [soft]
+path: *"newsletter/subscriber/delete/:id -parametro: numero-
+method: *"PUT"*
+req.body: *""*
+
 ### fetch legati all'aggiungere le immagini
 
 Per il caricamento delle immagini c'è il custom Hook usePostImage.js

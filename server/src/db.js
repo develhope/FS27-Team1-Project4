@@ -11,6 +11,7 @@ import {
   createCC,
   createFaqs,
   createGearDatabase,
+  createMockingNewsletter,
   createPCDatabase,
   createTicket,
   createTicketChat,
@@ -78,6 +79,7 @@ async function setupDB() {
 
   /* Creating (CREATE) the tables for the database and filling them (INSERT INTO) with some mocking data */
   await db.none(`
+    DROP TABLE IF EXISTS newsletter_subscribers;
     DROP TABLE IF EXISTS brands;
     DROP TABLE IF EXISTS last_message;
     DROP TABLE IF EXISTS chat_messages;
@@ -236,6 +238,13 @@ async function setupDB() {
     brand VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     deleted_at TIMESTAMP
+    );
+
+    CREATE TABLE newsletter_subscribers(
+    id SERIAL NOT NULL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT NOW(),
+    deleted_at TIMESTAMP
     )
     `);
 
@@ -336,6 +345,8 @@ async function setupDB() {
   await createUserLastSeenMessage(3, 2, chatOrhers.length)
 
   await createBrands()
+
+  await createMockingNewsletter()
 }
 
 setupDB();

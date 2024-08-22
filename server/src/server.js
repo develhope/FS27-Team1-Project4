@@ -17,7 +17,7 @@ import {
   softUserDelete,
   updateUser,
 } from "./controllers/users.js";
-import { authorize, checkBrandUnique, checkGearUnique, checkPcUnique, checkUsernameOrEmailUnique } from "./middleware.js";
+import { authorize, checkBrandUnique, checkGearUnique, checkNewsletterSubscriberUnique, checkPcUnique, checkUsernameOrEmailUnique } from "./middleware.js";
 import "./passport.js";
 import multer from "multer";
 import fs from "fs";
@@ -26,6 +26,7 @@ import { addBrand, addGear, addPc, deleteBrand, deleteGear, deletePc, getAllBran
 import { createFaq, deleteFaq, getFaqs, updateFaq } from "./controllers/faqs.js";
 import { addChatAnswer, closeTicket, createLastMessages, createNewTicket, deleteMessage, getAllTickets, getLastMessages, getLastMessagesByUserId, getTicketById, getTicketsByUserId, modifyChatMessage, updateReadMessages } from "./controllers/tickets.js";
 import path from "path"
+import { addNewsletterSubscriber, deleteNewsletterSubscriber, getNewsletterEmails } from "./controllers/newsletter.js";
 
 dotenv.config();
 
@@ -123,6 +124,11 @@ app.get("/api/last", getLastMessages)
 app.get("/api/last/user/:id", getLastMessagesByUserId)
 app.post("/api/last/add", createLastMessages)
 app.put("/api/last/:ticketId", updateReadMessages)
+
+/* api newsletter related */
+app.get("/api/newsletter/subscribers", getNewsletterEmails)
+app.post("/api/newsletter/subscriber/add", checkNewsletterSubscriberUnique, addNewsletterSubscriber)
+app.put("/api/newsletter/subscriber/delete/:id", deleteNewsletterSubscriber)
 
 /* api to upload images */
 app.post(
