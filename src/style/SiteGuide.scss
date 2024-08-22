@@ -30,6 +30,10 @@
   //https://www.w3schools.com/csSref/tryit.php?filename=trycss3_gradient-radial_size
 }
 
+.semi-square {
+  display: none;
+}
+
 .steps {
   display: flex;
   flex-direction: column;
@@ -94,7 +98,7 @@
 .guide-icons {
   height: 60%;
   width: 60%;
-  color: #dd00ff;
+  color: rgb(221, 0, 255);
   fill: currentColor;
 
   &-rocket {
@@ -106,63 +110,133 @@
   }
 }
 
+.stick-1,
+.stick-2,
+.stick-3 {
+  display: none;
+}
+
 @media (max-width: 380px) {
   .banner-guide {
-    position: relative;
-    height: 125vw;
+    display: flex;
+    height: 600px;
     width: 100vw;
-    padding-top: 0vw;
-    padding-bottom: 45vw;
-    margin-bottom: 5vw;
   }
 
-  .semi-circle {
+  .semi-circle,
+  .semi-square {
+    display: none;
     height: 50vw;
     width: 50vw;
-    border: 1px solid rgba(238, 238, 238, 0.82);
+    border: none /* 3px solid rgba(255, 0, 0, 0.82) */;
+    border-bottom: none;
+    border-left: none;
     border-radius: 0;
-    border-bottom: 1px solid rgba(238, 238, 238, 0.82);
-    bottom: none;
-    margin-bottom: 15vw;
+    bottom: 70%;
     left: auto;
     align-self: center;
+    box-shadow: none;
+    box-shadow: 16px -16px 16px 0px rgba(238, 238, 238, 0.7);
+  }
+
+  /*   .semi-circle {
+    display: none;
     transform: rotate(45deg);
-    box-shadow: 0px 0px 10px 5px rgba(238, 238, 238, 0.7),
-      inset 0px 0px 10px 2px rgba(238, 238, 238, 0.7);
+  } */
+
+  /*   .semi-square {    
+    display: none;
+    position: absolute;
+    transform: rotate(-135deg);
+    top: 48.9%;
+  } */
+
+  .stick-1,
+  .stick-2,
+  .stick-3 {
+    display: flex;
+    position: absolute;
+    height: 2px;
+    width: 230px;
+    border: 1px solid rgba(238, 238, 238, 0.82);
+    z-index: 0;
+    align-self: center;
+    background-color: rgba(238, 238, 238, 0.82);
+    box-shadow: 0px 0px 4px 3px rgba(238, 238, 238, 0.9);
+  }
+
+  .stick-1,
+  .stick-3 {
+    transform: rotate(30deg);
+  }
+
+  .stick-1 {
+    top: 25%;
+  }
+
+  .stick-2 {
+    top: 44.3%;
+    transform: rotate(-30deg);
+  }
+
+  .stick-3 {
+    top: 63.7%;
   }
 
   .steps {
     &-1st-row {
-      width: 87vw;
-      bottom: -30vw;
+      width: 310px;
+      top: -6%;
+      transform: rotate(-30deg);
     }
 
-    &-1st-row .text-guide {
-      font-size: calc(0.5rem + 1vw);
+    &-1st-row .step {
+      transform: rotate(30deg);
     }
 
     &-2nd-row {
-      width: 87vw;
-      bottom: -5vw;
-      transform: rotate(90deg);
+      width: 475px;
+      top: -58%;
+      transform: rotate(60deg);
     }
 
-    &-2nd-row .circle-guide {
-      transform: rotate(-90deg);
+    &-2nd-row .step {
+      transform: rotate(-60deg);
     }
 
-    &-2nd-row .text-guide {
-      top: 0%;
-      left: 100%;
-      font-size: calc(0.5rem + 1vw);
-      transform: rotate(-90deg);
+    .text-guide {
+      font-size: calc(0.6rem + 1vw);
     }
+  }
+
+  .support {
+    order: 2;
+  }
+
+  .cart {
+    order: 1;
   }
 
   .circle-guide {
     width: 20vw;
     height: 20vw;
+    background-color: rgba(238, 238, 238, 0.93);
     box-shadow: 0px 0px 10px 7px rgba(238, 238, 238, 0.7);
+  }
+
+  .guide-icons {
+    height: 60%;
+    width: 60%;
+    color: rgb(221, 0, 255);
+    fill: currentColor;
+
+    &-rocket {
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2;
+    }
   }
 }
 

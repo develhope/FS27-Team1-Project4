@@ -3,10 +3,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 10% 3% 10%;
+  padding: 3% 10% 3% 10%;
   gap: 2rem;
-  /*   border: 1px solid yellow;
- */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 20%,
+    rgba(0, 0, 0, 1)
+  );
+
   &-title {
     font-weight: 900;
     font-size: xx-large;
@@ -38,9 +42,10 @@
 
 @media (max-width: 380px) {
   .newsletter {
-    margin: 25px 0;
+    margin: 25px 0 0 0;
 
-    &-title {
+    &-title,
+    &-input {
       text-align: center;
     }
 
@@ -50,8 +55,11 @@
 
     &-input {
       font-size: large;
-      text-align: center;
       padding-right: 0;
+    }
+
+    &-button {
+      margin-bottom: 25px;
     }
   }
 }

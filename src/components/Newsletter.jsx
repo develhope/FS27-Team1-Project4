@@ -1,16 +1,16 @@
 export function Newsletter() {
   return (
     <div className="newsletter">
-      <p className="newsletter-title">RESTIAMO IN CONTATTO</p>
+      <p className="newsletter-title">LET&#39;S REMAIN IN CONTACT</p>
       <p className="newsletter-text">
-        Iscriviti alla nostra newsletter per rimanere sempre aggiornato
+        Subscribe to our newsletter to stay updated
         <br />
-        sulle ultime novità e ricevere offerte esclusive!
+        on the latest news and receive exclusive offers!
       </p>
       <input
         className="newsletter-input"
         type="text"
-        placeholder="Inserisci la tua mail qui!"
+        placeholder="Enter your email here!"
       />
       <button className="newsletter-button buy-now-button">SIGN UP</button>
     </div>

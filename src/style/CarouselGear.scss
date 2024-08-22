@@ -12,8 +12,7 @@
   overflow: hidden;
   width: 100vw;
   position: relative;
-  /*   flex-basis: 25%;
- */
+
   &:hover .gear-slide-cards {
     animation-play-state: paused;
   }
@@ -21,49 +20,91 @@
 
 .gear-slide-cards {
   display: flex;
-  animation: 20s slide infinite linear;
-  width: 200%;
-  gap: 5px;
+  animation: 25s slide infinite linear;
+  width: 250%;
+  gap: 0.7rem;
+  height: 25vw;
 }
 
 .cardGear {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   color: white;
-  padding: 15px;
-  position: relative;
-  flex-basis: 12.5%;
-  box-sizing: border-box;
-  border: solid 2px grey;
+  padding: 1rem;
+  height: auto;
+  width: 100%;
+  gap: 7%;
 
-  &-title {
-    display: flex;
-    justify-content: center;
-    text-transform: uppercase;
-    z-index: 2;
+  &:hover {
+    .cardGear-image {
+      transform: scale(1.2);
+    }
   }
 
-  &-subtitle {
+  &-border-color1 {
+    border: 2px solid violet;
+    box-shadow: 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+      0px 0px 5px 2px rgba(96, 0, 152, 0.568);
+    box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+      0px 0px 25px 2px rgba(82, 0, 129, 0.568);
+  }
+
+  &-border-color2 {
+    border: 2px solid orange;
+    box-shadow: 1px 0px 25px 2px rgba(239, 152, 96, 0.615),
+      inset 1px 0px 25px 2px rgba(249, 96, 0, 0.615);
+    box-shadow: inset 1px 0px 25px 2px rgba(239, 152, 96, 0.615),
+      0px 0px 25px 2px rgba(249, 96, 0, 0.615);
+  }
+
+  &-title,
+  &-container-image,
+  /* &-subtitle, */
+  &-button {
+    position: relative;
     display: flex;
     justify-content: center;
-    font-size: smaller;
-    margin: 5px;
-    z-index: 2;
+    height: auto;
+    z-index: 1;
+    background-color: rgba(238, 238, 238, 0.95);
+    box-shadow: 0.5px 0.5px 10px 0.5px rgba(238, 238, 238, 0.95);
+    border-radius: 20%;
+  }
+
+  &-title {
+    font-size: x-large;
+    text-transform: uppercase;
+  }
+
+  /*   &-subtitle {
+    font-size: medium;
+    background: rgba(128, 128, 128, 0.5);
+    border-radius: 20%;
+    width: 50%;
+    align-self: center;
+  } */
+
+  &-container-image {
+    align-self: center;
+    align-items: center;
+    width: 100%;
+    height: 55%;
   }
 
   &-image {
-    align-self: center;
-    width: 60%;
+    width: 90%;
+    height: 90%;
+    transition: transform 0.3s ease-in-out;
+    object-fit: scale-down;
   }
 
   &-button {
-    background-color: white;
-    font-weight: 600;
-    width: 40%;
+    font-weight: 900;
+    font-size: x-large;
+    width: 50%;
     align-self: center;
-    z-index: 2;
-    position: relative;
   }
 
   &-overlay {
@@ -73,7 +114,6 @@
     width: 100%;
     height: 100%;
     opacity: 0.7;
-    z-index: 1;
 
     .cardGear:hover & {
       background: none;
@@ -87,38 +127,57 @@
   .gradientColor2 {
     background-color: rgba($color: rgb(239, 152, 96), $alpha: 0.5);
   }
-}
 
-.button-text-color1 {
-  color: purple;
-}
+  .title-color1,
+  .title-color2,
+  .button-text-color1,
+  .button-text-color2 {
+    font-weight: 900;
+    font-size: x-large;
+    letter-spacing: 1px;
+  }
 
-.button-text-color2 {
-  color: rgb(239, 152, 96);
+  .title-color1,
+  .button-text-color1 {
+    color: rgb(221, 0, 255);
+  }
+
+  .title-color2,
+  .button-text-color2 {
+    color: rgb(239, 152, 96);
+  }
 }
 
 @media (max-width: 380px) {
-  .gear-slide-cards {
-    gap: 0px;
-    margin-left: 2vw;
-    height: 250px;
-    animation: /* none */ 10s slide infinite linear;
-    width: max-content;
+  .gear-slider {
+    height: auto;
   }
 
-  .cardGear {
-    margin: 0px 2vw;
-    gap: 5px;
-    width: 40vw;
-    padding: 1vw;
+  .gear-slide-cards {
+    margin-left: 12px;
+    gap: 12px;
+    animation: 0s slide infinite linear;
+    width: max-content;
+    height: 350px;
+  }
+}
 
-    &-image {
-      margin: 10px 0;
-      width: 50%;
-    }
+.cardGear {
+  gap: 6%;
+  width: 250px;
+  height: auto;
 
-    &-button {
-      width: 60%;
-    }
+  &-title,
+  &-container-image {
+    align-self: center;
+    width: 200px;
+  }
+
+  &-container-image {
+    height: 200px;
+  }
+
+  &-button {
+    width: 60%;
   }
 }
