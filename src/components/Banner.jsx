@@ -10,7 +10,7 @@ import image7 from '../images/7th image.jpg'
 import image8 from '../images/8th image.jpg'
 import image9 from '../images/9th image.jpg'
 import image10 from '../images/10th image.jpg'
-import image11 from '../images/11th image.jpg'
+import image11 from '../images/11th image.png'
 
 function Banner(){
 const images = [image3, image2, image7, image4, image9, image1, image11] 
