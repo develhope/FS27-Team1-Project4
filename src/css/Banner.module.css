@@ -6,23 +6,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-body {
-    background-color: #ffffff;
-}
 
-body::before {
-    position: absolute;
-    width: min(1400px, 90vw);
-    top: 10%;
-    left: 50%;
-    height: 90%;
-    transform: translateX(-50%);
-    content: '';
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: top center;
-    pointer-events: none;
-}
 
 .banner {
     width: 100%;
@@ -33,10 +17,10 @@ body::before {
 }
 .banner .slider {
     position: absolute;
-    width: 200px;
+    width: 450px;
     height: 250px;
     top: 10%;
-    left: calc(50% - 100px);
+    left: calc(42% - 100px);
     transform-style: preserve-3d;
     transform: perspective(1000px);
     animation: autoRun 20s linear infinite;
@@ -44,10 +28,10 @@ body::before {
 }
 @keyframes autoRun {
     from {
-        transform: perspective(1000px) rotateX(-11deg) rotateY(0deg);
+        transform: perspective(980px) rotateX(-8deg) rotateY(0deg);
     }
     to {
-        transform: perspective(1000px) rotateX(-12deg) rotateY(360deg);
+        transform: perspective(980px) rotateX(-8deg) rotateY(360deg);
     }
 }
 
@@ -74,4 +58,43 @@ body::before {
     justify-content: space-between;
     align-items: center;
     z-index: 1;
+}
+@media screen and (max-width: 1024px) {
+    .banner .slider {
+        width: 180px;
+        height: 220px;
+        top: 12%;
+        left: calc(50% - 90px);
+        transform: perspective(900px);
+    }
+
+    .banner .slider .item {
+        transform: rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg)) translateZ(500px);
+    }
+
+    .banner .content {
+        padding-bottom: 70px;
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .banner .slider {
+        width: 150px;
+        height: 200px;
+        top: 15%;
+        left: calc(50% - 75px);
+        transform: perspective(800px);
+    }
+    
+    .banner .slider .item {
+        transform: rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg)) translateZ(400px);
+    }
+    
+    .banner .content {
+        padding-bottom: 50px;
+        width: 90%;
+        flex-direction: column;
+        align-items: center;
+    }
 }
