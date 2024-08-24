@@ -111,6 +111,20 @@ req.body: {
    avatarUrl: stringa
 }
 
+[Controlla] [Password] [Utente]
+path: *"user/check/:id"* -parametro: numero-
+method: *"POST"*
+req.body: {
+  * password: stringa
+}
+
+[Modifica] [Password] [Utente]
+path: *"user/update/password/:id"* -parametro: numero-
+method: *"PUT"*
+req.body: {
+  * password: stringa
+}
+
 [Cancella] [Utente] [Soft]
 path: *"user/soft/:id"* -parametro: numero-
 method: *"PATCH"*
