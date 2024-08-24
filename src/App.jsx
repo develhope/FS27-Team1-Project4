@@ -20,7 +20,8 @@ import { AdminCreateProducts } from "./components/AdminCreateProducts";
 import { AdminProductsList } from "./components/AdminProductsList";
 import { AdminSingleProductGear } from "./components/AdminSingleProductGear";
 import { AdminSingleProductPc } from "./components/AdminSingleProductPc";
-
+import Page from "./components/Page";
+import PageComputer from "./components/PageComputer";
 function App() {
   return (
     <>
@@ -39,6 +40,8 @@ function App() {
       <Routes>
         <Route path="/" element={<MainWebpageContainer />}>
           <Route index element={<Home />} />
+        <Route path="products" element={<Page/>}/>
+        <Route path="computer" element={<PageComputer/>}/>
           <Route path="login" element={<LoginForm />} />
           <Route path="sign-up" element={<SignUpForm />} />
           <Route path="contact" element={<Contact />} />
