@@ -151,7 +151,7 @@ export function EditProfile() {
               />
 
               <input
-                type="text"
+                type="date"
                 className="input"
                 placeholder="Birthday*"
                 name="birthday"

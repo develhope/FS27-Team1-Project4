@@ -57,6 +57,10 @@ export function UserProfile() {
               <p>{user?.lastname || "N/A"}</p>
             </div>
             <div className="user-detail">
+              <label>Birthday:</label>
+              <p>{user?.birthday || "N/A"}</p>
+            </div>
+            <div className="user-detail">
               <label>Email:</label>
               <p>{user?.email || "N/A"}</p>
             </div>
