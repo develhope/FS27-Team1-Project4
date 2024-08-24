@@ -23,38 +23,27 @@ export async function checkUsernameOrEmailUnique(req, res, next) {
   const { username, email } = req.body;
 
   try {
+    let existingUser = null;
+
     if (id) {
-      const existingUser = await db.manyOrNone(
-        `SELECT id, username, email FROM users WHERE username=$2 OR email=$3 AND id<>$1`,
+      existingUser = await db.manyOrNone(
+        `SELECT id, username, email FROM users
+         WHERE (username=$2 OR email=$3) AND id<>$1`,
         [id, username, email]
       );
-
-      if (existingUser) {
-        for (const user of existingUser) {
-          if (user.id !== id) {
-            return res.status(409).json({
-              msg: `${
-                user.username === username ? "Username" : "Email"
-              } already in use`,
-            });
-          }
-        }
-      }
     } else {
-      const existingUser = await db.manyOrNone(
+      existingUser = await db.manyOrNone(
         `SELECT username, email FROM users WHERE username=$1 OR email=$2`,
         [username, email]
       );
+    }
 
-      if (existingUser) {
-        for (const user of existingUser) {
-          return res.status(409).json({
-            msg: `${
-              user.username === username ? "Username" : "Email"
-            } already in use`,
-          });
-        }
-      }
+    if (existingUser.length > 0) {
+      const conflictMsg = existingUser.some(user => user.username === username)
+        ? "Username already in use"
+        : "Email already in use";
+
+      return res.status(409).json({ msg: conflictMsg });
     }
 
     next();

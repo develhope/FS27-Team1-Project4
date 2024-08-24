@@ -8,7 +8,7 @@ export function SignUpForm() {
     username: "",
     email: "",
     password: "",
-    birthday: "",
+    birthdate: "",
     city: "",
     country: "",
     address: "",
@@ -36,7 +36,7 @@ export function SignUpForm() {
       "username",
       "email",
       "password",
-      "birthday",
+      "birthdate",
       "city",
       "country",
       "address",
@@ -159,9 +159,9 @@ export function SignUpForm() {
             <input
                 type="date"
                 className="input"
-                placeholder="Birthday*"
-                name="birthday"
-                value={formData.birthday}
+                placeholder="Birthdate*"
+                name="birthdate"
+                value={formData.birthdate}
                 onChange={handleChange}
               />
               <input

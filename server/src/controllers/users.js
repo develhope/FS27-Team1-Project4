@@ -19,7 +19,6 @@ const loginSchema = Joi.object({
 });
 
 const signUpSchema = Joi.object({
-  id: Joi.number(),
   username: Joi.string().required(),
   password: Joi.string().min(8).pattern(new RegExp("(?=.*[a-z])")).pattern(new RegExp("(?=.*[A-Z])")).pattern(new RegExp("(?=.*[0-9])")).required(),
   email: Joi.string().email().required(),
@@ -33,12 +32,11 @@ const signUpSchema = Joi.object({
     .pattern(/^\d+$/)
     .required()
     .messages({ msg: "Value must contain only numbers" }),
-  phone: Joi.string().allow(""),
-  avatarUrl: Joi.string(),
+  phone: Joi.string().allow(null),
+  avatarUrl: Joi.string().allow(null),
 });
 
 const updateUserSchema = Joi.object({
-  id: Joi.number(),
   username: Joi.string().required(),
   email: Joi.string().email().required(),
   firstname: Joi.string().required(),
@@ -51,8 +49,8 @@ const updateUserSchema = Joi.object({
     .pattern(/^\d+$/)
     .required()
     .messages({ msg: "Value must contain only numbers" }),
-  phone: Joi.string().allow(""),
-  avatarUrl: Joi.string(),
+  phone: Joi.string().allow(null),
+  avatarUrl: Joi.string().allow(null),
 });
 
 const updatePasswordSchema = Joi.object({
@@ -528,6 +526,8 @@ export async function updateUser(req, res) {
     const validateUpdate = updateUserSchema.validate(req.body);
 
     if (validateUpdate.error) {
+      console.log(validateUpdate.error.details);
+      
       return res
         .status(400)
         .json({ msg: validateUpdate.error.details[0].message });

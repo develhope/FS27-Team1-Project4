@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { imageDomain } from "../custom-hooks/usePostImage";
 export function UserProfile() {
   const [user, setUser] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,7 +10,7 @@ export function UserProfile() {
   };
 
   const getAvatarSrc = () => {
-    return user?.avatar ? user.avatar : "/uploads/default-avatar.png";
+    return user?.avatarUrl ? user.avatarUrl : "/uploads/default-avatar.png";
   };
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export function UserProfile() {
         <div className="user-columns">
           <div className="avatar-column">
             <img
-              src={getAvatarSrc()}
+              src={user?.avatarUrl ? imageDomain + user?.avatarUrl :"uploads/default-avatar.png"}
               alt="User Avatar"
               className="avatar-preview"
             />
@@ -57,8 +58,8 @@ export function UserProfile() {
               <p>{user?.lastname || "N/A"}</p>
             </div>
             <div className="user-detail">
-              <label>Birthday:</label>
-              <p>{user?.birthday || "N/A"}</p>
+              <label>Birthdate:</label>
+              <p>{user?.informations.birthdate || "N/A"}</p>
             </div>
             <div className="user-detail">
               <label>Email:</label>
