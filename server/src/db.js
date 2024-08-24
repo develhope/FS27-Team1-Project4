@@ -13,10 +13,13 @@ import {
   createGearDatabase,
   createMockingNewsletter,
   createPCDatabase,
+  createShipping,
   createTicket,
   createTicketChat,
   createUser,
+  createUserGearCart,
   createUserLastSeenMessage,
+  createUserPCCart,
 } from "./controllers/startingDb.js";
 import { chatBuildPc, chatOrhers, chatShippingIssues } from "./arrays_to_create_database/ticketList.js";
 
@@ -79,6 +82,8 @@ async function setupDB() {
 
   /* Creating (CREATE) the tables for the database and filling them (INSERT INTO) with some mocking data */
   await db.none(`
+    DROP TABLE IF EXISTS cart_products;
+    DROP TABLE IF EXISTS shipping;
     DROP TABLE IF EXISTS newsletter_subscribers;
     DROP TABLE IF EXISTS brands;
     DROP TABLE IF EXISTS last_message;
@@ -96,155 +101,185 @@ async function setupDB() {
     DROP TABLE IF EXISTS users ;
 
     CREATE TABLE games(
-    id SERIAL NOT NULL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    employee_id VARCHAR(255) NOT NULL,
-    completed BOOLEAN NOT NULL
+      id SERIAL NOT NULL PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      employee_id VARCHAR(255) NOT NULL,
+      completed BOOLEAN NOT NULL
     );
 
     CREATE TABLE users(
-    id SERIAL NOT NULL PRIMARY KEY,
-    avatar_url VARCHAR(255),
-    username VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    firstname VARCHAR(255) NOT NULL,
-    lastname VARCHAR(255) NOT NULL,
-    country VARCHAR(255) NOT NULL,
-    city VARCHAR(255) NOT NULL,
-    address VARCHAR(255) NOT NULL,
-    postal_code VARCHAR(255) NOT NULL,
-    phone VARCHAR(255) UNIQUE,
-    admin BOOLEAN NOT NULL,
-    token TEXT,
-    created_at TIMESTAMP DEFAULT NOW(),
-    deleted_at TIMESTAMP
+      id SERIAL NOT NULL PRIMARY KEY,
+      avatar_url VARCHAR(255),
+      username VARCHAR(255) NOT NULL UNIQUE,
+      password VARCHAR(255) NOT NULL,
+      email VARCHAR(255) NOT NULL UNIQUE,
+      firstname VARCHAR(255) NOT NULL,
+      lastname VARCHAR(255) NOT NULL,
+      country VARCHAR(255) NOT NULL,
+      birthdate DATE NOT NULL,
+      city VARCHAR(255) NOT NULL,
+      address VARCHAR(255) NOT NULL,
+      postal_code VARCHAR(255) NOT NULL,
+      phone VARCHAR(255) UNIQUE,
+      admin BOOLEAN NOT NULL,
+      token TEXT,
+      created_at TIMESTAMP DEFAULT NOW(),
+      deleted_at TIMESTAMP
     );
 
     CREATE TABLE users_games(
-    id SERIAL NOT NULL PRIMARY KEY,
-    user_id INT NOT NULL,
-    game_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (game_id) REFERENCES games(id)
+      id SERIAL NOT NULL PRIMARY KEY,
+      user_id INT NOT NULL,
+      game_id INT NOT NULL,
+      FOREIGN KEY (user_id) REFERENCES users(id),
+      FOREIGN KEY (game_id) REFERENCES games(id)
     );
 
     CREATE TABLE credit_cards(
-    id SERIAL NOT NULL PRIMARY KEY,
-    card_holder_name TEXT,
-    card_number TEXT,
-    last_four_digits TEXT,
-    expiration_date TEXT,
-    cvv TEXT
+      id SERIAL NOT NULL PRIMARY KEY,
+      card_holder_name TEXT,
+      card_number TEXT,
+      last_four_digits TEXT,
+      expiration_date TEXT,
+      cvv TEXT
     );
 
     CREATE TABLE users_cards(
-    id SERIAL NOT NULL PRIMARY KEY,
-    user_id INT NOT NULL,
-    credit_card_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (credit_card_id) REFERENCES credit_cards(id)
+      id SERIAL NOT NULL PRIMARY KEY,
+      user_id INT NOT NULL,
+      credit_card_id INT NOT NULL,
+      FOREIGN KEY (user_id) REFERENCES users(id),
+      FOREIGN KEY (credit_card_id) REFERENCES credit_cards(id)
     );
 
     CREATE TABLE alternative_address(
-    id SERIAL NOT NULL PRIMARY KEY,
-    country VARCHAR(255) NOT NULL,
-    city VARCHAR(255) NOT NULL,
-    address VARCHAR(255) NOT NULL,
-    postal_code VARCHAR(255) NOT NULL
+      id SERIAL NOT NULL PRIMARY KEY,
+      country VARCHAR(255) NOT NULL,
+      city VARCHAR(255) NOT NULL,
+      address VARCHAR(255) NOT NULL,
+      postal_code VARCHAR(255) NOT NULL
     );
 
     CREATE TABLE users_alternative_address(
-    id SERIAL NOT NULL PRIMARY KEY,
-    user_id INT NOT NULL,
-    address_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (address_id) REFERENCES alternative_address(id)
+      id SERIAL NOT NULL PRIMARY KEY,
+      user_id INT NOT NULL,
+      address_id INT NOT NULL,
+      FOREIGN KEY (user_id) REFERENCES users(id),
+      FOREIGN KEY (address_id) REFERENCES alternative_address(id)
     );
 
     CREATE TABLE gear(
-    id SERIAL NOT NULL PRIMARY KEY,
-    type VARCHAR(255) NOT NULL,
-    image VARCHAR(255),
-    gear VARCHAR(255) NOT NULL,
-    brand VARCHAR(255) NOT NULL,
-    series VARCHAR(255) NOT NULL UNIQUE,
-    features TEXT[],
-    original_price NUMERIC NOT NULL,
-    discount NUMERIC,
-    link_info VARCHAR(255),
-    stock INT,
-    incoming_stock INT,
-    created_at TIMESTAMP DEFAULT NOW(),
-    deleted_at TIMESTAMP
+      id SERIAL NOT NULL PRIMARY KEY,
+      type VARCHAR(255) NOT NULL,
+      image VARCHAR(255),
+      gear VARCHAR(255) NOT NULL,
+      brand VARCHAR(255) NOT NULL,
+      series VARCHAR(255) NOT NULL UNIQUE,
+      features TEXT[],
+      original_price NUMERIC NOT NULL,
+      discount NUMERIC,
+      link_info VARCHAR(255),
+      stock INT,
+      incoming_stock INT,
+      created_at TIMESTAMP DEFAULT NOW(),
+      deleted_at TIMESTAMP
     );
 
     CREATE TABLE pc(
-    id SERIAL NOT NULL PRIMARY KEY,
-    type VARCHAR(255) NOT NULL,
-    name VARCHAR(255) NOT NULL UNIQUE,
-    image VARCHAR(255),
-    description VARCHAR(255) NOT NULL,
-    original_price NUMERIC NOT NULL,
-    discount NUMERIC,
-    stock INT,
-    incoming_stock INT,
-    created_at TIMESTAMP DEFAULT NOW(),
-    deleted_at TIMESTAMP
+      id SERIAL NOT NULL PRIMARY KEY,
+      type VARCHAR(255) NOT NULL,
+      name VARCHAR(255) NOT NULL UNIQUE,
+      image VARCHAR(255),
+      description VARCHAR(255) NOT NULL,
+      original_price NUMERIC NOT NULL,
+      discount NUMERIC,
+      stock INT,
+      incoming_stock INT,
+      created_at TIMESTAMP DEFAULT NOW(),
+      deleted_at TIMESTAMP
     );
 
     CREATE TABLE faqs(
-    id SERIAL NOT NULL PRIMARY KEY,
-    question TEXT NOT NULL,
-    awnser TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT NOW(),
-    deleted_at TIMESTAMP
+      id SERIAL NOT NULL PRIMARY KEY,
+      question TEXT NOT NULL,
+      awnser TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW(),
+      deleted_at TIMESTAMP
     );
 
     CREATE TABLE tickets(
-    id SERIAL NOT NULL PRIMARY KEY,
-    opened_by INT NOT NULL,
-    category VARCHAR(255),
-    ticket_title VARCHAR(255),
-    number_of_messages INT,
-    created_at TIMESTAMP DEFAULT NOW(),
-    closed_at TIMESTAMP,
-    FOREIGN KEY (opened_by) REFERENCES users(id)
+      id SERIAL NOT NULL PRIMARY KEY,
+      opened_by INT NOT NULL,
+      category VARCHAR(255),
+      ticket_title VARCHAR(255),
+      number_of_messages INT,
+      created_at TIMESTAMP DEFAULT NOW(),
+      closed_at TIMESTAMP,
+      FOREIGN KEY (opened_by) REFERENCES users(id)
     );
 
     CREATE TABLE chat_messages(
-    id SERIAL NOT NULL PRIMARY KEY,
-    ticket_id INT NOT NULL,
-    author_id INT NOT NULL,
-    image TEXT,
-    content TEXT,
-    created_at TIMESTAMP DEFAULT NOW(),
-    deleted_at TIMESTAMP,
-    FOREIGN KEY (ticket_id) REFERENCES tickets(id),
-    FOREIGN KEY (author_id) REFERENCES users(id)
+      id SERIAL NOT NULL PRIMARY KEY,
+      ticket_id INT NOT NULL,
+      author_id INT NOT NULL,
+      image TEXT,
+      content TEXT,
+      created_at TIMESTAMP DEFAULT NOW(),
+      deleted_at TIMESTAMP,
+      FOREIGN KEY (ticket_id) REFERENCES tickets(id),
+      FOREIGN KEY (author_id) REFERENCES users(id)
     );
 
     CREATE TABLE last_message(
-    id SERIAL NOT NULL PRIMARY KEY,
-    ticket_id INT NOT NULL,
-    user_id INT NOT NULL,
-    last_message INT,
-    FOREIGN KEY (ticket_id) REFERENCES tickets(id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+      id SERIAL NOT NULL PRIMARY KEY,
+      ticket_id INT NOT NULL,
+      user_id INT NOT NULL,
+      last_message INT,
+      FOREIGN KEY (ticket_id) REFERENCES tickets(id),
+      FOREIGN KEY (user_id) REFERENCES users(id)
     );
 
     CREATE TABLE brands(
-    id SERIAL NOT NULL PRIMARY KEY,
-    brand VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT NOW(),
-    deleted_at TIMESTAMP
+      id SERIAL NOT NULL PRIMARY KEY,
+      brand VARCHAR(255) NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW(),
+      deleted_at TIMESTAMP
     );
 
     CREATE TABLE newsletter_subscribers(
-    id SERIAL NOT NULL PRIMARY KEY,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    created_at TIMESTAMP DEFAULT NOW(),
-    deleted_at TIMESTAMP
+      id SERIAL NOT NULL PRIMARY KEY,
+      email VARCHAR(255) NOT NULL UNIQUE,
+      created_at TIMESTAMP DEFAULT NOW(),
+      deleted_at TIMESTAMP
+    );
+
+    CREATE TABLE shipping (
+      id SERIAL NOT NULL PRIMARY KEY,
+      user_id INT NOT NULL,
+      number VARCHAR(20) NOT NULL UNIQUE,
+      status VARCHAR(255) NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW(),
+      deleted_at TIMESTAMP
+    );
+
+    CREATE TABLE cart_products(
+      id SERIAL NOT NULL PRIMARY KEY,
+      user_id INT NOT NULL,
+      gear_id INT,
+      pc_id INT,
+      shipping_id INT,
+      status VARCHAR(255),
+      created_at TIMESTAMP DEFAULT NOW(),
+      ordered_at TIMESTAMP,
+      deleted_at TIMESTAMP,
+      FOREIGN KEY (user_id) REFERENCES users(id),
+      FOREIGN KEY (gear_id) REFERENCES gear(id),
+      FOREIGN KEY (pc_id) REFERENCES pc(id),
+      FOREIGN KEY (shipping_id) REFERENCES shipping(id),
+      CONSTRAINT chk_pc_gear_exclusive CHECK (
+        (pc_id IS NOT NULL AND gear_id IS NULL) OR
+        (pc_id IS NULL AND gear_id IS NOT NULL)
+      )
     )
     `);
 
@@ -259,7 +294,8 @@ async function setupDB() {
     "Via le Mani dal Fuoco 42",
     "00100",
     true,
-    imagePath("avatar_bredina.png")
+    imagePath("avatar_bredina.png"),
+    "1990-04-24"
   );
 
   await createUser(
@@ -273,7 +309,8 @@ async function setupDB() {
     "Yellow Brick Road 90210",
     "00100",
     false,
-    imagePath("dorothy.webp")
+    imagePath("dorothy.webp"),
+    "1900-05-17"
   );
 
   await createUser(
@@ -287,6 +324,8 @@ async function setupDB() {
     "Piazza la bomba e scappa, 60",
     "00100",
     true,
+    null,
+    "1997-01-01"
   );
 
   await createCC(
@@ -347,6 +386,12 @@ async function setupDB() {
   await createBrands()
 
   await createMockingNewsletter()
+
+  await createUserGearCart(1)
+  await createUserPCCart(1)
+
+  await createShipping(1, [1,4,7,5])
+  await createShipping(1, [3, 17])
 }
 
 setupDB();

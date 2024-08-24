@@ -17,7 +17,7 @@ import {
   softUserDelete,
   updateUser,
 } from "./controllers/users.js";
-import { authorize, checkBrandUnique, checkGearUnique, checkNewsletterSubscriberUnique, checkPcUnique, checkUsernameOrEmailUnique } from "./middleware.js";
+import { authorize, checkBrandUnique, checkGearUnique, checkIfItemAlreadyInOrder, checkNewsletterSubscriberUnique, checkPcUnique, checkUsernameOrEmailUnique } from "./middleware.js";
 import "./passport.js";
 import multer from "multer";
 import fs from "fs";
@@ -27,6 +27,7 @@ import { createFaq, deleteFaq, getFaqs, updateFaq } from "./controllers/faqs.js"
 import { addChatAnswer, closeTicket, createLastMessages, createNewTicket, deleteMessage, getAllTickets, getLastMessages, getLastMessagesByUserId, getTicketById, getTicketsByUserId, modifyChatMessage, updateReadMessages } from "./controllers/tickets.js";
 import path from "path"
 import { addNewsletterSubscriber, deleteNewsletterSubscriber, getNewsletterEmails } from "./controllers/newsletter.js";
+import { addProductToUserCart, createNewShipping, getAllCartProducts, getAllShipping, getCartByUserId, updateShippingStatus } from "./controllers/cart.js";
 
 dotenv.config();
 
@@ -129,6 +130,16 @@ app.put("/api/last/:ticketId", updateReadMessages)
 app.get("/api/newsletter/subscribers", getNewsletterEmails)
 app.post("/api/newsletter/subscriber/add", checkNewsletterSubscriberUnique, addNewsletterSubscriber)
 app.put("/api/newsletter/subscriber/delete/:id", deleteNewsletterSubscriber)
+
+/* api cart related */
+app.get("/api/cart/all-products", getAllCartProducts)
+app.get("/api/cart/user/:id", getCartByUserId)
+app.post("/api/cart/add/user/:id", addProductToUserCart)
+
+
+app.get("/api/shippings", getAllShipping)
+app.post("/api/shipping/create", checkIfItemAlreadyInOrder, createNewShipping)
+app.put("/api/shipping/update-status/id/:id", updateShippingStatus)
 
 /* api to upload images */
 app.post(
