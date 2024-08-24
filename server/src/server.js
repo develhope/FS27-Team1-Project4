@@ -6,6 +6,7 @@ import cors from "cors"
 import {
   addAlternativeAddress,
   addCreditCard,
+  checkPassword,
   getCards,
   getUserById,
   getUserByUsername,
@@ -15,6 +16,7 @@ import {
   logout,
   signUp,
   softUserDelete,
+  updatePassword,
   updateUser,
 } from "./controllers/users.js";
 import { authorize, checkBrandUnique, checkGearUnique, checkIfItemAlreadyInOrder, checkNewsletterSubscriberUnique, checkPcUnique, checkUsernameOrEmailUnique } from "./middleware.js";
@@ -69,8 +71,10 @@ app.post("/api/users/login", login);
 app.post("/api/users/signup", checkUsernameOrEmailUnique, signUp);
 app.post("/api/users/address/add", addAlternativeAddress);
 app.post("/api/users/cc/add", addCreditCard);
+app.post("/api/user/check/:id", checkPassword)
 
 app.put("/api/user/update/:id", checkUsernameOrEmailUnique, updateUser);
+app.put("/api/user/update/password/:id", updatePassword)
 
 app.patch("/api/user/soft/:id", softUserDelete)
 
