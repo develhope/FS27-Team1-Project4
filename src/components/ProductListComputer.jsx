@@ -1,3 +1,4 @@
+/*Component author Massimo*/
 import React, { useState, useEffect } from "react";
 import ProductCardComputer from "./ProductCardComputer";
 import ProductDetailsComputer from "./ProductDetailsComputer";  

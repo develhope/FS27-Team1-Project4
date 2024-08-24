@@ -1,3 +1,4 @@
+/*Component author Massimo*/
 import React from "react";
 import { Button } from "./Button";
 
@@ -17,8 +18,8 @@ const ProductDetailsComputer = ({ product, onBack }) => {
       <p>Discount: ${discount}</p>
 
       <div className="button-container">
-        <Button className="bottone" text={"Add to Cart"} />
         <Button className="back-button" onClick={onBack} text={"Back to list"} />
+        <Button className="bottone" text={"Add to Cart"} />
       </div>
     </div>
   );

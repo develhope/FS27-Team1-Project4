@@ -1,3 +1,4 @@
+/*Component author Massimo*/
 .Page {
   display: flex;
   flex-direction: column;
@@ -373,7 +374,7 @@
     display: flex;
     justify-content: center;
     margin-top: 10px;
-    flex-direction: row;
+   
     width: 100%;
    
   }
@@ -406,14 +407,14 @@
     .button-container {
       margin-top: 10px;
       display: flex;
-      gap: 10px;
+    
       justify-content: space-between;
   
       .bottone {
         background-color: #007bff;
         color: white;
         border: none;
-        padding: 10px 20px;
+        padding: 5px 10px;
         border-radius: 5px;
         cursor: pointer;
         transition: background-color 0.3s ease;
@@ -439,7 +440,7 @@
       margin-top: 100px;
     }
   }
-
+ 
   .product-page,
   .product-list {
     padding: 0;
@@ -468,14 +469,7 @@
     }
   }
 
-  .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    flex-direction: row;
-    width: 100%;
-   
-  }
+ 
   .product-details {
     background-color: white;
     opacity: 0.85;
