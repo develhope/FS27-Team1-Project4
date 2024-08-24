@@ -1,3 +1,7 @@
+$border-color: rgba(238, 238, 238, 0.82);
+$shadow-color: rgba(238, 238, 238, 0.7);
+$circle-bg-color: rgba(238, 238, 238, 0.93);
+
 .banner-guide {
   position: relative;
   display: flex;
@@ -14,7 +18,7 @@
   top: 7.5vw;
   height: 35vw;
   width: 104vw;
-  border: 5px solid rgba(238, 238, 238, 0.82);
+  border: 5px solid $border-color;
   border-radius: 50% 50% 0 0 / 100% 100% 0 0;
   border-bottom: none;
   bottom: 0;
@@ -22,16 +26,12 @@
   left: 50%;
   transform: translateX(-50%);
   overflow: hidden;
-  box-shadow: 0px -5px 7px 3px rgba(238, 238, 238, 0.7),
-    inset 0px 8px 7px 0px rgba(238, 238, 238, 0.7);
+  box-shadow: 0px -5px 7px 3px $shadow-color,
+    inset 0px 8px 7px 0px $shadow-color;
 
   /* -webkit-mask-image: radial-gradient(black, transparent 30%);
   mask-image: radial-gradient(black, transparent 30%); */
   //https://www.w3schools.com/csSref/tryit.php?filename=trycss3_gradient-radial_size
-}
-
-.semi-square {
-  display: none;
 }
 
 .steps {
@@ -79,9 +79,9 @@
   width: 9vw;
   height: 9vw;
   border-radius: 50%;
-  box-shadow: 0px 0px 22px 10px rgba(238, 238, 238, 1);
+  box-shadow: 0px 0px 22px 10px $shadow-color;
   z-index: 3;
-  background-color: rgba(238, 238, 238, 0.95);
+  background-color: $circle-bg-color;
 }
 
 .text-guide {
@@ -110,6 +110,7 @@
   }
 }
 
+.zigzag,
 .stick-1,
 .stick-2,
 .stick-3 {
@@ -123,46 +124,39 @@
     width: 100vw;
   }
 
-  .semi-circle,
-  .semi-square {
+  .semi-circle {
     display: none;
     height: 50vw;
     width: 50vw;
-    border: none /* 3px solid rgba(255, 0, 0, 0.82) */;
+    border: none;
     border-bottom: none;
     border-left: none;
     border-radius: 0;
     bottom: 70%;
     left: auto;
     align-self: center;
-    box-shadow: none;
-    box-shadow: 16px -16px 16px 0px rgba(238, 238, 238, 0.7);
+    box-shadow: 16px -16px 16px 0px $shadow-color;
   }
 
-  /*   .semi-circle {
-    display: none;
-    transform: rotate(45deg);
-  } */
-
-  /*   .semi-square {    
-    display: none;
+  .zigzag {
+    display: flex;
+    flex-direction: column;
     position: absolute;
-    transform: rotate(-135deg);
-    top: 48.9%;
-  } */
+    align-self: center;
+    height: 100%;
+  }
 
   .stick-1,
   .stick-2,
   .stick-3 {
+    position: relative;
     display: flex;
-    position: absolute;
     height: 2px;
     width: 230px;
-    border: 1px solid rgba(238, 238, 238, 0.82);
+    border: 1px solid $border-color;
     z-index: 0;
-    align-self: center;
-    background-color: rgba(238, 238, 238, 0.82);
-    box-shadow: 0px 0px 4px 3px rgba(238, 238, 238, 0.9);
+    background-color: $border-color;
+    box-shadow: 0px 0px 4px 3px $shadow-color;
   }
 
   .stick-1,
@@ -186,7 +180,7 @@
   .steps {
     &-1st-row {
       width: 310px;
-      top: -6%;
+      top: 7%;
       transform: rotate(-30deg);
     }
 
@@ -196,7 +190,7 @@
 
     &-2nd-row {
       width: 475px;
-      top: -58%;
+      top: -44%;
       transform: rotate(60deg);
     }
 
@@ -220,28 +214,130 @@
   .circle-guide {
     width: 20vw;
     height: 20vw;
-    background-color: rgba(238, 238, 238, 0.93);
-    box-shadow: 0px 0px 10px 7px rgba(238, 238, 238, 0.7);
+    background-color: $circle-bg-color;
+    box-shadow: 0px 0px 10px 7px $shadow-color;
+  }
+}
+
+@media (min-width: 381px) and (max-width: 768px) {
+  .banner-guide {
+    display: flex;
+    position: relative;
+    align-items: center;
+    height: 125vw;
+    width: 100vw;
+    margin-top: 8vw;
   }
 
-  .guide-icons {
-    height: 60%;
-    width: 60%;
-    color: rgb(221, 0, 255);
-    fill: currentColor;
+  .semi-circle {
+    display: none;
+  }
 
-    &-rocket {
-      fill: none;
-      stroke: currentColor;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-width: 2;
+  .zigzag {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    align-self: center;
+    height: 100%;
+    width: 100%;
+  }
+
+  .stick-1,
+  .stick-2,
+  .stick-3 {
+    position: absolute;
+    display: flex;
+    align-self: center;
+    height: 2px;
+    width: 65%;
+    border: 1px solid $border-color;
+    z-index: 0;
+    background-color: $border-color;
+    box-shadow: 0px 0px 4px 3px $shadow-color;
+  }
+
+  .stick-1,
+  .stick-3 {
+    transform: rotate(20deg);
+  }
+
+  .stick-1 {
+    top: 20vw;
+  }
+
+  .stick-2 {
+    top: 43vw;
+    transform: rotate(-20deg);
+  }
+
+  .stick-3 {
+    top: 65.5vw;
+  }
+
+  .steps {
+    &-1st-row {
+      width: 81vw;
+      top: -10vw;
+      transform: rotate(-20deg);
+    }
+
+    &-1st-row .step {
+      transform: rotate(20deg);
+    }
+
+    &-2nd-row {
+      width: 108vw;
+      top: -28.5vw;
+      transform: rotate(46.5deg);
+    }
+
+    &-2nd-row .step {
+      transform: rotate(-46.5deg);
+    }
+
+    .text-guide {
+      font-size: calc(0.6rem + 1vw);
     }
   }
+
+  .circle-guide {
+    width: 16vw;
+    height: 16vw;
+    background-color: $circle-bg-color;
+    box-shadow: 0px 0px 10px 7px $shadow-color;
+  }
 }
 
-@media (min-width: 380px) and (max-width: 768px) {
-}
+@media (min-width: 769px) and (max-width: 1280px) {
+  .banner-guide {
+    margin: 12vw 0;
+    height: 50vw;
+  }
 
-@media (min-width: 768px) and (max-width: 1280px) {
+  .semi-circle {
+    width: 107vw;
+    height: 50vw;
+    border: 3px solid $border-color;
+    box-shadow: 0px 0px 10px 5px $shadow-color,
+      inset 0px 0px 10px 10px $shadow-color;
+  }
+
+  .steps {
+    &-1st-row {
+      top: -50%;
+    }
+    &-2nd-row {
+      top: -53%;
+    }
+  }
+
+  .circle-guide {
+    width: 11vw;
+    height: 11vw;
+    box-shadow: 0px 0px 12px 3px $shadow-color;
+  }
+
+  .text-guide {
+    font-size: calc(0.6rem + 1vw);
+  }
 }

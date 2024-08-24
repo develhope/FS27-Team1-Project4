@@ -2,10 +2,11 @@ export function SiteGuide() {
   return (
     <div className="banner-guide">
       <div className="semi-circle"></div>
-      {/*<div className="semi-square"></div>*/}
-      <div className="stick-1"></div>
-      <div className="stick-2"></div>
-      <div className="stick-3"></div>
+      <div className="zigzag">
+        <div className="stick-1"></div>
+        <div className="stick-2"></div>
+        <div className="stick-3"></div>
+      </div>
       <div className="steps">
         <div className="steps-1st-row">
           <div className="step support">

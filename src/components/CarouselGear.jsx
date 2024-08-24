@@ -67,9 +67,6 @@ export function CarouselGear() {
             >
               {card.title}
             </p>
-
-            {/*             <p className="cardGear-subtitle">{card.sub_title}</p>
-             */}
             <div className="cardGear-container-image">
               <img
                 className="cardGear-image"
