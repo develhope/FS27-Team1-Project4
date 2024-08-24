@@ -8,6 +8,7 @@
 }
 
 .gear-slider {
+  top: 25px;
   white-space: nowrap;
   overflow: hidden;
   width: 100vw;
@@ -20,50 +21,82 @@
 
 .gear-slide-cards {
   display: flex;
-  animation: 20s slide infinite linear;
-  width: 200%;
-  gap: 5px;
+  animation: 15s slide infinite linear;
+  justify-content: space-evenly;
+  width: max-content;
+  gap: 1rem;
+  height: 25rem;
 }
 
 .cardGear {
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   color: white;
-  padding: 15px;
-  position: relative;
-  flex-basis: 12.5%;
-  box-sizing: border-box;
-  border: solid 2px grey;
+  padding: 1rem;
+  height: 100%;
+  width: 100%;
 
-  &-title {
-    display: flex;
-    justify-content: center;
-    text-transform: uppercase;
-    z-index: 2;
+  &:hover {
+    .cardGear-image {
+      transform: scale(1.2);
+    }
   }
 
-  &-subtitle {
+  &-border-color1 {
+    border: 2px solid violet;
+    box-shadow: 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+      0px 0px 5px 2px rgba(96, 0, 152, 0.568);
+    box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+      0px 0px 25px 2px rgba(82, 0, 129, 0.568);
+  }
+
+  &-border-color2 {
+    border: 2px solid orange;
+    box-shadow: 1px 0px 25px 2px rgba(239, 152, 96, 0.615),
+      inset 1px 0px 25px 2px rgba(249, 96, 0, 0.615);
+    box-shadow: inset 1px 0px 25px 2px rgba(239, 152, 96, 0.615),
+      0px 0px 25px 2px rgba(249, 96, 0, 0.615);
+  }
+
+  &-title,
+  &-container-image,
+  &-button {
+    position: relative;
     display: flex;
     justify-content: center;
-    font-size: smaller;
-    margin: 5px;
-    z-index: 2;
+    height: auto;
+    width: 15rem;
+    z-index: 1;
+    background-color: rgba(238, 238, 238, 0.95);
+    box-shadow: 0.5px 0.5px 10px 0.5px rgba(238, 238, 238, 0.95);
+    border-radius: 20%;
+    align-self: center;
+  }
+
+  &-title {
+    font-size: x-large;
+    text-transform: uppercase;
+  }
+
+  &-container-image {
+    align-items: center;
+    height: 15rem;
+    margin: 0.8rem 0;
   }
 
   &-image {
-    align-self: center;
-    width: 60%;
+    width: 90%;
+    height: 90%;
+    transition: transform 0.3s ease-in-out;
+    object-fit: scale-down;
   }
 
   &-button {
-    background-color: white;
-    color: purple;
-    font-weight: 600;
-    width: 40%;
-    align-self: center;
-    z-index: 2;
-    position: relative;
+    font-weight: 900;
+    font-size: x-large;
+    width: 50%;
   }
 
   &-overlay {
@@ -73,48 +106,104 @@
     width: 100%;
     height: 100%;
     opacity: 0.7;
-    z-index: 1;
 
     .cardGear:hover & {
       background: none;
     }
   }
 
-  .color1 {
-    /*     background: linear-gradient( to bottom,  violet, transparent);*/
+  .gradientColor1 {
     background-color: rgba($color: rgb(123, 38, 133), $alpha: 0.5);
   }
 
-  .color2 {
-    /*     background: linear-gradient( to bottom,  orange, transparent);*/
-    background-color: rgba($color: rgb(40, 204, 130), $alpha: 0.5);
+  .gradientColor2 {
+    background-color: rgba($color: rgb(239, 152, 96), $alpha: 0.5);
+  }
+
+  .title-color1,
+  .title-color2,
+  .button-text-color1,
+  .button-text-color2 {
+    font-weight: 900;
+    font-size: x-large;
+    letter-spacing: 1px;
+  }
+
+  .title-color1,
+  .button-text-color1 {
+    color: rgb(221, 0, 255);
+  }
+
+  .title-color2,
+  .button-text-color2 {
+    color: rgb(239, 152, 96);
   }
 }
 
 @media (max-width: 380px) {
-  /* .gear-slider {
-    width: auto;
-  } */
+  .gear-slider {
+    top: 15px;
+    height: 23rem;
+  }
 
   .gear-slide-cards {
-    gap: 0px;
-    margin-left: 5px;
-    height: 250px;
-    /*     animation: 12s slide infinite linear;*/
-    animation: none;
+    margin-left: 12px;
+    gap: 12px;
+    animation: 15s slide infinite linear;
+    height: 21.875rem;
   }
 
   .cardGear {
-    margin: 0px 5px;
-    gap: 5px;
+    gap: 6%;
+    width: 15.625rem;
+    height: auto;
 
-    &-image {
-      margin: 10px 0;
-      width: 100%;
+    &-title,
+    &-container-image {
+      align-self: center;
+      width: 12.5rem;
+    }
+
+    &-container-image {
+      height: 12.5rem;
+      margin: 0;
     }
 
     &-button {
-      width: 110%;
+      width: 60%;
     }
   }
+}
+@media (min-width: 381px) and (max-width: 768px) {
+  .gear-slider {
+    top: 0;
+    height: 22rem;
+  }
+
+  .gear-slide-cards {
+    animation: 15s slide infinite linear;
+    height: 100%;
+    gap: 1rem;
+  }
+
+  .cardGear {
+    justify-content: space-evenly;
+    left: 2vw;
+    width: 14rem;
+    gap: 1rem;
+
+    &-title,
+    &-container-image {
+      align-self: center;
+      width: 11.5rem;
+    }
+
+    &-container-image {
+      height: 11.5rem;
+      margin: 0;
+    }
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1280px) {
 }

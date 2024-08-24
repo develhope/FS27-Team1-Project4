@@ -1,3 +1,7 @@
+$border-color: rgba(238, 238, 238, 0.82);
+$shadow-color: rgba(238, 238, 238, 0.7);
+$circle-bg-color: rgba(238, 238, 238, 0.93);
+
 .banner-guide {
   position: relative;
   display: flex;
@@ -14,7 +18,7 @@
   top: 7.5vw;
   height: 35vw;
   width: 104vw;
-  border: 5px solid rgba(238, 238, 238, 0.82);
+  border: 5px solid $border-color;
   border-radius: 50% 50% 0 0 / 100% 100% 0 0;
   border-bottom: none;
   bottom: 0;
@@ -22,8 +26,8 @@
   left: 50%;
   transform: translateX(-50%);
   overflow: hidden;
-  box-shadow: 0px -5px 7px 3px rgba(238, 238, 238, 0.7),
-    inset 0px 8px 7px 0px rgba(238, 238, 238, 0.7);
+  box-shadow: 0px -5px 7px 3px $shadow-color,
+    inset 0px 8px 7px 0px $shadow-color;
 
   /* -webkit-mask-image: radial-gradient(black, transparent 30%);
   mask-image: radial-gradient(black, transparent 30%); */
@@ -75,9 +79,9 @@
   width: 9vw;
   height: 9vw;
   border-radius: 50%;
-  box-shadow: 0px 0px 9px 10px rgba(238, 238, 238, 0.7);
+  box-shadow: 0px 0px 22px 10px $shadow-color;
   z-index: 3;
-  background-color: rgba(238, 238, 238, 0.95);
+  background-color: $circle-bg-color;
 }
 
 .text-guide {
@@ -94,7 +98,7 @@
 .guide-icons {
   height: 60%;
   width: 60%;
-  color: #dd00ff;
+  color: rgb(221, 0, 255);
   fill: currentColor;
 
   &-rocket {
@@ -106,68 +110,234 @@
   }
 }
 
+.zigzag,
+.stick-1,
+.stick-2,
+.stick-3 {
+  display: none;
+}
+
 @media (max-width: 380px) {
   .banner-guide {
-    position: relative;
-    height: 125vw;
+    display: flex;
+    height: 600px;
     width: 100vw;
-    padding-top: 0vw;
-    padding-bottom: 45vw;
-    margin-bottom: 5vw;
   }
 
   .semi-circle {
+    display: none;
     height: 50vw;
     width: 50vw;
-    border: 1px solid rgba(238, 238, 238, 0.82);
+    border: none;
+    border-bottom: none;
+    border-left: none;
     border-radius: 0;
-    border-bottom: 1px solid rgba(238, 238, 238, 0.82);
-    bottom: none;
-    margin-bottom: 15vw;
+    bottom: 70%;
     left: auto;
     align-self: center;
-    transform: rotate(45deg);
-    box-shadow: 0px 0px 10px 5px rgba(238, 238, 238, 0.7),
-      inset 0px 0px 10px 2px rgba(238, 238, 238, 0.7);
+    box-shadow: 16px -16px 16px 0px $shadow-color;
+  }
+
+  .zigzag {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    align-self: center;
+    height: 100%;
+  }
+
+  .stick-1,
+  .stick-2,
+  .stick-3 {
+    position: relative;
+    display: flex;
+    height: 2px;
+    width: 230px;
+    border: 1px solid $border-color;
+    z-index: 0;
+    background-color: $border-color;
+    box-shadow: 0px 0px 4px 3px $shadow-color;
+  }
+
+  .stick-1,
+  .stick-3 {
+    transform: rotate(30deg);
+  }
+
+  .stick-1 {
+    top: 25%;
+  }
+
+  .stick-2 {
+    top: 44.3%;
+    transform: rotate(-30deg);
+  }
+
+  .stick-3 {
+    top: 63.7%;
   }
 
   .steps {
     &-1st-row {
-      width: 87vw;
-      bottom: -30vw;
+      width: 310px;
+      top: 7%;
+      transform: rotate(-30deg);
     }
 
-    &-1st-row .text-guide {
-      font-size: calc(0.5rem + 1vw);
+    &-1st-row .step {
+      transform: rotate(30deg);
     }
 
     &-2nd-row {
-      width: 87vw;
-      bottom: -5vw;
-      transform: rotate(90deg);
+      width: 475px;
+      top: -44%;
+      transform: rotate(60deg);
     }
 
-    &-2nd-row .circle-guide {
-      transform: rotate(-90deg);
+    &-2nd-row .step {
+      transform: rotate(-60deg);
     }
 
-    &-2nd-row .text-guide {
-      top: 0%;
-      left: 100%;
-      font-size: calc(0.5rem + 1vw);
-      transform: rotate(-90deg);
+    .text-guide {
+      font-size: calc(0.6rem + 1vw);
     }
+  }
+
+  .support {
+    order: 2;
+  }
+
+  .cart {
+    order: 1;
   }
 
   .circle-guide {
     width: 20vw;
     height: 20vw;
-    box-shadow: 0px 0px 10px 7px rgba(238, 238, 238, 0.7);
+    background-color: $circle-bg-color;
+    box-shadow: 0px 0px 10px 7px $shadow-color;
   }
 }
 
-@media (min-width: 380px) and (max-width: 768px) {
+@media (min-width: 381px) and (max-width: 768px) {
+  .banner-guide {
+    display: flex;
+    position: relative;
+    align-items: center;
+    height: 125vw;
+    width: 100vw;
+    margin-top: 8vw;
+  }
+
+  .semi-circle {
+    display: none;
+  }
+
+  .zigzag {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    align-self: center;
+    height: 100%;
+    width: 100%;
+  }
+
+  .stick-1,
+  .stick-2,
+  .stick-3 {
+    position: absolute;
+    display: flex;
+    align-self: center;
+    height: 2px;
+    width: 65%;
+    border: 1px solid $border-color;
+    z-index: 0;
+    background-color: $border-color;
+    box-shadow: 0px 0px 4px 3px $shadow-color;
+  }
+
+  .stick-1,
+  .stick-3 {
+    transform: rotate(20deg);
+  }
+
+  .stick-1 {
+    top: 20vw;
+  }
+
+  .stick-2 {
+    top: 43vw;
+    transform: rotate(-20deg);
+  }
+
+  .stick-3 {
+    top: 65.5vw;
+  }
+
+  .steps {
+    &-1st-row {
+      width: 81vw;
+      top: -10vw;
+      transform: rotate(-20deg);
+    }
+
+    &-1st-row .step {
+      transform: rotate(20deg);
+    }
+
+    &-2nd-row {
+      width: 108vw;
+      top: -28.5vw;
+      transform: rotate(46.5deg);
+    }
+
+    &-2nd-row .step {
+      transform: rotate(-46.5deg);
+    }
+
+    .text-guide {
+      font-size: calc(0.6rem + 1vw);
+    }
+  }
+
+  .circle-guide {
+    width: 16vw;
+    height: 16vw;
+    background-color: $circle-bg-color;
+    box-shadow: 0px 0px 10px 7px $shadow-color;
+  }
 }
 
-@media (min-width: 768px) and (max-width: 1280px) {
+@media (min-width: 769px) and (max-width: 1280px) {
+  .banner-guide {
+    margin: 12vw 0;
+    height: 50vw;
+  }
+
+  .semi-circle {
+    width: 107vw;
+    height: 50vw;
+    border: 3px solid $border-color;
+    box-shadow: 0px 0px 10px 5px $shadow-color,
+      inset 0px 0px 10px 10px $shadow-color;
+  }
+
+  .steps {
+    &-1st-row {
+      top: -50%;
+    }
+    &-2nd-row {
+      top: -53%;
+    }
+  }
+
+  .circle-guide {
+    width: 11vw;
+    height: 11vw;
+    box-shadow: 0px 0px 12px 3px $shadow-color;
+  }
+
+  .text-guide {
+    font-size: calc(0.6rem + 1vw);
+  }
 }

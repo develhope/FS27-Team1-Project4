@@ -3,11 +3,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 10% 3% 10%;
+  padding: 3% 10% 3% 10%;
   gap: 2rem;
-  /*   border: 1px solid yellow;
- */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 20%,
+    rgba(0, 0, 0, 1)
+  );
+
   &-title {
+    text-align: center;
     font-weight: 900;
     font-size: xx-large;
     color: white;
@@ -38,14 +43,32 @@
 
 @media (max-width: 380px) {
   .newsletter {
-    margin: 25px 0;
+    margin: 25px 0 0 0;
 
-    &-title {
+    &-title,
+    &-input {
       text-align: center;
     }
 
     &-text {
       font-size: 16px;
+    }
+
+    &-input {
+      font-size: large;
+      padding-right: 0;
+    }
+
+    &-button {
+      margin-bottom: 25px;
+    }
+  }
+}
+
+@media (min-width: 380px) and (max-width: 768px) {
+  .newsletter {
+    &-button {
+      margin-bottom: 25px;
     }
   }
 }

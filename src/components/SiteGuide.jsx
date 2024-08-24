@@ -2,9 +2,14 @@ export function SiteGuide() {
   return (
     <div className="banner-guide">
       <div className="semi-circle"></div>
+      <div className="zigzag">
+        <div className="stick-1"></div>
+        <div className="stick-2"></div>
+        <div className="stick-3"></div>
+      </div>
       <div className="steps">
         <div className="steps-1st-row">
-          <div className="step">
+          <div className="step support">
             <div className="circle-guide">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +25,7 @@ export function SiteGuide() {
               our assistant
             </p>
           </div>
-          <div className="step">
+          <div className="step cart">
             <div className="circle-guide">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
