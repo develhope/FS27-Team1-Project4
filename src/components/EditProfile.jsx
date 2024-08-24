@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "./Button";
 
 export function EditProfile() {
-  // Retrieve user data from localStorage and parse it
   const storedUserData = JSON.parse(localStorage.getItem("user_nt1")) || {};
 
-  // Initialize state with stored data or default empty values
   const [formData, setFormData] = useState({
     firstname: storedUserData.firstname || "",
     lastname: storedUserData.lastname || "",
     username: storedUserData.username || "",
     email: storedUserData.email || "",
+    birthday: storedUserData.birthday || "",
     city: storedUserData.informations.city || "",
     country: storedUserData.informations.country || "",
     address: storedUserData.informations.address || "",
@@ -27,7 +25,6 @@ export function EditProfile() {
   );
 
   useEffect(() => {
-    // Set avatar preview from localStorage if exists
     if (storedUserData.avatar) {
       setAvatarPreview(URL.createObjectURL(storedUserData.avatar));
     }
@@ -52,9 +49,41 @@ export function EditProfile() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Implement form submission logic here
+    setErrorMessage("");
+
+    const formDataPut = new FormData();
+
+    Object.keys(formData).forEach((key) => {
+      if (key === "avatar") {
+        if (formData[key]) {
+          formDataPut.append(key, formData[key]);
+        } else {
+          formDataPut.append(key, formData[key]);
+        }
+      }
+    });
+
+    try {
+      const response = await fetch("api", {
+        method: "PUT",
+        body: formDataPut,
+        headers: {},
+      });
+      if (!response.ok) {
+        throw new Error("Failed to update profile");
+      }
+
+      const updateUserData = await response.json();
+
+      localStorage.setItem("user_nt1", JSON.stringify(updateUserData));
+
+      alert("Profile update successfully!");
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      setErrorMessage("Failed to update profile. Please try again.");
+    }
   };
 
   return (
@@ -67,7 +96,6 @@ export function EditProfile() {
           <div className="form-columns">
             <div className="avatar-column">
               <div className="avatar-input">
-                {/* Display the avatar preview or default avatar */}
                 <img
                   src={avatarPreview}
                   alt="Avatar preview"
@@ -119,6 +147,15 @@ export function EditProfile() {
                 placeholder="Email*"
                 name="email"
                 value={formData.email}
+                onChange={handleChange}
+              />
+
+              <input
+                type="text"
+                className="input"
+                placeholder="Birthday*"
+                name="birthday"
+                value={formData.birthday}
                 onChange={handleChange}
               />
 
