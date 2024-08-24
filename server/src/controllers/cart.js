@@ -62,6 +62,7 @@ export async function getCartByUserId(req, res) {
               'originalPrice', g.original_price,
               'discount', g.discount,
               'orderedAt', cp.ordered_at,
+              'status', cp.status,
               'shippingNumber', s.number,
               'createdAt', cp.created_at,
               'deletedAt', cp.deleted_at
@@ -78,6 +79,7 @@ export async function getCartByUserId(req, res) {
             'originalPrice', p.original_price,
             'discount', p.discount,
             'orderedAt', cp.ordered_at,
+            'status', cp.status,
             'shippingNumber', s.number,
             'createdAt', cp.created_at,
             'deletedAt', cp.deleted_at
@@ -89,7 +91,6 @@ export async function getCartByUserId(req, res) {
       LEFT JOIN pc p ON cp.pc_id = p.id
       LEFT JOIN shipping s ON s.id = cp.shipping_id
       WHERE u.id=$1
-        AND cp.deleted_at IS NULL
       GROUP BY u.username`,
       [Number(id)]
     );
@@ -334,5 +335,23 @@ export async function updateShippingStatus(req, res) {
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: error });
+  }
+}
+
+export async function deleteCartItem(req, res) {
+  const {id} = req.params
+
+  try {
+    await db.none(
+      `UPDATE cart_products
+      SET deleted_at=NOW()
+      WHERE id=$1`,
+      [id]
+    )
+
+    res.status(200).json({msg: "Item deleted from the cart"})
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({msg: error})
   }
 }

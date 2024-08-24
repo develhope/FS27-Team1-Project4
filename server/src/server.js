@@ -29,7 +29,7 @@ import { createFaq, deleteFaq, getFaqs, updateFaq } from "./controllers/faqs.js"
 import { addChatAnswer, closeTicket, createLastMessages, createNewTicket, deleteMessage, getAllTickets, getLastMessages, getLastMessagesByUserId, getTicketById, getTicketsByUserId, modifyChatMessage, updateReadMessages } from "./controllers/tickets.js";
 import path from "path"
 import { addNewsletterSubscriber, deleteNewsletterSubscriber, getNewsletterEmails } from "./controllers/newsletter.js";
-import { addProductToUserCart, createNewShipping, getAllCartProducts, getAllShipping, getCartByUserId, updateShippingStatus } from "./controllers/cart.js";
+import { addProductToUserCart, createNewShipping, deleteCartItem, getAllCartProducts, getAllShipping, getCartByUserId, updateShippingStatus } from "./controllers/cart.js";
 
 dotenv.config();
 
@@ -139,6 +139,7 @@ app.put("/api/newsletter/subscriber/delete/:id", deleteNewsletterSubscriber)
 app.get("/api/cart/all-products", getAllCartProducts)
 app.get("/api/cart/user/:id", getCartByUserId)
 app.post("/api/cart/add/user/:id", addProductToUserCart)
+app.put("/api/cart/delete-item/:id", deleteCartItem)
 
 
 app.get("/api/shippings", getAllShipping)

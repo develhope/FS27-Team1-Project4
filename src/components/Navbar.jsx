@@ -10,6 +10,8 @@ import { NavbarSearch } from "./NavbarSearch";
 import { useNavigate, Link } from "react-router-dom";
 import nebulaLogo from "../assets/nebula-tech-1-logo-b.png"
 
+import { HiOutlineShoppingCart } from "react-icons/hi2";
+
 export function Navbar() {
   const [search, setSearch] = useState(false);
   const [closeSearch, setCloseSearch] = useState(false);
@@ -62,6 +64,10 @@ export function Navbar() {
           </div>
           <div className="flex items-center logo-and-login-container">
             <NavbarSearch />
+            <div className="flex items-center justify-center navbar-cart"
+            onClick={() => navigate("cart")}>
+            <HiOutlineShoppingCart />
+            </div>
             <div className="flex items-center justify-center links login">
               <NavbarCurtains login={true} arrayLinks={loginArray} />
             </div>
