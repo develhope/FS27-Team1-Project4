@@ -35,6 +35,7 @@ export function Navbar() {
 
   const links = ["Link1", "Link2", "Link3"];
   const contacts = ["contact", "faq", "tickets"]
+  const products = ["products" , "computer"]
   const admin = ["admin"]
   const linksWithImages = [
     { img: "../src/assets/mock-product-navbar.png", product: "LINK 1" },
@@ -54,7 +55,7 @@ export function Navbar() {
             </div>
             <div className="flex items-center justify-center links">
               <NavbarCurtains title="TEST" arrayLinks={linksWithImages} />
-              <NavbarCurtains title="TEST" arrayLinks={links} />
+              <NavbarCurtains title="products" arrayLinks={products} />
               <NavbarCurtains title="Contact Us" arrayLinks={contacts} />
               <NavbarCurtains title="admin" arrayLinks={admin} />
             </div>

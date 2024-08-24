@@ -1,6 +1,4 @@
-/*Component author Massimo*/
 import React, { useState } from 'react';
-import './Footer.scss';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import facebook from '../images/facebook.png';
@@ -9,14 +7,14 @@ import tiktok from '../images/tiktok.png';
 import twitter from '../images/twitter.png';
 import whatsapp from '../images/whatsapp.png';
 import youtube from '../images/youtube.png';
-import logo from '../images/logo.png';
+import logo from '../assets/nebula-tech-1-logo-b.png';
 import { MetalBg } from "./MetalBg";
 import { NavbarBorder } from './NavbarBorder';
 
 const Footer = () => {
   const [activeSection, setActiveSection] = useState('');
   const isMobile = useMediaQuery({ query: '(max-width: 320px)' });
-  const iMobile = useMediaQuery({ query: '(max-width: 768px)' });
+  const iMobile = useMediaQuery({ query: '(max-width: 1280px)' });
 
   const toggleSection = (section) => {
     setActiveSection(activeSection === section ? '' : section);
@@ -24,19 +22,19 @@ const Footer = () => {
 
   const footerLinks = [
     { to: '/', text: 'Home' },
-    { to: '/terms', text: 'Termini di Servizio' },
+    { to: '/terms', text: 'Terms of Service' },
     { to: '/mail', text: 'Mail' }
   ];
   const gamingPc = [
-    { to: "/", text: 'Gaming Portatile' },
-    { to: "/", text: 'Gaming Fisso' },
+    { to: "/", text: 'Portable Gaming' },
+    { to: "/", text: 'Fixed Gaming' },
     { to: "/", text: 'PC Gaming i9' },
     { to: "/", text: 'PC Gaming i7' },
     { to: "/", text: 'Workstation Grafiche' },
   ];
   const footerSection = [
-    { to: "/", text: 'Server per Aziende' },
-    { to: "/", text: 'Server per Studio' },
+    { to: "/", text: 'Servers for Business' },
+    { to: "/", text: 'Server for Studio' },
     { to: "/", text: 'Professionale PC' },
     { to: "/", text: '3D Rendering PC' },
     { to: "/", text: 'Workstation Grafiche' },
@@ -55,10 +53,10 @@ const Footer = () => {
               <div className="footer-section company-info">
                 <img src={logo} alt="Company Logo" className="company-logo" />
                 <address>
-                  Società: Classe Fullstack27 s.p.a<br />
-                  Sede: Via Santa Maria Delle Grazie 183, Nocera Superiore 84015<br />
-                  Partita IVA: IT0899XXXXX<br />
-                  Tel: 3420541376
+                Society: Nebula Tech 1 s.p.a<br />
+                Site: Via Santa Maria Delle Grazie 183, Nocera Superiore 84015<br />
+                VAT number: IT0899XXXXX<br />
+                Telephone Number: 3420541376
                 </address>
                 <div className="flex social-icons">
                   <a href="#"><img src={facebook} alt="Facebook" /></a>
@@ -70,10 +68,10 @@ const Footer = () => {
                 </div>
               </div>
               <div className="footer-section links">
-                <h4 onClick={() => toggleSection('gaming')} className="toggle-button">
+                <h1 onClick={() => toggleSection('gaming')} className="toggle-button">
                   GAMING PC
                   <span className={`arrow ${activeSection === 'gaming' ? 'active' : ''}`}>&#9660;</span>
-                </h4>
+                </h1>
                 {(!isMobile || activeSection === 'gaming') && (!iMobile || activeSection === 'gaming') && (
                   <ul>
                     {gamingPc.map((link, index) => (
@@ -85,10 +83,10 @@ const Footer = () => {
                 )}
               </div>
               <div className="footer-section links">
-              <h4 onClick={() => toggleSection('professional')} className="toggle-button">
+                <h1 onClick={() => toggleSection('professional')} className="toggle-button">
                   PROFESSIONAL PC
                   <span className={`arrow ${activeSection === 'professional' ? 'active' : ''}`}>&#9660;</span>
-                </h4>
+                </h1>
                 {(!isMobile || activeSection === 'professional') && (!iMobile || activeSection === 'professional') && (
                   <ul>
                     {footerSection.map((link, index) => (
@@ -110,10 +108,9 @@ const Footer = () => {
               </div>
               <div className="footer-section company-description">
                 <p>
-                  Classe Fullstack27 s.p.a è una società specializzata nella distribuzione e vendita di componenti di pc e vendita di computer
-                </p>
+                Nebula Tech 1 s.p.a is a company specialized in the distribution and sale of PC components and computer sales                </p>
                 <p>
-                  Fondata nel 2024, Classe Fullstack27 s.p.a è una società di ragazzi
+                Founded in 2024, Nebula Tech 1 s.p.a is a company of young people
                 </p>
               </div>
             </div>
