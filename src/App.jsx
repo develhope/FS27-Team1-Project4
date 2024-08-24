@@ -22,6 +22,9 @@ import { AdminSingleProductGear } from "./components/AdminSingleProductGear";
 import { AdminSingleProductPc } from "./components/AdminSingleProductPc";
 import Page from "./components/Page";
 import PageComputer from "./components/PageComputer";
+import { EditProfile } from "./components/EditProfile";
+import { UserProfile } from "./components/UserProfile";
+
 function App() {
   return (
     <>
@@ -44,6 +47,8 @@ function App() {
         <Route path="computer" element={<PageComputer/>}/>
           <Route path="login" element={<LoginForm />} />
           <Route path="sign-up" element={<SignUpForm />} />
+          <Route path="user-profile" element={<UserProfile />} />
+          <Route path="edit-profile" element={<EditProfile />} />
           <Route path="contact" element={<Contact />} />
           <Route path="faq" element={<ContactFAQ />} />
           <Route

@@ -1,0 +1,288 @@
+.edit-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 200px;
+    margin-bottom: 325px;
+  
+    .error-message {
+      color: rgba(160, 160, 160, 0.812);
+      font-size: 14px;
+      top: -15px;
+      position: relative;
+    }
+
+    .back-button {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    position: relative;
+    left: -10px;
+   
+
+    .arrow-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      border: 2px solid violet;
+      box-shadow: 0px 0px 10px rgba(201, 0, 247, 0.615);
+      transition: all 0.3s ease;
+    }
+
+    .back-text {
+      opacity: 0.8;
+    }
+
+    &:hover {
+      .arrow-icon {
+        box-shadow: 0px 0px 15px rgba(201, 0, 247, 0.8);
+        color: violet;
+      }
+      .back-text {
+        color: violet;
+        opacity: 1;
+      }
+    }
+  }
+  
+    .edit-profile {
+      width: 700px;
+      height: auto;
+      background-color: #00000076;
+      border-radius: 10px;
+      padding: 10px 30px;
+      border: solid 2px violet;
+      box-shadow: 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+        0px 0px 5px 2px rgba(96, 0, 152, 0.568);
+      box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+        0px 0px 25px 2px rgba(82, 0, 129, 0.568);
+        position: relative;
+    }
+
+    .form-columns {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+    
+      .avatar-column {
+        flex: 0 0 250px; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+    
+      .form-column {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+    
+      .avatar-input {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+    
+      .avatar-preview-container {
+        position: relative;
+        width: 220px;
+        height: 220px;
+      }
+    
+      .avatar-preview {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid violet;
+        box-shadow: 0px 0px 10px rgba(201, 0, 247, 0.615);
+      }
+    
+      .remove-image-btn {
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        border: 2px solid violet;
+      box-shadow: 0px 0px 10px rgba(201, 0, 247, 0.615);
+      transition: all 0.3s ease;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    
+        &:hover {
+          color:violet;
+        }
+      }
+    
+      .avatar-label {
+        padding: 10px 15px;
+        border-radius: 20px;
+        background: rgba(0, 230, 196, 0.423);
+        color: white;
+        cursor: pointer;
+        border: solid 2px rgb(0, 229, 255);
+        box-shadow: 1px 0px 25px 2px rgba(0, 128, 255, 0.615),
+          0px 0px 5px 2px rgba(0, 84, 152, 0.568);
+        box-shadow: inset 1px 0px 25px 2px rgba(25, 0, 247, 0.615),
+          0px 0px 25px 2px rgba(0, 168, 134, 0.568);
+        text-align: center;
+        width: 170px;
+        &:hover {
+          background-color: rgba(0, 179, 255, 0.271);
+          transition: all 0.3s ease;
+        }
+      }
+  
+    .title {
+      display: flex;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      margin: 0px 0 10px 0;
+      font-size: 28px;
+      color: #fff;
+      position: relative;
+      top: -40px;
+  
+    }
+  
+    .input {
+      border-radius: 20px;
+      padding: 12px 15px;
+      border: 2px solid violet;
+      box-shadow: 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+        0px 0px 5px 2px rgba(96, 0, 152, 0.568);
+    }
+  
+    .form-btn {
+      padding: 10px 15px;
+      border-radius: 20px;
+      background: rgba(0, 230, 196, 0.423);
+      color: white;
+      cursor: pointer;
+      border: solid 2px rgb(0, 229, 255);
+      box-shadow: 1px 0px 25px 2px rgba(0, 128, 255, 0.615),
+        0px 0px 5px 2px rgba(0, 84, 152, 0.568);
+      box-shadow: inset 1px 0px 25px 2px rgba(25, 0, 247, 0.615),
+        0px 0px 25px 2px rgba(0, 168, 134, 0.568);
+        text-align: center;
+        width: 170px;
+       
+  
+      &:hover {
+        background-color: rgba(0, 179, 255, 0.271);
+        transition: all 0.3s ease;
+        border: 2px solid rgba(66, 208, 255, 0.438);
+        box-shadow: 2px 2px 15px #0014ca inset;
+      }
+  
+      &:active {
+        box-shadow: 2px 2px 20px #0014ca inset;
+        background-color: #0013c05d;
+        transition: all 0.3s ease;
+      }
+    }
+  
+    .edit-label {
+      display: flex;
+      justify-content: end;
+      align-items: end;
+      margin: 0;
+      font-size: 10px;
+      color: #747474;
+     
+    }
+  
+    .buttons-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+      gap: 15px;
+    }
+
+   
+  
+  
+    @media (max-width: 1280px) {
+      .edit-profile {
+        max-width: 700px;
+      }
+    }
+  
+    @media (max-width: 768px) {
+      .edit-profile {
+        padding: 30px;
+      }
+  
+      .form-columns {
+        flex-direction: column;
+        gap: 20px;
+      }
+  
+      .avatar-column {
+        flex: 0 0 auto;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+  
+      .form-column {
+        margin-bottom: 15px;
+      }
+  
+      .title {
+        font-size: 22px;
+      }
+  
+      .input {
+        margin-bottom: 15px;
+      }
+    }
+  
+    @media (max-width: 320px) {
+      .edit-profile {
+        padding: 20px;
+      }
+  
+      .title {
+        font-size: 20px;
+      }
+  
+      .input {
+        padding: 8px;
+        margin-bottom: 12px;
+      }
+  
+      .form-btn {
+        padding: 8px;
+        font-size: 14px;
+      }
+    }
+  }
