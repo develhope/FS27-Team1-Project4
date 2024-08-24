@@ -25,6 +25,7 @@ const signUpSchema = Joi.object({
   email: Joi.string().email().required(),
   firstname: Joi.string().required(),
   lastname: Joi.string().required(),
+  birthdate: Joi.date().required(),
   country: Joi.string().required(),
   city: Joi.string().required(),
   address: Joi.string().required(),
@@ -35,6 +36,28 @@ const signUpSchema = Joi.object({
   phone: Joi.string().allow(""),
   avatarUrl: Joi.string(),
 });
+
+const updateUserSchema = Joi.object({
+  id: Joi.number(),
+  username: Joi.string().required(),
+  email: Joi.string().email().required(),
+  firstname: Joi.string().required(),
+  lastname: Joi.string().required(),
+  birthdate: Joi.date().required(),
+  country: Joi.string().required(),
+  city: Joi.string().required(),
+  address: Joi.string().required(),
+  postalCode: Joi.string()
+    .pattern(/^\d+$/)
+    .required()
+    .messages({ msg: "Value must contain only numbers" }),
+  phone: Joi.string().allow(""),
+  avatarUrl: Joi.string(),
+});
+
+const updatePasswordSchema = Joi.object({
+  password: Joi.string().min(8).pattern(new RegExp("(?=.*[a-z])")).pattern(new RegExp("(?=.*[A-Z])")).pattern(new RegExp("(?=.*[0-9])")).required()
+})
 
 const alternativeAddressSchema = Joi.object({
   userId: Joi.number().required(),
@@ -79,6 +102,7 @@ export async function selectUserByUsernameOrEmail(username) {
       u.firstname,
       u.lastname,
       json_build_object(
+        'birthdate', u.birthdate,
         'country', u.country,
         'city', u.city,
         'address', u.address,
@@ -143,6 +167,7 @@ export async function getUsers(req, res) {
         u.firstname,
         u.lastname,
         json_build_object(
+          'birthdate', u.birthdate,
           'country', u.country,
           'city', u.city,
           'address', u.address,
@@ -212,6 +237,7 @@ export async function getUserById(req, res) {
         u.firstname,
         u.lastname,
         json_build_object(
+          'birthdate', u.birthdate,
           'country', u.country,
           'city', u.city,
           'address', u.address,
@@ -341,6 +367,7 @@ export async function signUp(req, res) {
       email,
       firstname,
       lastname,
+      birthdate,
       country,
       city,
       address,
@@ -360,8 +387,8 @@ export async function signUp(req, res) {
     const encryptedPassword = await bcrypt.hash(password, 10);
 
     const user = await db.one(
-      `INSERT INTO users (username, password, email, firstname, lastname, country, city, address, postal_code, phone, admin, avatar_url)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, false, $11) RETURNING id, username`,
+      `INSERT INTO users (username, password, email, firstname, lastname, country, city, address, postal_code, phone, admin, avatar_url, birthdate)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, false, $11, $12) RETURNING id, username`,
       [
         username,
         encryptedPassword,
@@ -374,6 +401,7 @@ export async function signUp(req, res) {
         postalCode,
         phone,
         avatarUrl,
+        birthdate
       ]
     );
 
@@ -485,7 +513,6 @@ export async function updateUser(req, res) {
     const {id} = req.params;
     const {
       username,
-      password,
       email,
       firstname,
       lastname,
@@ -495,36 +522,34 @@ export async function updateUser(req, res) {
       postalCode,
       phone,
       avatarUrl,
+      birthdate
     } = req.body;
 
-    const validateSignUp = signUpSchema.validate(req.body);
+    const validateUpdate = updateUserSchema.validate(req.body);
 
-    if (validateSignUp.error) {
+    if (validateUpdate.error) {
       return res
         .status(400)
-        .json({ msg: validateSignUp.error.details[0].message });
+        .json({ msg: validateUpdate.error.details[0].message });
     }
-
-    const encryptedPassword = await bcrypt.hash(password, 10);
 
     const user = await db.one(
       `UPDATE users
-       SET avatar_url=$12,
+       SET avatar_url=$11,
            username=$1,
-           password=$2,
-           email=$3,
-           firstname=$4,
-           lastname=$5,
-           country=$6,
-           city=$7,
-           address=$8,
-           postal_code=$9,
-           phone=$10
-        WHERE id=$11
+           email=$2,
+           firstname=$3,
+           lastname=$4,
+           country=$5,
+           city=$6,
+           address=$7,
+           postal_code=$8,
+           phone=$9,
+           birthdate=$12
+        WHERE id=$10
         RETURNING username`,
       [
         username,
-        encryptedPassword,
         email,
         firstname,
         lastname,
@@ -535,6 +560,7 @@ export async function updateUser(req, res) {
         phone,
         id,
         avatarUrl,
+        birthdate
       ]
     );
 
@@ -547,6 +573,60 @@ export async function updateUser(req, res) {
     res.status(500).json({ msg: error });
   }
 }
+
+export async function checkPassword (req, res) {
+  const {id} = res.params
+  const {password} = req.body
+
+  try {
+    const user = db.oneOrNone(
+      `SELECT password from users WHERE id=$1`,
+      [id]
+    )
+
+    if (!user) {
+      return res.status(404).json({msg: "User not found"})
+    }
+
+    if (await bcrypt.compare(password, user.password)) {
+      res.status(201).json({msg: "The password is correct"})
+    } else {
+      res.status(400).json({msg: "Password incorrect"})
+    }
+
+  } catch(error) {
+    console.log(error)
+    res.status(500).json({msg: error})
+  }
+}
+
+export async function updatePassword (req, res) {
+  const {id} = req.params
+  const {password} = req.body
+
+  try {
+
+    const passwordValidate = updatePasswordSchema.validate(req.body)
+
+    if (passwordValidate.error) {
+      return res.status(409).json({msg: passwordValidate.error.details[0].message})
+    }
+
+    const encryptedPassword = await bcrypt.hash(password, 10)
+
+    await db.none(
+      `UPDATE users SET password=$2 WHERE id=$1`,
+      [id, encryptedPassword]
+    )
+
+    res.status(200).json({msg: "Password changed"})
+
+  } catch(error) {
+    console.log(error)
+    res.status(500).json({msg: error})
+  }
+}
+
 
 export async function softUserDelete(req, res) {
   const { id } = req.params;

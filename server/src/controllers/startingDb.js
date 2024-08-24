@@ -1,7 +1,11 @@
 import { db } from "../db.js";
 import dotenv from "dotenv";
-import { productsSingleGear, preBuiltPc, productsBrand } from "../arrays_to_create_database/productsList.js";
-import {faqs} from "../arrays_to_create_database/faqList.js"
+import {
+  productsSingleGear,
+  preBuiltPc,
+  productsBrand,
+} from "../arrays_to_create_database/productsList.js";
+import { faqs } from "../arrays_to_create_database/faqList.js";
 import { newsletterEmails } from "../arrays_to_create_database/newsletterEmails.js";
 dotenv.config();
 
@@ -20,12 +24,13 @@ export async function createUser(
   address,
   postalCode,
   admin,
-  img
+  img,
+  birthdate
 ) {
   try {
     const user = await db.one(
-      `INSERT INTO users (username, password, email, firstname, lastname, country, city, address, postal_code, admin)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`,
+      `INSERT INTO users (username, password, email, firstname, lastname, country, city, address, postal_code, admin, birthdate)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id`,
       [
         username,
         password,
@@ -37,6 +42,7 @@ export async function createUser(
         address,
         postalCode,
         admin,
+        birthdate
       ]
     );
 
@@ -126,7 +132,7 @@ export async function createGearDatabase() {
           product.discount,
           product.linkInfo,
           product.stock,
-          product.incomingStock
+          product.incomingStock,
         ]
       );
     } catch (error) {
@@ -149,7 +155,7 @@ export async function createPCDatabase() {
           pc.originalPrice,
           pc.discount,
           pc.stock,
-          pc.incomingStock
+          pc.incomingStock,
         ]
       );
     } catch (error) {
@@ -164,22 +170,28 @@ export async function createFaqs() {
       await db.none(
         `INSERT INTO faqs (question, awnser)
         VALUES ($1, $2)`,
-        [faq.question,  faq.answer]
-      )
+        [faq.question, faq.answer]
+      );
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 }
 
-export async function createTicket(openedBy, category, ticketTitle, numberOFMessages) {
+export async function createTicket(
+  openedBy,
+  category,
+  ticketTitle,
+  numberOFMessages
+) {
   try {
     await db.none(
       `INSERT INTO tickets (opened_by, category, ticket_title, number_of_messages)
     VALUES ($1, $2, $3, $4)`,
-    [openedBy, category, ticketTitle, numberOFMessages])
+      [openedBy, category, ticketTitle, numberOFMessages]
+    );
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
 
@@ -189,11 +201,16 @@ export async function createTicketChat(array) {
       await db.none(
         `INSERT INTO chat_messages(ticket_id, author_id, image, content)
         VALUES ($1, $2, $3, $4)`,
-        [chat.ticketId, chat.author === "Bredina" ? 1 : 2, chat.image, chat.content ]
-      )
+        [
+          chat.ticketId,
+          chat.author === "Bredina" ? 1 : 2,
+          chat.image,
+          chat.content,
+        ]
+      );
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
 
@@ -203,9 +220,9 @@ export async function createUserLastSeenMessage(ticketId, userId, lastMessage) {
       `INSERT INTO last_message(ticket_id, user_id, last_message)
       VALUES ($1, $2, $3)`,
       [ticketId, userId, lastMessage]
-    )
-  } catch(error) {
-    console.log(error)
+    );
+  } catch (error) {
+    console.log(error);
   }
 }
 
@@ -216,10 +233,9 @@ export async function createBrands() {
         `INSERT INTO brands(brand)
         VALUES ($1)`,
         [brand]
-      )
-    }
-    catch(error) {
-      console.log(error)
+      );
+    } catch (error) {
+      console.log(error);
     }
   }
 }
@@ -231,9 +247,70 @@ export async function createMockingNewsletter() {
         `INSERT INTO newsletter_subscribers(email)
         VALUES ($1)`,
         [email]
-      )
-    } catch(error) {
-      console.log(error)
+      );
+    } catch (error) {
+      console.log(error);
     }
+  }
+}
+
+export async function createUserGearCart(userId) {
+  for (const gear of productsSingleGear) {
+    try {
+      await db.none(
+        `INSERT INTO cart_products (
+          user_id,
+          gear_id,
+          pc_id
+        )
+      VALUES ($1, $2, $3)`,
+        [userId, productsSingleGear.indexOf(gear) + 1, null]
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+export async function createUserPCCart(userId) {
+  for (const pc of preBuiltPc) {
+    try {
+      await db.none(
+        `INSERT INTO cart_products (
+          user_id,
+          gear_id,
+          pc_id
+        )
+      VALUES ($1, $2, $3)`,
+        [userId, null, preBuiltPc.indexOf(pc) + 1]
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+export async function createShipping(userId, arrayOfItems) {
+  try {
+    const { id } = await db.one(
+      `INSERT INTO shipping (user_id, number, status)
+      VALUES (
+        $1,
+        CONCAT(TO_CHAR(NOW(), 'YYYYMMDDHH24MISS'), FLOOR(RANDOM() * 90 + 10)::text),
+        'Pending'
+      )
+        RETURNING id`,
+      [userId]
+    );
+
+      await db.none(
+        `UPDATE cart_products
+        SET shipping_id=$2, ordered_at=NOW(), status='Pending'
+        WHERE id= ANY($1)`,
+        [arrayOfItems, id]
+      );
+
+  } catch (error) {
+    console.log(error);
   }
 }

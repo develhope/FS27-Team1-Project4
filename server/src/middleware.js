@@ -196,3 +196,26 @@ export async function checkNewsletterSubscriberUnique(req, res, next) {
     res.status(500).json({ msg: error });
   }
 }
+
+export async function checkIfItemAlreadyInOrder(req, res, next) {
+  const { order } = req.body;
+
+  try {
+   const result = await db.manyOrNone(
+    `SELECT id FROM cart_products
+    WHERE id = ANY($1)
+      AND shipping_id IS NOT NULL`,
+    [order]
+   )
+
+    if (result.length > 0) {
+      return res.status(409).json({ msg: "One or more items had been already ordered", result });
+    }
+
+    next();
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: error });
+  }
+}
