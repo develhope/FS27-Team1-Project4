@@ -11,8 +11,9 @@ export function AdminHome() {
         <div className="flex flex-col link-list">
           <Link to="/admin" className="link">Admin Menù</Link>
           <Link to="products-list" className="link">Products</Link>
-          <Link to="add-product/gear"className="link">Add Gear</Link>
-          <Link to="add-product/pc"className="link">Add Pc</Link>
+          <Link to="add-product/gear" className="link">Add Gear</Link>
+          <Link to="add-product/pc" className="link">Add Pc</Link>
+          <Link to="shippings" className="link">Users Orders</Link>
         </div>
       </div>
       <div className="admin-sidebar-border">

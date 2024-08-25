@@ -27,6 +27,7 @@ import { UserProfile } from "./components/UserProfile";
 import { CartUser } from "./components/CartUser";
 import { ShippingUserList } from "./components/ShippingUserList";
 import { ShippingProductList } from "./components/ShippingProductList";
+import { AdminShippingList } from "./components/AdminShippingList";
 
 
 function App() {
@@ -68,6 +69,7 @@ function App() {
             <Route path="products-list" element={<AdminProductsList />} />
             <Route path="product/gear/:id" element={<AdminSingleProductGear />} />
             <Route path="product/pc/:id" element={<AdminSingleProductPc />} />
+            <Route path="shippings" element={<AdminShippingList />} />
           </Route>
           <Route path="cart" element={<CartUser />} />
           <Route path="shipping-list" element={<ShippingUserList />} />

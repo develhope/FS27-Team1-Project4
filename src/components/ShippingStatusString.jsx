@@ -7,7 +7,7 @@ export function ShippingStatusString({ status }) {
         status === "Pending"
           ? "grey"
           : status === "Working on it"
-          ? "fuscia"
+          ? "fucsia"
           : status === "Canceled"
           ? "red"
           : status === "On its way"

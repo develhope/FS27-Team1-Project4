@@ -406,11 +406,15 @@ export async function updateShippingStatus(req, res) {
         .status(400)
         .json({ msg: updateStatusValidation.error.details[0].message });
     }
+
+    let shipping = null
+
     if (status === "On its way") {
-      await db.none(
+      shipping = await db.one(
         `UPDATE shipping
         SET status=$2, delivery_date = NOW() + INTERVAL '1 WEEK'
-        WHERE id=$1`,
+        WHERE id=$1
+        RETURNING number`,
         [Number(id), status]
       );
 
@@ -421,10 +425,11 @@ export async function updateShippingStatus(req, res) {
         [order, status]
       );
     } else {
-      await db.none(
+      shipping = await db.one(
         `UPDATE shipping
       SET status=$2
-      WHERE id=$1`,
+      WHERE id=$1
+      RETURNING number`,
         [Number(id), status]
       );
 
@@ -436,7 +441,7 @@ export async function updateShippingStatus(req, res) {
       );
     }
 
-    res.status(200).json({ msg: `Shipping ${id} status updated to ${status}` });
+    res.status(200).json({ msg: `Shipping ${shipping.number} status updated to ${status}` });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: error });
