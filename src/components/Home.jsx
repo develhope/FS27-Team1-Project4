@@ -5,15 +5,18 @@ import { CarouselGear } from "./CarouselGear";
 import { SiteGuide } from "./SiteGuide";
 import { Newsletter } from "./Newsletter";
 
+import Banner from "./Banner";
 export function Home() {
   return (
     <div id="home" className="home">
+      <Banner/>
       <Builded />
       <CarouselOffer />
       <BuildYourPc />
       <CarouselGear />
       <SiteGuide />
       <Newsletter />
-    </div>
+
+</div>
   );
 }

@@ -25,6 +25,7 @@ import PageComputer from "./components/PageComputer";
 import { EditProfile } from "./components/EditProfile";
 import { UserProfile } from "./components/UserProfile";
 
+
 function App() {
   return (
     <>
@@ -40,6 +41,7 @@ function App() {
         </video>
         <div className="opacity-background"></div>
       </div> */}
+      
       <Routes>
         <Route path="/" element={<MainWebpageContainer />}>
           <Route index element={<Home />} />
@@ -79,6 +81,7 @@ function App() {
           />
         </Route>
       </Routes>
+      
       {/* <Footer /> */}
     </>
   );
