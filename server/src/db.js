@@ -52,7 +52,7 @@ const db = pgPromise()(
 );
 
 function imagePath(imgName) {
-  return `/uploads/${imgName}`;
+  return `uploads/${imgName}`;
 }
 
 /* Setting the database by creating the tables and a list of mocking users and products */
@@ -258,6 +258,7 @@ async function setupDB() {
       user_id INT NOT NULL,
       number VARCHAR(20) NOT NULL UNIQUE,
       status VARCHAR(255) NOT NULL,
+      delivery_date TIMESTAMP,
       created_at TIMESTAMP DEFAULT NOW(),
       deleted_at TIMESTAMP
     );
@@ -269,6 +270,7 @@ async function setupDB() {
       pc_id INT,
       shipping_id INT,
       status VARCHAR(255),
+      delivery_date TIMESTAMP,
       created_at TIMESTAMP DEFAULT NOW(),
       ordered_at TIMESTAMP,
       deleted_at TIMESTAMP,

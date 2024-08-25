@@ -5,6 +5,7 @@ import { useGetFetch } from "../custom-hooks/useGetFetch";
 import { CartSingleItem } from "./CartSingleItem";
 import { Button } from "./Button";
 import { useFetch } from "../custom-hooks/useFetch";
+import { useNavigate } from "react-router-dom";
 
 export function CartUser() {
   const [user, setUser] = useState(
@@ -14,6 +15,7 @@ export function CartUser() {
   const [checkboxes, setCheckboxes] = useState([]);
   const [order, setOrder] = useState([]);
   const [total, setTotal] = useState(0);
+  const navigate = useNavigate()
 
   const { data, error, loading, onRefresh } = useGetFetch(
     `cart/user/${user.id}`
@@ -114,9 +116,7 @@ export function CartUser() {
       }
 
       alert(response.msg);
-      setOrder([])
-      setTotal(0)
-      onRefresh();
+      navigate(`/shipping/${response.id}`)
 
     } catch (error) {
       alert(JSON.stringify(error));

@@ -44,7 +44,7 @@ export function Navbar() {
     { img: "../src/assets/mock-product-navbar.png", product: "LINK 2" },
     { img: "../src/assets/mock-product-navbar.png", product: "LINK 3" },
   ];
-  const loginArray = ["login", "sign-up", "user-profile"];
+  const loginArray = ["login", "sign-up", "user-profile", "shipping-list"];
 
   return (
     <div className="flex justify-between items-center fixed navbar">

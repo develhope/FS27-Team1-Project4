@@ -25,6 +25,8 @@ import PageComputer from "./components/PageComputer";
 import { EditProfile } from "./components/EditProfile";
 import { UserProfile } from "./components/UserProfile";
 import { CartUser } from "./components/CartUser";
+import { ShippingUserList } from "./components/ShippingUserList";
+import { ShippingProductList } from "./components/ShippingProductList";
 
 
 function App() {
@@ -68,6 +70,8 @@ function App() {
             <Route path="product/pc/:id" element={<AdminSingleProductPc />} />
           </Route>
           <Route path="cart" element={<CartUser />} />
+          <Route path="shipping-list" element={<ShippingUserList />} />
+          <Route path="shipping/:id" element={<ShippingProductList />} />
         </Route>
         <Route path="access" element={<OpeningPage />} />
         <Route path="deep" element={<Deep />}>
