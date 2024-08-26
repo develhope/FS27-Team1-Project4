@@ -50,6 +50,7 @@ export function LoginForm() {
             const data = await response.json();
             console.log("Login successful:");
             navigate("/");
+            alert("Login successful")
             localStorage.setItem("user_nt1", JSON.stringify(data.user))
           } else {
             const errorData = await response.json();
