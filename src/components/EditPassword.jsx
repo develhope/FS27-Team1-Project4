@@ -13,19 +13,22 @@ export function EditPassword() {
     navigate("/user-profile");
   };
 
-  const user = JSON.parse(localStorage.getItem("user_nt1"))
-console.log(user);
+  const user = JSON.parse(localStorage.getItem("user_nt1"));
+  console.log(user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
 
     try {
-      const verifyResponse = await fetch("http://localhost:3000/api/user/check/" + user.id, {
-        method: "POST",
-        body: JSON.stringify({ password: oldPassword }),
-        headers: { "Content-Type": "application/json" },
-      });
+      const verifyResponse = await fetch(
+        "http://localhost:3000/api/user/check/" + user.id,
+        {
+          method: "POST",
+          body: JSON.stringify({ password: oldPassword }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       if (!verifyResponse.ok) {
         setErrorMessage("Old password is incorrect.");
@@ -37,17 +40,22 @@ console.log(user);
         return;
       }
 
-      const updateResponse = await fetch("http://localhost:3000/api/user/update/password/" + user.id, {
-        method: "PUT",
-        body: JSON.stringify({ password: newPassword }),
-        headers: { "Content-Type": "application/json" },
-      });
+      const updateResponse = await fetch(
+        "http://localhost:3000/api/user/update/password/" + user.id,
+        {
+          method: "PUT",
+          body: JSON.stringify({ password: newPassword }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       if (!updateResponse.ok) {
         throw new Error("Failed to update password.");
       }
 
-      
+      const updateJson = await updateResponse.json();
+
+      localStorage.setItem("user_nt1", JSON.stringify(updateJson.user));
 
       alert("Password updated successfully!");
       navigate("/user-profile");
@@ -56,12 +64,15 @@ console.log(user);
       setErrorMessage(error.message);
     }
   };
+  
 
   return (
     <div className="edit-container-password">
       <div className="edit-profile">
         <button onClick={handleArrowClick} className="back-button">
-          <span className="arrow-icon"><MdOutlineKeyboardBackspace /></span>
+          <span className="arrow-icon">
+            <MdOutlineKeyboardBackspace />
+          </span>
           <span className="back-text">Back</span>
         </button>
 
