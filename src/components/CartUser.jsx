@@ -1,4 +1,4 @@
-/* Component Autor Andrea */
+/* Component Author Andrea */
 
 import { useEffect, useState } from "react";
 import { useGetFetch } from "../custom-hooks/useGetFetch";
@@ -6,6 +6,8 @@ import { CartSingleItem } from "./CartSingleItem";
 import { Button } from "./Button";
 import { useFetch } from "../custom-hooks/useFetch";
 import { useNavigate } from "react-router-dom";
+import { LoadingMessage } from "../components/LoadingMessage";
+import { ErrorMessage } from "../components/ErrorMessage"
 
 export function CartUser() {
   const [user, setUser] = useState(
@@ -15,7 +17,7 @@ export function CartUser() {
   const [checkboxes, setCheckboxes] = useState([]);
   const [order, setOrder] = useState([]);
   const [total, setTotal] = useState(0);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { data, error, loading, onRefresh } = useGetFetch(
     `cart/user/${user.id}`
@@ -31,11 +33,29 @@ export function CartUser() {
 
   useEffect(() => {
     if (data) {
-      setCart(
-        [...data.gearList, ...data.pcList].filter(
-          (item) => item.status === null && item.deletedAt === null
-        )
-      );
+      if (data.gearList && data.pcList) {
+        setCart(
+          [...data.gearList, ...data.pcList].filter(
+            (item) => item.status === null && item.deletedAt === null
+          )
+        );
+      }
+
+      if (data.gearList && !data.pcList) {
+        setCart(
+          [...data.gearList].filter(
+            (item) => item.status === null && item.deletedAt === null
+          )
+        );
+      }
+
+      if (!data.gearList && data.pcList) {
+        setCart(
+          [...data.pcList].filter(
+            (item) => item.status === null && item.deletedAt === null
+          )
+        );
+      }
     }
   }, [data]);
 
@@ -116,8 +136,7 @@ export function CartUser() {
       }
 
       alert(response.msg);
-      navigate(`/shipping/${response.id}`)
-
+      navigate(`/shipping/${response.id}`);
     } catch (error) {
       alert(JSON.stringify(error));
       throw new Error(JSON.stringify(error));
@@ -130,11 +149,12 @@ export function CartUser() {
         <h1>{user.username}'s Cart</h1>
         <div className="flex flex-col admin-products-list-container">
           <div className="flex flex-col products-container">
-            {loading && <h1>Loading...</h1>}
+            {loading && <LoadingMessage />}
             {error && (
-              <h1> Something went wrong, couldn't retrieve the products </h1>
+             <ErrorMessage error={error} />
             )}
             {cart &&
+              cart.length > 0 &&
               cart.map((item, index) => (
                 <CartSingleItem
                   product={item}
@@ -145,6 +165,7 @@ export function CartUser() {
                   onRefresh={onRefresh}
                 />
               ))}
+              {(!cart || cart.length === 0) && <h2>The Cart is empty</h2>}
           </div>
           <div className="flex items-center justify-between w-full select-buttons">
             <div
