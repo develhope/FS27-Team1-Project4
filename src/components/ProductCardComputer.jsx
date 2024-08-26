@@ -11,7 +11,10 @@ const ProductCardComputer = ({ id, type, name, description, originalPrice, disco
       <p>Type: {type}</p>
       <p>Original Price: ${originalPrice}</p>
       <p>Discount:$ {discount}</p>
+      <div>
       <Button className="bottone" text="Add to Cart" />
+      </div>
+      
     </div>
   );
 };

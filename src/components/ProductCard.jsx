@@ -12,7 +12,10 @@ const ProductCard = ({ name, description, originalPrice, discount, imageUrl, onC
                 <span className="original-price">Original Price: $ {originalPrice}</span></p>
                <p> <span className="discount"> Discount: $ {discount}</span>
             </p>
+            <div className="bottonecard ">
             <Button className="bottone" text={"Add to Cart"} />
+            </div>
+           
         </div>
     );
 };

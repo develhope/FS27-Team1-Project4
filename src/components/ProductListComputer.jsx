@@ -63,15 +63,6 @@ const ProductListComputer = () => {
             />
           ) : (
             <>
-              <div className="filter">
-                <select value={selectedCategory} onChange={handleCategoryChange}>
-                  {categories.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </select>
-              </div>
               <div className="product-list">
                 {currentProducts.map((product) => (
                   <div key={product.id} onClick={() => handleProductClick(product)}>
