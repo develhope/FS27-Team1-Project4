@@ -239,8 +239,13 @@ $primaryColor: rgb(218, 90, 247);
         height: 100%;
       }
 
+      .products-image-container {
+        max-height: 70%;
+      }
+
       img {
-        width: 70%;
+        max-height: 60%;
+        max-width: 70%;
       }
     }
 

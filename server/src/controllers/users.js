@@ -151,6 +151,68 @@ export async function selectUserByUsernameOrEmail(username) {
   return user;
 }
 
+export async function selectUserById(id) {
+  const user = await db.oneOrNone(
+    `
+    SELECT
+      u.id,
+      u.avatar_url AS "avatarUrl",
+      u.username,
+      u.password,
+      u.email,
+      u.firstname,
+      u.lastname,
+      json_build_object(
+        'birthdate', u.birthdate,
+        'country', u.country,
+        'city', u.city,
+        'address', u.address,
+        'postalCode', u.postal_code,
+        'phone', u.phone
+      ) AS "informations",
+       jsonb_agg(
+        DISTINCT jsonb_build_object(
+          'id', g.id,
+          'name', g.name,
+          'employeeId', g.employee_id,
+          'completed', g.completed
+        )
+      ) AS "games",
+      jsonb_agg(
+        DISTINCT jsonb_build_object(
+          'cardHolderName', c.card_holder_name,
+          'cardNumber', c.card_number,
+          'lastFourDigit', c.last_four_digits,
+          'expirationDate', c.expiration_date,
+          'cvv', c.cvv
+        )
+      ) AS "billingInformations",
+      jsonb_agg(
+        DISTINCT jsonb_build_object(
+          'country', a.country,
+          'city', a.city,
+          'address', a.address,
+          'postalCode', a.postal_code
+        )
+      ) AS "alternativeShipping",
+      u.admin,
+      u.token,
+      u.created_at AS "created"
+    FROM users u
+    LEFT JOIN users_games ug ON u.id = ug.user_id
+    LEFT JOIN games g ON ug.game_id = g.id
+    LEFT JOIN users_cards uc ON u.id = uc.user_id
+    LEFT JOIN credit_cards c ON uc.credit_card_id = c.id
+    LEFT JOIN users_alternative_address ua ON u.id = ua.user_id
+    LEFT JOIN alternative_address a ON ua.address_id = a.id
+    WHERE u.id=$1 AND deleted_at IS NULL
+    GROUP BY u.id, u.avatar_url, u.username, u.password, u.email, u.firstname, u.lastname, u.country, u.city, u.address, u.postal_code, u.phone, u.admin, u.created_at
+    `,
+    [id]
+  );
+
+  return user;
+}
 
 /* This function let us get the users informations*/
 export async function getUsers(req, res) {
@@ -346,7 +408,7 @@ export async function login(req, res) {
       res
         .status(200)
         .json({ msg: `${username} logged in`, user: updatedUser, token });
-        
+
     } else {
       res.status(400).json({ msg: "Username or Password Incorrect" });
     }
@@ -574,13 +636,13 @@ export async function updateUser(req, res) {
 }
 
 export async function checkPassword (req, res) {
-  const {id} = res.params
+  const {id} = req.params
   const {password} = req.body
 
   try {
-    const user = db.oneOrNone(
+    const user = await db.oneOrNone(
       `SELECT password from users WHERE id=$1`,
-      [id]
+      [Number(id)]
     )
 
     if (!user) {
@@ -618,7 +680,13 @@ export async function updatePassword (req, res) {
       [id, encryptedPassword]
     )
 
-    res.status(200).json({msg: "Password changed"})
+    const user = await selectUserById(id)
+
+    if (!user) {
+      return res.status(404).json({msg: "User not found"})
+    }
+
+    res.status(200).json({msg: "Password changed", user})
 
   } catch(error) {
     console.log(error)
