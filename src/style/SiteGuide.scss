@@ -306,6 +306,14 @@ $circle-bg-color: rgba(238, 238, 238, 0.93);
     background-color: $circle-bg-color;
     box-shadow: 0px 0px 10px 7px $shadow-color;
   }
+
+  .support {
+    order: 2;
+  }
+
+  .cart {
+    order: 1;
+  }
 }
 
 @media (min-width: 769px) and (max-width: 1280px) {
