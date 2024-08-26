@@ -1,12 +1,13 @@
 /* Component author: Andrea*/
 
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { upperCaseString } from "../custom-hooks/uppercaseString.js";
 
 export function NavbarCurtains({ title, arrayLinks , login }) {
   const [sidebarIsShown, setSidebarIsShown] = useState(false);
   const [sidebarContentShown, setSidebarContentShow] = useState(false);
+  const navigate = useNavigate()
 
   const productNavbarRef = useRef(null);
   const linkNavbarRef = useRef(null);
@@ -87,10 +88,12 @@ export function NavbarCurtains({ title, arrayLinks , login }) {
               arrayLinks.map((link, index) => (
                 <div
                   key={index}
-                  className="flex flex-col justify-center items-center cursor-pointer"
+                  className="flex flex-col justify-between items-center cursor-pointer flex-1"
                 >
+                  <div className="flex justify-center items-center h-full products-image-container">
                   <img src={link.img} alt="product img" />
-                  <Link>{link.product}</Link>
+                  </div>
+                  <Link to={link.url}>{link.name}</Link>
                 </div>
               ))}
           </div>

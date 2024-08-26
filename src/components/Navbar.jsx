@@ -10,6 +10,7 @@ import { NavbarSearch } from "./NavbarSearch";
 import { useNavigate, Link } from "react-router-dom";
 import nebulaLogo from "../assets/nebula-tech-1-logo-b.png"
 import {useLocalUser} from "../custom-hooks/useLocalUser"
+import { imageDomain } from "../custom-hooks/usePostImage";
 
 import { HiOutlineShoppingCart } from "react-icons/hi2";
 
@@ -20,7 +21,6 @@ export function Navbar() {
   const [sidebar, setSidebar] = useState(false);
   const [itsClosing, setItsClosing] = useState(false);
   const [searchInput, setSearchInput] = useState("");
-
   const searchRef = useRef(null);
   const navigate = useNavigate()
 
@@ -37,9 +37,16 @@ export function Navbar() {
   const products = [{url: "products", name:"Products"} , {url:"computer", name: "PC"}]
   const admin = [{url:"admin", name:"Admin"}]
   const linksWithImages = [
-    { img: "../src/assets/mock-product-navbar.png", product: "LINK 1" },
-    { img: "../src/assets/mock-product-navbar.png", product: "LINK 2" },
-    { img: "../src/assets/mock-product-navbar.png", product: "LINK 3" },
+    { img: imageDomain + "uploads/all_gears.png", url: "products", name: "All Gears" },
+    { img: imageDomain + "uploads/geForce_rtx_4070_ti.png", url: "products", name: "GPU" },
+    { img: imageDomain + "uploads/lexar-2tb.png", url: "products", name: "SSD" },
+    { img: imageDomain + "uploads/intel-core-i7.png", url: "products", name: "CPU" },
+    { img: imageDomain + "uploads/ram-vengeance.png", url: "products", name: "RAM" },
+    { img: imageDomain + "uploads/samsung-viewfinity.png", url: "products", name: "Monitor" },
+    { img: imageDomain + "uploads/corsair-k70.png", url: "products", name: "Keyboard" },
+    { img: imageDomain + "uploads/logitech-g502.png", url: "products", name: "Mouse" },
+    { img: imageDomain + "uploads/corsair-hs65.png", url: "products", name: "Headset" },
+    { img: imageDomain + "uploads/pc1.png", url: "computer", name: "Pc" },
   ];
   const loginArray = [{url:"login", name: "Login"}, {url: "sign-up", name: "Sign Up"}, {url: user ? "user-profile" : "login", name: "Profile"}, {url:user ? "shipping-list" : "login", name:"Orders"}];
 
