@@ -1,0 +1,84 @@
+.admin-users-list {
+  width: 100%;
+  height: 100%;
+  color: white;
+  box-sizing: border-box;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  gap: 40px;
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .users-container {
+    width: 95%;
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: rgba($color: #000000, $alpha: 0.7);
+    border-radius: 12px;
+    border: 2px solid $primaryColor;
+  }
+
+  .users-list {
+    width: 100%;
+    background-color: rgba($color: $primaryColor, $alpha: 0.15);
+    border: 1px solid $primaryColor;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .user-info {
+    width: 100%;
+    min-height: 120px;
+    box-sizing: border-box;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .user-avatar-container {
+    width: 75px;
+    max-height: 100px;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 2px;
+    background-color: $primaryColor;
+    clip-path: polygon(0 0, 75% 0, 100% 25%, 100% 100%, 25% 100%, 0 75%);
+
+    div {
+      width: 100%;
+      max-height: 100px;
+      clip-path: polygon(0 0, 75% 0, 100% 25%, 100% 95%, 25% 95%, 0 72%);
+      overflow: hidden;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      z-index: 1;
+    }
+  }
+
+  .username-container {
+    width: calc(100% - 75px);
+  }
+
+  .separation-line {
+    width: 100%;
+    height: 1px;
+    background-color: $primaryColor;
+  }
+
+  @media(min-width: 450px) {
+    h4 {
+      font-size: 1.3rem;
+    }
+
+    .user-avatar-container {
+      width: 120px;
+    }
+
+    .username-container {
+      width: calc(100% - 120px);
+    }
+  }
+}

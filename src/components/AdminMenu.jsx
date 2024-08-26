@@ -1,3 +1,5 @@
 export function AdminMenu() {
-  return <div className="admin-menu"></div>
+  return <div className="admin-menu">
+    
+  </div>
 }

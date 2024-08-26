@@ -28,6 +28,7 @@ import { CartUser } from "./components/CartUser";
 import { ShippingUserList } from "./components/ShippingUserList";
 import { ShippingProductList } from "./components/ShippingProductList";
 import { AdminShippingList } from "./components/AdminShippingList";
+import { AdminUsersList } from "./components/AdminUsersList";
 
 
 function App() {
@@ -45,7 +46,7 @@ function App() {
         </video>
         <div className="opacity-background"></div>
       </div> */}
-      
+
       <Routes>
         <Route path="/" element={<MainWebpageContainer />}>
           <Route index element={<Home />} />
@@ -70,6 +71,7 @@ function App() {
             <Route path="product/gear/:id" element={<AdminSingleProductGear />} />
             <Route path="product/pc/:id" element={<AdminSingleProductPc />} />
             <Route path="shippings" element={<AdminShippingList />} />
+            <Route path="users-list" element={<AdminUsersList />} />
           </Route>
           <Route path="cart" element={<CartUser />} />
           <Route path="shipping-list" element={<ShippingUserList />} />
@@ -89,7 +91,7 @@ function App() {
           />
         </Route>
       </Routes>
-      
+
       {/* <Footer /> */}
     </>
   );

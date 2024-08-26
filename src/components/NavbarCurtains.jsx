@@ -44,7 +44,7 @@ export function NavbarCurtains({ title, arrayLinks , login }) {
       }}
     >
       <div
-        className={`flex justify-center items-center ${
+        className={`flex justify-center  outer-button-fixed ${
           sidebarIsShown ? "outer-button" : ""
         }`}
       >
@@ -108,9 +108,9 @@ export function NavbarCurtains({ title, arrayLinks , login }) {
               <Link
                 className={`${sidebarContentShown ? "shown" : ""}`}
                 key={index}
-                to={link}
+                to={link.url}
               >
-                <p>{upperCaseString(link)}</p>
+                <p>{upperCaseString(link.name)}</p>
               </Link>
             ))}
           </div>

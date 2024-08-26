@@ -11,15 +11,20 @@ import { CartSingleItem } from "./CartSingleItem";
 import { Button } from "./Button";
 import { useFetch } from "../custom-hooks/useFetch";
 import { ShippingStatusIcon } from "./ShippingStatusIcon";
+import { AdminShippingUpdate } from "./AdminShippingUpdate";
 
 export function ShippingProductList() {
   const { user } = useLocalUser();
   const { id } = useParams();
   const [productList, setProductList] = useState(null);
   const [total, setTotal] = useState(0);
+  const [order, setOrder] = useState([]);
 
   const { data, error, loading, onRefresh } = useGetFetch(`shipping/${id}`);
-  const [onCancel, cancelData, cancelError] = useFetch(`shipping/update-status/${id}`, "PUT")
+  const [onCancel, cancelData, cancelError] = useFetch(
+    `shipping/update-status/${id}`,
+    "PUT"
+  );
 
   useEffect(() => {
     if (data) {
@@ -41,32 +46,40 @@ export function ShippingProductList() {
 
   useEffect(() => {
     if (productList) {
-      setTotal(productList.reduce((a, product) => {
-        if (product.discount) {
-          return a + product.discount
-        } else {
-          return a + product.originalPrice
-        }
-      }, 0));
+      setTotal(
+        productList.reduce((a, product) => {
+          if (product.discount) {
+            return a + product.discount;
+          } else {
+            return a + product.originalPrice;
+          }
+        }, 0)
+      );
+
+      setOrder(productList.map((item) => item.id));
     }
     console.log(productList);
   }, [productList]);
 
+  useEffect(() => {
+    console.log(order);
+  }, [order]);
+
   async function handleCancel() {
-    const order = productList.map(product => product.id)
+    const order = productList.map((product) => product.id);
     try {
-      await onCancel({status: "Canceled", order})
+      await onCancel({ status: "Canceled", order });
 
       if (cancelError) {
-        alert(cancelError)
-        throw new Error(cancelError)
+        alert(cancelError);
+        throw new Error(cancelError);
       }
 
-      alert(`The order ${data.number} was canceled`)
+      alert(`The order ${data.number} was canceled`);
 
-      await onRefresh()
-    } catch(error) {
-      alert(JSON.stringify(error))
+      await onRefresh();
+    } catch (error) {
+      alert(JSON.stringify(error));
     }
   }
 
@@ -111,12 +124,28 @@ export function ShippingProductList() {
             <div className="flex items-start total-container">
               <h2>Total: {total.toFixed(2)} $</h2>
             </div>
-            {(data.status === "Pending" || data.status === "Working on it") && (
+            {!user.admin &&
+              (data.status === "Pending" ||
+                data.status === "Working on it") && (
+                <div className="flex justify-between items-center w-full cancel-order">
+                  <div></div>
+                  <div
+                    className="cancel-button disabled-cancel-button"
+                    onClick={handleCancel}
+                  >
+                    <Button text="Cancel Order" />
+                  </div>
+                </div>
+              )}
+              
+            {user.admin && (
               <div className="flex justify-between items-center w-full cancel-order">
                 <div></div>
-                <div className="cancel-button disabled-cancel-button" onClick={handleCancel}>
-                  <Button text="Cancel Order" />
-                </div>
+                <AdminShippingUpdate
+                  id={data.id}
+                  onRefresh={onRefresh}
+                  order={order}
+                />
               </div>
             )}
           </div>

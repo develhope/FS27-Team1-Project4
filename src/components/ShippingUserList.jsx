@@ -28,7 +28,14 @@ export function ShippingUserList() {
         {data && (
           <div className="flex flex-col admin-products-list-container">
             <div className="flex flex-col products-container">
-              {data.map(shipping => <SingleShipping shipping={shipping} key={shipping.id} />)}
+              {data.map((shipping) => (
+                <SingleShipping shipping={shipping} key={shipping.id} />
+              ))}
+              {data.length === 0 && (
+                <div className="flex justify-center">
+                  <h1>There are no Shippings at the moment</h1>
+                </div>
+              )}
             </div>
           </div>
         )}

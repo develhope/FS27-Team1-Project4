@@ -6,11 +6,12 @@
     .admin-products-list {
       .admin-product {
         h3 {
-          font-size: 0.9rem;
+          font-size: 0.7rem;
         }
       }
 
       .changing-shipping-status {
+        flex-direction: column;
         width: 100%;
         gap: 10px;
         border-top: $borderTopCardProduct;
@@ -19,6 +20,7 @@
           color: white;
           background-color: rgb(189, 89, 236);
           font-size: 1.2rem;
+          border-radius: 8px;
           cursor: context-menu;
           padding: 5px 10px;
           outline: none;
@@ -32,6 +34,23 @@
           background-color: rgb(31, 131, 245);
           box-shadow: inset 0 0 15px 5px rgba($color: #490175, $alpha: 0.7);
           cursor: context-menu;
+
+          &:hover {
+            background-color: rgb(51, 180, 244);
+            box-shadow: inset 0 0 15px 5px rgba($color: #3f2592, $alpha: 0.7);
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width:450px) {
+    .shipping {
+      .admin-products-list {
+        .admin-product {
+          h3 {
+            font-size: 1rem;
+          }
         }
       }
     }
@@ -97,7 +116,6 @@
     .shipping {
       .admin-products-list {
         .admin-product {
-
           h3 {
             font-size: 1.8rem;
           }
