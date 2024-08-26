@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function LoginForm() {
   const [formData, setFormData] = useState({
@@ -7,7 +7,7 @@ export function LoginForm() {
     password: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
-  
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,16 +48,18 @@ export function LoginForm() {
   
           if (response.ok) {
             const data = await response.json();
-            console.log("Registration successful:");
+            console.log("Login successful:");
+            navigate("/");
+            alert("Login successful")
             localStorage.setItem("user_nt1", JSON.stringify(data.user))
           } else {
             const errorData = await response.json();
             console.log(errorData);
             
-            setErrorMessage(errorData.msg || "Registration failed. Please try again.");
+            setErrorMessage(errorData.msg || "Login failed. Please try again.");
           }
         } catch (error) {
-          console.error("Error during registration:", error);
+          console.error("Error during Login:", error);
           setErrorMessage("An error occurred. Please try again later.");
         }
       } else {

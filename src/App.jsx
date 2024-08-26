@@ -29,6 +29,7 @@ import { ShippingUserList } from "./components/ShippingUserList";
 import { ShippingProductList } from "./components/ShippingProductList";
 import { AdminShippingList } from "./components/AdminShippingList";
 import { AdminUsersList } from "./components/AdminUsersList";
+import { EditPassword } from "./components/EditPassword";
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
           <Route path="sign-up" element={<SignUpForm />} />
           <Route path="user-profile" element={<UserProfile />} />
           <Route path="edit-profile" element={<EditProfile />} />
+          <Route path="edit-password" element={<EditPassword />} />
           <Route path="contact" element={<Contact />} />
           <Route path="faq" element={<ContactFAQ />} />
           <Route
