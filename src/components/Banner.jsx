@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../css/Banner.module.css';
-import image1 from '../images/1st image.jpg'
+import image1 from '../images/1st image.png'
 import image2 from '../images/2nd image.png'
 import image3 from '../images/3rd image.png'
 import image4 from '../images/4th image.jpg'
