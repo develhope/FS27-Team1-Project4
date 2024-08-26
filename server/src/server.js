@@ -29,7 +29,7 @@ import { createFaq, deleteFaq, getFaqs, updateFaq } from "./controllers/faqs.js"
 import { addChatAnswer, closeTicket, createLastMessages, createNewTicket, deleteMessage, getAllTickets, getLastMessages, getLastMessagesByUserId, getTicketById, getTicketsByUserId, modifyChatMessage, updateReadMessages } from "./controllers/tickets.js";
 import path from "path"
 import { addNewsletterSubscriber, deleteNewsletterSubscriber, getNewsletterEmails } from "./controllers/newsletter.js";
-import { addProductToUserCart, createNewShipping, getAllCartProducts, getAllShipping, getCartByUserId, updateShippingStatus } from "./controllers/cart.js";
+import { addProductToUserCart, createNewShipping, deleteCartItem, getAllCartProducts, getAllShipping, getCartByUserId, getShippingById, getShippingsByUserId, updateShippingStatus } from "./controllers/cart.js";
 
 dotenv.config();
 
@@ -139,11 +139,15 @@ app.put("/api/newsletter/subscriber/delete/:id", deleteNewsletterSubscriber)
 app.get("/api/cart/all-products", getAllCartProducts)
 app.get("/api/cart/user/:id", getCartByUserId)
 app.post("/api/cart/add/user/:id", addProductToUserCart)
+app.put("/api/cart/delete-item/:id", deleteCartItem)
 
 
 app.get("/api/shippings", getAllShipping)
+app.get("/api/shippings/user/:id", getShippingsByUserId)
+
+app.get("/api/shipping/:id", getShippingById)
 app.post("/api/shipping/create", checkIfItemAlreadyInOrder, createNewShipping)
-app.put("/api/shipping/update-status/id/:id", updateShippingStatus)
+app.put("/api/shipping/update-status/:id", updateShippingStatus)
 
 /* api to upload images */
 app.post(

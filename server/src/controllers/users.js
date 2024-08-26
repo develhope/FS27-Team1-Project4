@@ -211,7 +211,6 @@ export async function getUsers(req, res) {
       GROUP BY u.id, u.avatar_url, u.username, u.password, u.email, u.firstname, u.lastname, u.country, u.city, u.address, u.postal_code, u.phone, u.admin, u.created_at
     `);
 
-    console.log(users);
    return res.status(200).json(users);
   } catch (error) {
     console.log(error);
@@ -324,7 +323,7 @@ export async function login(req, res) {
     }
 
     const user = await selectUserByUsernameOrEmail(username);
-    console.log(user);
+
 
     if (user && (await bcrypt.compare(password, user.password))) {
       const payload = {
@@ -347,7 +346,7 @@ export async function login(req, res) {
       res
         .status(200)
         .json({ msg: `${username} logged in`, user: updatedUser, token });
-      console.log(user);
+        
     } else {
       res.status(400).json({ msg: "Username or Password Incorrect" });
     }
@@ -527,7 +526,7 @@ export async function updateUser(req, res) {
 
     if (validateUpdate.error) {
       console.log(validateUpdate.error.details);
-      
+
       return res
         .status(400)
         .json({ msg: validateUpdate.error.details[0].message });

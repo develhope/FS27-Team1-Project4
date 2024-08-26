@@ -9,8 +9,12 @@ import { NavbarSidebar } from "./NavbarSidebar";
 import { NavbarSearch } from "./NavbarSearch";
 import { useNavigate, Link } from "react-router-dom";
 import nebulaLogo from "../assets/nebula-tech-1-logo-b.png"
+import {useLocalUser} from "../custom-hooks/useLocalUser"
+
+import { HiOutlineShoppingCart } from "react-icons/hi2";
 
 export function Navbar() {
+  const {user} = useLocalUser()
   const [search, setSearch] = useState(false);
   const [closeSearch, setCloseSearch] = useState(false);
   const [sidebar, setSidebar] = useState(false);
@@ -28,21 +32,16 @@ export function Navbar() {
     }
   }, [search]);
 
-  useEffect(() => {
-    console.log(sidebar);
-    console.log(itsClosing);
-  }, [sidebar, itsClosing]);
-
   const links = ["Link1", "Link2", "Link3"];
-  const contacts = ["contact", "faq", "tickets"]
-  const products = ["products" , "computer"]
-  const admin = ["admin"]
+  const contacts = [{url:"contact", name:"Contact Us"}, {url:"faq", name: "Faq"}, {url:"tickets", name: "Opened Tickets"}]
+  const products = [{url: "products", name:"Products"} , {url:"computer", name: "PC"}]
+  const admin = [{url:"admin", name:"Admin"}]
   const linksWithImages = [
     { img: "../src/assets/mock-product-navbar.png", product: "LINK 1" },
     { img: "../src/assets/mock-product-navbar.png", product: "LINK 2" },
     { img: "../src/assets/mock-product-navbar.png", product: "LINK 3" },
   ];
-  const loginArray = ["login", "sign-up", "user-profile"];
+  const loginArray = [{url:"login", name: "Login"}, {url: "sign-up", name: "Sign Up"}, {url: user ? "user-profile" : "login", name: "Profile"}, {url:user ? "shipping-list" : "login", name:"Orders"}];
 
   return (
     <div className="flex justify-between items-center fixed navbar">
@@ -56,12 +55,16 @@ export function Navbar() {
             <div className="flex items-center justify-center links">
               <NavbarCurtains title="TEST" arrayLinks={linksWithImages} />
               <NavbarCurtains title="products" arrayLinks={products} />
-              <NavbarCurtains title="Contact Us" arrayLinks={contacts} />
+              <NavbarCurtains title="Contacts" arrayLinks={contacts} />
               <NavbarCurtains title="admin" arrayLinks={admin} />
             </div>
           </div>
           <div className="flex items-center logo-and-login-container">
             <NavbarSearch />
+            <div className="flex items-center justify-center navbar-cart"
+            onClick={() => navigate("cart")}>
+            <HiOutlineShoppingCart />
+            </div>
             <div className="flex items-center justify-center links login">
               <NavbarCurtains login={true} arrayLinks={loginArray} />
             </div>

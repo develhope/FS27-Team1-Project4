@@ -2,16 +2,16 @@ import { db } from "../db.js";
 import Joi from "joi";
 
 const addItemToCartSchema = Joi.object({
-  gearId: Joi.alternatives().conditional('pcId', {
+  gearId: Joi.alternatives().conditional("pcId", {
     is: Joi.exist(),
     then: Joi.valid(null),
-    otherwise: Joi.number().integer().required()
+    otherwise: Joi.number().integer().required(),
   }),
-  pcId: Joi.alternatives().conditional('gearId', {
+  pcId: Joi.alternatives().conditional("gearId", {
     is: Joi.exist(),
     then: Joi.valid(null),
-    otherwise: Joi.number().integer().required()
-  })
+    otherwise: Joi.number().integer().required(),
+  }),
 });
 
 const createShippingSchema = Joi.object({
@@ -62,7 +62,9 @@ export async function getCartByUserId(req, res) {
               'originalPrice', g.original_price,
               'discount', g.discount,
               'orderedAt', cp.ordered_at,
+              'status', cp.status,
               'shippingNumber', s.number,
+              'deliveryDate', cp.delivery_date,
               'createdAt', cp.created_at,
               'deletedAt', cp.deleted_at
             )
@@ -78,7 +80,9 @@ export async function getCartByUserId(req, res) {
             'originalPrice', p.original_price,
             'discount', p.discount,
             'orderedAt', cp.ordered_at,
+            'status', cp.status,
             'shippingNumber', s.number,
+            'deliveryDate', cp.delivery_date,
             'createdAt', cp.created_at,
             'deletedAt', cp.deleted_at
           ) ORDER BY cp.pc_id
@@ -89,7 +93,6 @@ export async function getCartByUserId(req, res) {
       LEFT JOIN pc p ON cp.pc_id = p.id
       LEFT JOIN shipping s ON s.id = cp.shipping_id
       WHERE u.id=$1
-        AND cp.deleted_at IS NULL
       GROUP BY u.username`,
       [Number(id)]
     );
@@ -105,29 +108,33 @@ export async function getCartByUserId(req, res) {
   }
 }
 
-export async function addProductToUserCart (req, res) {
-  const {id} = req.params
-  const {gearId, pcId} = req.body
+export async function addProductToUserCart(req, res) {
+  const { id } = req.params;
+  const { gearId, pcId } = req.body;
 
   try {
-
-    const addItemToCartValidation = addItemToCartSchema.validate(req.body)
+    const addItemToCartValidation = addItemToCartSchema.validate(req.body);
 
     if (addItemToCartValidation.error) {
-      return res.status(409).json({msg: addItemToCartValidation.error.details[0].message})
+      return res
+        .status(400)
+        .json({ msg: addItemToCartValidation.error.details[0].message });
     }
 
     await db.none(
-     `INSERT INTO cart_products (user_id, gear_id, pc_id)
+      `INSERT INTO cart_products (user_id, gear_id, pc_id)
      VALUES ($1, $2, $3)`,
-     [id, gearId, pcId]
-    )
+      [id, gearId, pcId]
+    );
 
-    res.status(201).json({msg: `Item ${gearId ? `Gear ${gearId}`: `PC ${pcId}`} added to user ${id} cart`})
-
-  } catch(error) {
-    console.log(error)
-    res.status(500).json({msg: error})
+    res.status(201).json({
+      msg: `Item ${
+        gearId ? `Gear ${gearId}` : `PC ${pcId}`
+      } added to user ${id} cart`,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: error });
   }
 }
 
@@ -138,6 +145,7 @@ export async function getAllShipping(req, res) {
         s.id,
         u.username AS "user",
         s.number,
+        s.delivery_date,
         jsonb_agg(
           jsonb_build_object(
             'id', cp.id,
@@ -151,6 +159,7 @@ export async function getAllShipping(req, res) {
             'orderedAt', cp.ordered_at,
             'shippingNumber', s.number,
             'status', cp.status,
+            'deliveryDate', cp.delivery_date,
             'createdAt', cp.created_at,
             'deletedAt', cp.deleted_at
           )
@@ -168,6 +177,7 @@ export async function getAllShipping(req, res) {
             'orderedAt', cp.ordered_at,
             'shippingNumber', s.number,
             'status', cp.status,
+            'deliveryDate', cp.delivery_date,
             'createdAt', cp.created_at,
             'deletedAt', cp.deleted_at
           )
@@ -206,6 +216,7 @@ export async function getShippingById(req, res) {
         s.id,
         u.username AS "user",
         s.number,
+        s.delivery_date,
         jsonb_agg(
           jsonb_build_object(
             'id', cp.id,
@@ -219,6 +230,7 @@ export async function getShippingById(req, res) {
             'orderedAt', cp.ordered_at,
             'shippingNumber', s.number,
             'status', cp.status,
+            'deliveryDate', cp.delivery_date,
             'createdAt', cp.created_at,
             'deletedAt', cp.deleted_at
           )
@@ -236,6 +248,7 @@ export async function getShippingById(req, res) {
             'orderedAt', cp.ordered_at,
             'shippingNumber', s.number,
             'status', cp.status,
+            'deliveryDate', cp.delivery_date,
             'createdAt', cp.created_at,
             'deletedAt', cp.deleted_at
           )
@@ -248,7 +261,7 @@ export async function getShippingById(req, res) {
         LEFT JOIN cart_products cp ON s.id = cp.shipping_id
         LEFT JOIN gear g ON g.id = cp.gear_id
         LEFT JOIN pc p ON p.id = cp.pc_id
-        WHERE id=$1
+        WHERE s.id=$1
         GROUP BY s.id, u.username, s.number, s.status, s.created_at
         `,
       [Number(id)]
@@ -267,6 +280,79 @@ export async function getShippingById(req, res) {
   }
 }
 
+export async function getShippingsByUserId(req, res) {
+  const { id } = req.params;
+
+  try {
+    const shipping = await db.manyOrNone(
+      `SELECT
+        s.id,
+        u.username AS "user",
+        s.number,
+        s.delivery_date,
+        jsonb_agg(
+          jsonb_build_object(
+            'id', cp.id,
+            'gearId', g.id,
+            'type', g.type,
+            'series', g.series,
+            'brand', g.brand,
+            'image', g.image,
+            'originalPrice', g.original_price,
+            'discount', g.discount,
+            'orderedAt', cp.ordered_at,
+            'shippingNumber', s.number,
+            'status', cp.status,
+            'deliveryDate', cp.delivery_date,
+            'createdAt', cp.created_at,
+            'deletedAt', cp.deleted_at
+          )
+        ORDER BY cp.gear_id
+        ) FILTER (WHERE g.id IS NOT NULL) AS "gearList",
+        jsonb_agg(
+          jsonb_build_object(
+            'id', cp.id,
+            'pcId', p.id,
+            'type', p.type,
+            'name', p.name,
+            'image', p.image,
+            'originalPrice', p.original_price,
+            'discount', p.discount,
+            'orderedAt', cp.ordered_at,
+            'shippingNumber', s.number,
+            'status', cp.status,
+            'deliveryDate', cp.delivery_date,
+            'createdAt', cp.created_at,
+            'deletedAt', cp.deleted_at
+          )
+        ORDER BY cp.pc_id
+        ) FILTER (WHERE p.id IS NOT NULL) AS "pcList",
+        s.status AS "status",
+        s.created_at AS "createdAt"
+        FROM shipping s
+        LEFT JOIN users u ON s.user_id = u.id
+        LEFT JOIN cart_products cp ON s.id = cp.shipping_id
+        LEFT JOIN gear g ON g.id = cp.gear_id
+        LEFT JOIN pc p ON p.id = cp.pc_id
+        WHERE s.user_id=$1
+        GROUP BY s.id, u.username, s.number, s.status, s.created_at
+        `,
+      [Number(id)]
+    );
+
+    if (!shipping) {
+      return res
+        .status(404)
+        .json({ msg: "Something went wrong, couldn't get the data" });
+    }
+
+    res.status(200).json(shipping);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: error });
+  }
+}
+
 export async function createNewShipping(req, res) {
   const { userId, order } = req.body;
 
@@ -275,7 +361,7 @@ export async function createNewShipping(req, res) {
 
     if (validateShipping.error) {
       return res
-        .status(409)
+        .status(400)
         .json({ msg: validateShipping.error.details[0].message });
     }
 
@@ -297,40 +383,83 @@ export async function createNewShipping(req, res) {
       [order, id]
     );
 
-    res.status(201).json({ msg: `Order ${number} created` });
+    res.status(201).json({ msg: `Order ${number} created`, id });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: error });
   }
 }
 
+
+
 export async function updateShippingStatus(req, res) {
   const { id } = req.params;
   const { status, order } = req.body;
 
   try {
-    const updateStatusValidation = changeShippingStatusSchema.validate(req.body);
+    const updateStatusValidation = changeShippingStatusSchema.validate(
+      req.body
+    );
 
     if (updateStatusValidation.error) {
       return res
-        .status(409)
+        .status(400)
         .json({ msg: updateStatusValidation.error.details[0].message });
     }
-    await db.none(
-      `UPDATE shipping
-      SET status=$2
-      WHERE id=$1`,
-      [Number(id), status]
-    );
 
-    await db.none(
-      `UPDATE cart_products
+    let shipping = null
+
+    if (status === "On its way") {
+      shipping = await db.one(
+        `UPDATE shipping
+        SET status=$2, delivery_date = NOW() + INTERVAL '1 WEEK'
+        WHERE id=$1
+        RETURNING number`,
+        [Number(id), status]
+      );
+
+      await db.none(
+        `UPDATE cart_products
+        SET status=$2, delivery_date = NOW() + INTERVAL '1 WEEK'
+        WHERE id= ANY($1)`,
+        [order, status]
+      );
+    } else {
+      shipping = await db.one(
+        `UPDATE shipping
+      SET status=$2
+      WHERE id=$1
+      RETURNING number`,
+        [Number(id), status]
+      );
+
+      await db.none(
+        `UPDATE cart_products
       SET status=$2
       WHERE id= ANY($1)`,
-      [order, status]
+        [order, status]
+      );
+    }
+
+    res.status(200).json({ msg: `Shipping ${shipping.number} status updated to ${status}` });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: error });
+  }
+}
+
+export async function deleteCartItem(req, res) {
+  const { id } = req.params;
+
+  try {
+    await db.none(
+      `UPDATE cart_products
+      SET deleted_at=NOW()
+      WHERE id=$1`,
+      [id]
     );
 
-    res.status(200).json({ msg: `Shipping ${id} status updated to ${status}` });
+    res.status(200).json({ msg: "Item deleted from the cart" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: error });
