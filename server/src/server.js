@@ -76,7 +76,7 @@ app.post("/api/user/check/:id", checkPassword)
 app.put("/api/user/update/:id", checkUsernameOrEmailUnique, updateUser);
 app.put("/api/user/update/password/:id", updatePassword)
 
-app.patch("/api/user/soft/:id", softUserDelete)
+app.put("/api/user/soft/:id", softUserDelete)
 
 app.delete("/api/user/hard/:id", hardDeleteUser)
 
