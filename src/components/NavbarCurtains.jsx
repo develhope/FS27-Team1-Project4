@@ -88,10 +88,10 @@ export function NavbarCurtains({ title, arrayLinks , login }) {
               arrayLinks.map((link, index) => (
                 <div
                   key={index}
-                  className="flex flex-col justify-between items-center cursor-pointer flex-1"
+                  className="flex flex-col justify-between items-center flex-1"
                 >
                   <div className="flex justify-center items-center h-full products-image-container">
-                  <img src={link.img} alt="product img" />
+                  <img src={link.img} alt="product img" onClick={() => navigate(link.url)}/>
                   </div>
                   <Link to={link.url}>{link.name}</Link>
                 </div>

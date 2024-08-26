@@ -20,7 +20,12 @@ const loginSchema = Joi.object({
 
 const signUpSchema = Joi.object({
   username: Joi.string().required(),
-  password: Joi.string().min(8).pattern(new RegExp("(?=.*[a-z])")).pattern(new RegExp("(?=.*[A-Z])")).pattern(new RegExp("(?=.*[0-9])")).required(),
+  password: Joi.string()
+    .min(8)
+    .pattern(new RegExp("(?=.*[a-z])"))
+    .pattern(new RegExp("(?=.*[A-Z])"))
+    .pattern(new RegExp("(?=.*[0-9])"))
+    .required(),
   email: Joi.string().email().required(),
   firstname: Joi.string().required(),
   lastname: Joi.string().required(),
@@ -54,8 +59,13 @@ const updateUserSchema = Joi.object({
 });
 
 const updatePasswordSchema = Joi.object({
-  password: Joi.string().min(8).pattern(new RegExp("(?=.*[a-z])")).pattern(new RegExp("(?=.*[A-Z])")).pattern(new RegExp("(?=.*[0-9])")).required()
-})
+  password: Joi.string()
+    .min(8)
+    .pattern(new RegExp("(?=.*[a-z])"))
+    .pattern(new RegExp("(?=.*[A-Z])"))
+    .pattern(new RegExp("(?=.*[0-9])"))
+    .required(),
+});
 
 const alternativeAddressSchema = Joi.object({
   userId: Joi.number().required(),
@@ -273,10 +283,10 @@ export async function getUsers(req, res) {
       GROUP BY u.id, u.avatar_url, u.username, u.password, u.email, u.firstname, u.lastname, u.country, u.city, u.address, u.postal_code, u.phone, u.admin, u.created_at
     `);
 
-   return res.status(200).json(users);
+    return res.status(200).json(users);
   } catch (error) {
     console.log(error);
-   return res.status(500).json({ msg: error });
+    return res.status(500).json({ msg: error });
   }
 }
 
@@ -345,7 +355,7 @@ export async function getUserById(req, res) {
     );
 
     if (!user) {
-     return res.status(404).json({msg: "user not found"})
+      return res.status(404).json({ msg: "user not found" });
     }
 
     res.status(200).json(user);
@@ -384,8 +394,18 @@ export async function login(req, res) {
         .json({ msg: validateLogin.error.details[0].message });
     }
 
-    const user = await selectUserByUsernameOrEmail(username);
+    const deletedUser = await db.one(
+      `SELECT deleted_at AS "deletedAt"
+      FROM users
+      WHERE username=$1 OR email=$1`,
+      [username]
+    )
 
+    if (deletedUser.deletedAt !== null) {
+      return res.status(404).json({msg: "User not found"})
+    }
+
+    const user = await selectUserByUsernameOrEmail(username);
 
     if (user && (await bcrypt.compare(password, user.password))) {
       const payload = {
@@ -396,10 +416,9 @@ export async function login(req, res) {
       const token = jwt.sign(payload, SECRET);
 
       await db.none(
-        `
-      UPDATE users
-      SET token=$2
-      WHERE id=$1`,
+        `UPDATE users
+         SET token=$2
+         WHERE id=$1 `,
         [user.id, token]
       );
 
@@ -408,7 +427,6 @@ export async function login(req, res) {
       res
         .status(200)
         .json({ msg: `${username} logged in`, user: updatedUser, token });
-
     } else {
       res.status(400).json({ msg: "Username or Password Incorrect" });
     }
@@ -460,7 +478,7 @@ export async function signUp(req, res) {
         postalCode,
         phone,
         avatarUrl,
-        birthdate
+        birthdate,
       ]
     );
 
@@ -569,7 +587,7 @@ export async function addCreditCard(req, res) {
 
 export async function updateUser(req, res) {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
     const {
       username,
       email,
@@ -581,7 +599,7 @@ export async function updateUser(req, res) {
       postalCode,
       phone,
       avatarUrl,
-      birthdate
+      birthdate,
     } = req.body;
 
     const validateUpdate = updateUserSchema.validate(req.body);
@@ -621,7 +639,7 @@ export async function updateUser(req, res) {
         phone,
         id,
         avatarUrl,
-        birthdate
+        birthdate,
       ]
     );
 
@@ -635,65 +653,62 @@ export async function updateUser(req, res) {
   }
 }
 
-export async function checkPassword (req, res) {
-  const {id} = req.params
-  const {password} = req.body
+export async function checkPassword(req, res) {
+  const { id } = req.params;
+  const { password } = req.body;
 
   try {
-    const user = await db.oneOrNone(
-      `SELECT password from users WHERE id=$1`,
-      [Number(id)]
-    )
+    const user = await db.oneOrNone(`SELECT password from users WHERE id=$1`, [
+      Number(id),
+    ]);
 
     if (!user) {
-      return res.status(404).json({msg: "User not found"})
+      return res.status(404).json({ msg: "User not found" });
     }
 
     if (await bcrypt.compare(password, user.password)) {
-      res.status(201).json({msg: "The password is correct"})
+      res.status(201).json({ msg: "The password is correct" });
     } else {
-      res.status(400).json({msg: "Password incorrect"})
+      res.status(400).json({ msg: "Password incorrect" });
     }
-
-  } catch(error) {
-    console.log(error)
-    res.status(500).json({msg: error})
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: error });
   }
 }
 
-export async function updatePassword (req, res) {
-  const {id} = req.params
-  const {password} = req.body
+export async function updatePassword(req, res) {
+  const { id } = req.params;
+  const { password } = req.body;
 
   try {
-
-    const passwordValidate = updatePasswordSchema.validate(req.body)
+    const passwordValidate = updatePasswordSchema.validate(req.body);
 
     if (passwordValidate.error) {
-      return res.status(409).json({msg: passwordValidate.error.details[0].message})
+      return res
+        .status(409)
+        .json({ msg: passwordValidate.error.details[0].message });
     }
 
-    const encryptedPassword = await bcrypt.hash(password, 10)
+    const encryptedPassword = await bcrypt.hash(password, 10);
 
-    await db.none(
-      `UPDATE users SET password=$2 WHERE id=$1`,
-      [id, encryptedPassword]
-    )
+    await db.none(`UPDATE users SET password=$2 WHERE id=$1`, [
+      id,
+      encryptedPassword,
+    ]);
 
-    const user = await selectUserById(id)
+    const user = await selectUserById(id);
 
     if (!user) {
-      return res.status(404).json({msg: "User not found"})
+      return res.status(404).json({ msg: "User not found" });
     }
 
-    res.status(200).json({msg: "Password changed", user})
-
-  } catch(error) {
-    console.log(error)
-    res.status(500).json({msg: error})
+    res.status(200).json({ msg: "Password changed", user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: error });
   }
 }
-
 
 export async function softUserDelete(req, res) {
   const { id } = req.params;
@@ -729,7 +744,7 @@ export async function softUserDelete(req, res) {
 
     res
       .status(200)
-      .json({ msg: `User ${username} has been deleted on ${deleted_at}` });
+      .json({ msg: `User ${id} has been deleted on ${deleted_at}` });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: error });
