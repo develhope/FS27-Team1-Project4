@@ -6,6 +6,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+.banner .slider:hover {
+    animation-play-state: paused;
+}
 
 
 .banner {
