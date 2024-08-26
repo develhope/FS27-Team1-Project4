@@ -44,7 +44,9 @@ export function UserProfile() {
                   <Link to="/edit-profile">
                     <button>Edit profile</button>
                   </Link>
+                  <Link to="/edit-password">
                   <button>Edit password</button>
+                  </Link>
                   <button>Delete profile</button>
                 </div>
               )}
