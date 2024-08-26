@@ -339,14 +339,14 @@ async function setupDB() {
     "Dodo",
     passwordUser4,
     "domenicoprovenzano13@gmail.com",
-    "Dodo",
+    "Domenico",
     "Provy",
     "Italy",
     "Palermo",
     "Piazza la bomba e boom, 60",
     "00100",
     true,
-    imagePath("build_pc_icon.png"),
+    imagePath("Blobbino.jpg"),
     "1997-01-01"
   );
 
