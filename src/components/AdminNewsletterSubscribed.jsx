@@ -3,7 +3,7 @@ import { LoadingMessage } from "./LoadingMessage";
 import { ErrorMessage } from "./ErrorMessage";
 import { useEffect } from "react";
 
-export function NewsletterSubscribed() {
+export function AdminNewsletterSubscribed() {
   const { data, error, loading } = useGetFetch("newsletter/subscribers");
 
   useEffect(() => {
