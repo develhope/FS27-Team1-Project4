@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useRender } from "./ChatProvider";
 
 export function LoginForm() {
   const [formData, setFormData] = useState({
@@ -8,6 +9,7 @@ export function LoginForm() {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+  const {onRender} = useRender()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,17 +47,18 @@ export function LoginForm() {
             },
             body: JSON.stringify(formData),
           });
-  
+
           if (response.ok) {
             const data = await response.json();
             console.log("Login successful:");
             navigate("/");
             alert("Login successful")
             localStorage.setItem("user_nt1", JSON.stringify(data.user))
+            onRender()
           } else {
             const errorData = await response.json();
             console.log(errorData);
-            
+
             setErrorMessage(errorData.msg || "Login failed. Please try again.");
           }
         } catch (error) {

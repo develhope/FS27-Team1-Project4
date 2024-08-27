@@ -46,6 +46,7 @@ const GearCollection = ({ products }) => {
             originalPrice={product.originalPrice}
             discount={product.discount}
             imageUrl={product.image}
+            id={product.id}
             onClick={() => handleProductClick(product)}
           />
         ))}

@@ -2,20 +2,44 @@ import React from "react";
 import { Button } from "./Button";
 import { useFetch } from "../custom-hooks/useFetch";
 import { useLocalUser } from "../custom-hooks/useLocalUser";
+import { useNavigate } from "react-router-dom";
+import { useRender } from "./ChatProvider";
 
-const ProductCardComputer = ({ id, type, name, description, originalPrice, discount, image }) => {
+const ProductCardComputer = ({
+  id,
+  type,
+  name,
+  description,
+  originalPrice,
+  discount,
+  image,
+}) => {
   const { user } = useLocalUser();
-  const [onAddCart, addData, addError] = useFetch("cart/add/user/" + user.id, "POST");
+  const [onAddCart, addData, addError] = useFetch(
+    user ? "cart/add/user/" + user.id : "",
+    "POST"
+  );
+  const navigate = useNavigate();
+  const {onRender} = useRender()
 
   async function handleAddCart() {
-    await onAddCart({ pcId: id });
+    if (user) {
+      try {
+        await onAddCart({ pcId: id });
 
-    if (addError) {
-      alert(addError);
-      throw new Error(addError);
+        if (addError) {
+          alert(addError);
+          throw new Error(addError);
+        }
+
+        alert(`Item ${name} added to cart`);
+        onRender()
+      } catch (error) {
+        throw new Error(error);
+      }
+    } else {
+      navigate("/login");
     }
-
-    alert(`Item ${name} added to cart`);
   }
 
   return (
@@ -26,7 +50,12 @@ const ProductCardComputer = ({ id, type, name, description, originalPrice, disco
       <p>Type: {type}</p>
       <p>Original Price: ${originalPrice}</p>
       <p>Discount: ${discount}</p>
-      <div onClick={(event) => { event.stopPropagation(); handleAddCart(); }}>
+      <div
+        onClick={(event) => {
+          event.stopPropagation();
+          handleAddCart();
+        }}
+      >
         <Button className="bottone" text="Add to Cart" />
       </div>
     </div>

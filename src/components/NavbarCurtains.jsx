@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { upperCaseString } from "../custom-hooks/uppercaseString.js";
+import { useRender } from "./ChatProvider.jsx";
 
 export function NavbarCurtains({ title, arrayLinks, login }) {
   const [sidebarIsShown, setSidebarIsShown] = useState(false);
@@ -11,6 +12,7 @@ export function NavbarCurtains({ title, arrayLinks, login }) {
 
   const productNavbarRef = useRef(null);
   const linkNavbarRef = useRef(null);
+  const {onRender} = useRender()
 
   useEffect(() => {
     if (sidebarIsShown) {
@@ -39,25 +41,26 @@ export function NavbarCurtains({ title, arrayLinks, login }) {
     const user = JSON.parse(localStorage.getItem("user_nt1"))
     try {
       console.log(user);
-      
+
       const response = await fetch("http://localhost:3000/api/users/logout", {
         method: 'GET',
-        credentials: 'include', 
+        credentials: 'include',
         headers: {
-          Authorization: `Bearer ${user.token}`, 
+          Authorization: `Bearer ${user.token}`,
           'Content-Type': 'application/json'
         }
       });
-      
+
 
       if (response.ok) {
-        
+
         console.log('Logout successful');
         alert("Logged out succesfully")
         navigate('/login');
         localStorage.removeItem("user_nt1");
+        onRender()
       } else {
-       
+
         console.error('Logout failed');
       }
     } catch (error) {
