@@ -7,6 +7,10 @@ dotenv.config();
 
 const { SECRET } = process.env;
 
+if (!SECRET) {
+  throw new Error("SECRET environment variable is not defined")
+}
+
 passport.use(
   new passportJWT.Strategy(
     {
@@ -22,9 +26,9 @@ passport.use(
       );
 
       try {
-        return user ? done(null, user) : done(new Error("User not found."));
+        return user ? done(null, user) : done(null, false);
       } catch (error) {
-        done(error);
+        return done(error);
       }
     }
   )

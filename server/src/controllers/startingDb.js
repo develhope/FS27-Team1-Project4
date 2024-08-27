@@ -48,11 +48,11 @@ export async function createUser(
 
     const schiariti = await db.one(`
     INSERT INTO games (name, employee_id, completed)
-    VALUES ('A. Schiariti', 'id 212', false) RETURNING id`);
+    VALUES ('schiariti', 'id 212', false) RETURNING id`);
 
     const provenzano = await db.one(`
     INSERT INTO games (name, employee_id, completed)
-    VALUES ('D. Provenzano', 'id 210', false) RETURNING id`);
+    VALUES ('provenzano', 'id 210', false) RETURNING id`);
 
     await db.none(
       `INSERT INTO users_games (user_id, game_id)

@@ -1,5 +1,8 @@
 $nodeDarkerGreen: rgb(1, 87, 1);
 $nodeLighterBorder: rgb(19, 177, 19);
+$nodeRedDeepColor: rgb(250, 32, 32);
+$nodeRedDarkerDeepColor: rgb(115, 15, 15);
+$nodeRedMidDeepColor: rgb(202, 58, 58);
 
 .stolen {
   width: 100%;
@@ -239,3 +242,236 @@ $nodeLighterBorder: rgb(19, 177, 19);
     left: 3%;
   }
 }
+
+.is-stolen {
+  .base {
+    background-color: $nodeRedDeepColor;
+  }
+
+  .diagonal-left {
+    position: absolute;
+    right: 30%;
+    width: 50%;
+    height: 110%;
+    transform: rotate(-45deg);
+    background-color: $nodeRedDeepColor;
+  }
+
+  .diagonal-right {
+    position: absolute;
+    left: 30%;
+    width: 50%;
+    height: 110%;
+    transform: rotate(45deg);
+    background-color: $nodeRedDeepColor;
+  }
+
+  .perpendicular-base {
+    position: absolute;
+    width: 100%;
+    height: 55%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $nodeRedDeepColor;
+  }
+
+  .darker-diagonal {
+    position: absolute;
+    right: 42%;
+    width: 50%;
+    height: 70%;
+    transform: rotate(-45deg);
+    background-color: $nodeRedDarkerDeepColor;
+  }
+
+  .darker-perpendicular {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    top: 53%;
+    left: 40%;
+    transform: translateY(-50%);
+    background-color: $nodeRedDarkerDeepColor;
+  }
+
+  .top-layer-cover {
+    position: absolute;
+    top: 0;
+    right: 45%;
+    width: 45%;
+    height: 70%;
+    transform: rotate(-45deg);
+    background-color: $nodeRedDeepColor;
+  }
+
+  .top-layer-cover-perpendicular {
+    position: absolute;
+    width: 100%;
+    height: 45%;
+    top: 53%;
+    left: 41%;
+    transform: translateY(-50%);
+    background-color: $nodeRedDeepColor;
+  }
+
+  .lighter-diagonal {
+    position: absolute;
+    top: -2%;
+    right: 52%;
+    width: 35%;
+    height: 70%;
+    transform: rotate(-45deg);
+    background-color: $nodeRedMidDeepColor;
+  }
+
+  .lighter-center {
+    position: absolute;
+    width: 50%;
+    height: 33%;
+    top: 53%;
+    left: 41%;
+    transform: translateY(-50%);
+    background-color: $nodeRedMidDeepColor;
+  }
+
+  .max-top-diagonal {
+    position: absolute;
+    top: 0%;
+    right: 54%;
+    width: 31%;
+    height: 66%;
+    transform: rotate(-45deg);
+    background-color: $nodeRedDeepColor;
+  }
+
+  .top-center {
+    position: absolute;
+    width: 46%;
+    height: 29%;
+    top: 53%;
+    left: 43%;
+    box-sizing: border-box;
+    padding: 2px;
+    gap: 2px;
+    transform: translateY(-50%);
+    background-color: $nodeRedDeepColor;
+
+    div {
+      gap: 2px;
+    }
+  }
+
+  .single-dot {
+    width: 5px;
+    height: 5px;
+    background-color: $nodeRedDarkerDeepColor;
+  }
+
+  .first-nodule-container {
+    position: absolute;
+    width: 20%;
+    height: 20%;
+    top: 8%;
+    right: 3%;
+  }
+
+  .second-nodule-container {
+    position: absolute;
+    width: 20%;
+    height: 20%;
+    top: 8%;
+    right: 13%;
+  }
+
+  .third-nodule-container {
+    position: absolute;
+    width: 20%;
+    height: 20%;
+    transform: rotate(-135deg) ;
+    top: 50%;
+    left: 1%;
+  }
+
+  .forth-nodule-container {
+    position: absolute;
+    width: 20%;
+    height: 20%;
+    transform: rotate(-135deg) ;
+    top: 58%;
+    left: 10%;
+  }
+
+  .band-background {
+    position: absolute;
+    top: 50%;
+    left: 47%;
+    transform: translate(-50%, -50%) rotate(-17deg);
+    height: 200%;
+    width: 25%;
+    background-color: rgba($color: $nodeRedDarkerDeepColor, $alpha: 0.4);
+  }
+
+  .band-border {
+    position: absolute;
+    top: 50%;
+    left: 47%;
+    transform: translate(-50%, -50%) rotate(-17deg);
+    height: 200%;
+    width: 25%;
+    border: 2px solid rgba($color: $nodeRedDarkerDeepColor, $alpha: 0.5);
+  }
+
+  .random-number-container {
+    position: absolute;
+    top: 78%;
+    right: 12%;
+    font-size: 65%;
+    color: rgb(248, 151, 151);
+  }
+
+  .game-name-container {
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    transform: rotate(47deg);
+    font-size: 130%;
+    color: rgb(248, 151, 151);
+  }
+
+  .nodule {
+    width: 100%;
+    height: 100%;
+
+    .vertical-line {
+      position: absolute;
+      left: 60%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 40%;
+      background-color: rgba($color: $nodeRedDarkerDeepColor, $alpha: 0.4);
+    }
+
+    .diagonal-line {
+      position: absolute;
+      width: 2px;
+      height: 30%;
+      background-color: rgba($color: $nodeRedDarkerDeepColor, $alpha: 0.4);
+      transform: rotate(-45deg);
+      top: 35%;
+      left: 45%;
+    }
+
+    .circle {
+      position: absolute;
+      width: 40%;
+      height: 40%;
+      border: 2px solid rgba($color: $nodeRedDarkerDeepColor, $alpha: 0.4);
+      border-radius: 50%;
+      top: 6%;
+      left: 3%;
+    }
+  }
+}
+
