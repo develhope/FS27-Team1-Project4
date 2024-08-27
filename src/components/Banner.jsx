@@ -1,14 +1,14 @@
 import React from 'react';
 import styles from '../css/Banner.module.css';
-import image1 from '../images/1st image.jpg'
+import image1 from '../images/1st image.png'
 import image2 from '../images/2nd image.png'
 import image3 from '../images/3rd image.png'
-import image4 from '../images/4th image.jpg'
+import image4 from '../images/4th image.png'
 import image5 from '../images/5th Image.jpg'
 import image6 from '../images/6th image.jpg'
-import image7 from '../images/7th image.jpg'
+import image7 from '../images/7th image.png'
 import image8 from '../images/8th image.jpg'
-import image9 from '../images/9th image.jpg'
+import image9 from '../images/9th image.png'
 import image10 from '../images/10th image.jpg'
 import image11 from '../images/11th image.png'
 
