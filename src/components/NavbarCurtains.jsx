@@ -34,6 +34,37 @@ export function NavbarCurtains({ title, arrayLinks, login }) {
     }
   }, [sidebarIsShown]);
 
+  const handleLogout = async () => {
+
+    const user = JSON.parse(localStorage.getItem("user_nt1"))
+    try {
+      console.log(user);
+      
+      const response = await fetch("http://localhost:3000/api/users/logout", {
+        method: 'GET',
+        credentials: 'include', 
+        headers: {
+          Authorization: `Bearer ${user.token}`, 
+          'Content-Type': 'application/json'
+        }
+      });
+      
+
+      if (response.ok) {
+        
+        console.log('Logout successful');
+        alert("Logged out succesfully")
+        navigate('/login');
+        localStorage.removeItem("user_nt1");
+      } else {
+       
+        console.error('Logout failed');
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+  };
+
   return (
     <div
       className="flex items-center justify-center relative links-container"
@@ -121,7 +152,7 @@ export function NavbarCurtains({ title, arrayLinks, login }) {
               </Link>
             ))}
             {login && (
-              <div className={`${sidebarContentShown ? "shown" : ""}`}>
+              <div onClick={handleLogout} className={`${sidebarContentShown ? "shown" : ""}`}>
                 <p>Logout</p>
               </div>
             )}
