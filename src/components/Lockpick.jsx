@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { LockpickCircle } from "./LockpickCircle";
 import { useSpeak } from "../custom-hooks/useSpeak";
-import { useSpeaking } from "./ChatProvider";
+import { useRender, useSpeaking } from "./ChatProvider";
 import { DeepStolenNode } from "./DeepStolenNode";
 import { useLocalUser } from "../custom-hooks/useLocalUser"
+import { useGameCompleted } from "../custom-hooks/useGameCompleted";
 
 export function Lockpick() {
-  const {user} = useLocalUser()
+  const {user, refreshUser} = useLocalUser()
   const [firstAngle, setFirstAngle] = useState(0);
   const [secondAngle, setSecondAngle] = useState(0);
   const [thirdAngle, setThirdAngle] = useState(0);
@@ -20,8 +21,9 @@ export function Lockpick() {
   const [stolen, setStolen] = useState(false)
 
   const setChat = useSpeaking();
+  const {onRender} = useRender()
 
-  const gameRef = useRef(user.games.find(game => game.name === "A. Schiariti"))
+  const gameRef = useRef(user.games.find(game => game.name === "schiariti"))
 
   const winningRef = useRef({
     first: 172,
@@ -29,6 +31,8 @@ export function Lockpick() {
     third: 172,
     forth: 156,
   });
+
+  const onCompleted = useGameCompleted(gameRef.current.id)
 
   useEffect (() => {
     if (gameRef.current.completed) {
@@ -159,8 +163,8 @@ export function Lockpick() {
         </div>
       </div>
       { success && (
-        <div className="flex justify-center items-center data">
-          <DeepStolenNode setStolen={setStolen} stolen={stolen}/>
+        <div className="flex justify-center items-center data" onClick={onCompleted}>
+          <DeepStolenNode setStolen={setStolen} stolen={stolen} id={gameRef.current.employeeId}/>
         </div>
       )}
     </div>

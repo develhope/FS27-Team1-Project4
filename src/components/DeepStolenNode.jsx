@@ -4,8 +4,8 @@ import { DeepDots } from "./DeepDots";
 import { DeepNodule } from "./DeepNodule";
 import { DeepRandomString } from "./DeepRandomString";
 
-export function DeepStolenNode({stolen, setStolen}) {
-  return <div className="flex items-center justify-center relative stolen">
+export function DeepStolenNode({stolen, setStolen, id}) {
+  return <div className={`flex items-center justify-center relative stolen ${stolen ? "is-stolen" : ""}`}>
     <div className="base">
       <div className="diagonal-left"></div>
       <div className="diagonal-right"></div>
@@ -38,10 +38,10 @@ export function DeepStolenNode({stolen, setStolen}) {
       <div className="band-background"></div>
       <div className="band-border"></div>
       <div className="random-number-container">
-        <p><DeepRandomString stringLength={9}/></p>
+        <div><DeepRandomString stringLength={9}/></div>
       </div>
       <div className="game-name-container">
-        <p>id-109</p>
+        {id}
       </div>
     </div>
   </div>

@@ -6,21 +6,45 @@ import { useRandom } from "../custom-hooks/useRandom";
 import { DeepRandomString } from "./DeepRandomString";
 import { Button } from "./Button";
 import { useResponsiveWidth } from "../custom-hooks/useResponsiveWidth";
-import { useEffect } from "react";
-import { useChat, useSpeaking } from "./ChatProvider";
+import { useEffect, useState } from "react";
+import { useChat, useRender, useSpeaking } from "./ChatProvider";
+import { useLocalUser } from "../custom-hooks/useLocalUser";
+import { upperCaseString } from "../custom-hooks/uppercaseString";
+import { useGetFetch } from "../custom-hooks/useGetFetch";
+import { LoadingMessage } from "./LoadingMessage";
+import { ErrorMessage } from "./ErrorMessage";
+import { DeepAdvertisement } from "./DeepAdvertisement";
 
 export function Deep() {
+  const { user, refreshUser } = useLocalUser();
   const navigate = useNavigate();
   const { screenWidth } = useResponsiveWidth();
-  const chat = useChat()
-  const setChat = useSpeaking()
+  const chat = useChat();
+  const setChat = useSpeaking();
+  const { render } = useRender();
+  const [filteredProducts, setFilteredProducts] = useState(null);
 
-  useEffect(() => setChat("Choose a Node"), []);
+  const { data, error, loading } = useGetFetch("products/gears");
 
-  const testUser = {
-    schiariti: false,
-    provenzano: true,
-  };
+  useEffect(() => {
+    setChat("Choose a Node");
+    refreshUser();
+  }, []);
+
+  useEffect(() => {
+    setChat("Choose another Node");
+    refreshUser();
+  }, [render]);
+
+  useEffect(() => {
+    if (data) {
+      setFilteredProducts(data.filter((item) => item.discount));
+    }
+  }, [data]);
+
+  useEffect(() => {
+    console.log(filteredProducts)
+  }, [filteredProducts])
 
   return (
     <div
@@ -42,16 +66,18 @@ export function Deep() {
         <div className="absolute second-border-line"></div>
         <div className="relative curl-effect"></div>
         <div className="flex flex-col absolute nodes-container">
-          <NodeDeep
-            employee={screenWidth > 1280 ? "Schiariti A." : "ID 217"}
-            path={"schiariti"}
-            gameCleared={testUser.schiariti}
-          />
-          <NodeDeep
-            employee={screenWidth > 1280 ? "Provenzano D." : "ID 213"}
-            path={"/"}
-            gameCleared={testUser.provenzano}
-          />
+          {user.games.map((game) => (
+            <NodeDeep
+              key={game.id}
+              employee={
+                screenWidth > 1280
+                  ? upperCaseString(game.name)
+                  : game.employee_id
+              }
+              path={game.name}
+              gameCleared={game.completed}
+            />
+          ))}
         </div>
       </div>
 
@@ -195,7 +221,10 @@ export function Deep() {
                   </svg>
                 </div>
               </div>
-              <div className="relative card-carousel">
+              <div className="relative flex items-center justify-center card-carousel">
+                {loading && <LoadingMessage />}
+                {error && <ErrorMessage error={"Couldn't retieve information from the main website"}/>}
+                {filteredProducts && filteredProducts.map(item => <DeepAdvertisement key={item.id} item={item} />)}
                 <div
                   className="flex items-center justify-center absolute quit-deep"
                   onClick={() => navigate("/")}
