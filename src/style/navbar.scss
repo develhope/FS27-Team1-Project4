@@ -39,6 +39,7 @@ $primaryColor: rgb(218, 90, 247);
     height: 50px;
     width: 50px;
     color: white;
+    border: 2px solid rgb(35, 35, 35);
     background-color: transparent;
     box-sizing: border-box;
     border-radius: 4px;
@@ -50,7 +51,7 @@ $primaryColor: rgb(218, 90, 247);
     height: 50px;
     border: none;
     overflow: hidden;
-    left: -410px;
+    left: -260px;
     width: 0;
     transition: width 0.3s linear;
 
@@ -75,6 +76,7 @@ $primaryColor: rgb(218, 90, 247);
     button.close-search {
       height: 100%;
       width: 50px;
+      border: 2px solid rgb(35, 35, 35);
     }
   }
 
@@ -112,13 +114,53 @@ $primaryColor: rgb(218, 90, 247);
   }
 
   .navbar-cart {
+    position: relative;
     color: white;
-    height: 100%;
+    height: 50px;
     aspect-ratio: 1;
+    border-radius: 4px;
+    border: 2px solid rgb(35, 35, 35);
+    box-sizing: border-box;
+    padding: 5px;
+    cursor: pointer;
+
+    &::after {
+      content: "";
+      position: absolute;
+      border-radius: inherit;
+      inset: 0.5px;
+      pointer-events: none;
+      border: 2px solid rgb(35, 35, 35);
+    }
 
     svg {
       width: 100%;
       height: 100%;
+    }
+
+    &:hover {
+      background-color: rgb(81, 53, 81);
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.7);
+
+      &::after {
+        inset: 2px;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5),
+          0 0px 8px rgba(0, 0, 0, 0.5);
+      }
+
+      svg {
+        width: 26px;
+        height: 26px;
+        color: rgb(247, 193, 248);
+        background: radial-gradient(
+          circle farthest-side at center,
+          rgba(#e336fd, 0.5),
+          rgba(#ec8cfa, 0.5)
+        );
+        box-shadow: -1px -1px 10px rgba(#ec8cfa, 0.5),
+          1px -1px 10px rgba(#ec8cfa, 0.5), -1px 1px 10px rgba(#ec8cfa, 0.5),
+          1px 1px 10px rgba(#ec8cfa, 0.5);
+      }
     }
   }
 
@@ -366,6 +408,11 @@ $primaryColor: rgb(218, 90, 247);
     .link-menu-shown {
       top: 54px;
     }
+
+    .white {
+      color: white;
+      z-index: 1;
+    }
   }
 
   .sidebar-container {
@@ -420,9 +467,10 @@ $primaryColor: rgb(218, 90, 247);
               width: 100%;
               border: 2px solid black;
               box-sizing: border-box;
-              padding: 32px;
+              padding: 10px 30px;
               background-color: $primaryColor;
-              gap: 24px;
+              gap: 5px;
+              font-size: 0.7rem;
 
               div {
                 padding: 8px;
@@ -452,7 +500,7 @@ $primaryColor: rgb(218, 90, 247);
             box-shadow: inset 0 0 15px rgba(0, 0, 0, 1);
 
             p {
-              font-size: 1.25rem;
+              font-size: 1rem;
               text-shadow: -1px -1px 13px #e852ff, 1px -1px 13px #e852ff,
                 -1px 1px 13px #e852ff, 1px 1px 13px #e852ff;
             }
@@ -464,21 +512,23 @@ $primaryColor: rgb(218, 90, 247);
     .open-sidebar {
       width: 35vw;
     }
+
+    .sidebar-image-container {
+      padding-bottom: 200px;
+    }
+
   }
 
   @media (max-width: 1280px) {
     height: 65px;
 
-    .links {
+    .links, .login {
       display: none;
-    }
-
-    .login {
-      display: flex;
     }
 
     .shade {
       .logo-and-login-container {
+        gap: 15px;
         .sidebar {
           display: flex;
         }
@@ -499,6 +549,16 @@ $primaryColor: rgb(218, 90, 247);
   @media (max-width: 768px) {
     height: 60px;
 
+    .shade {
+      .logo-and-login-container {
+        gap: 10px;
+      }
+    }
+
+    .home-link {
+      font-size: 1.5rem;
+    }
+
     .hidden-when-small {
       display: none;
     }
@@ -515,6 +575,17 @@ $primaryColor: rgb(218, 90, 247);
     }
   }
 
+  @media (max-width: 650px) {
+    .shade {
+      .logo-and-login-container {
+        gap: 5px;
+      }
+    }
+
+    .home-link {
+      font-size: 1rem;
+    }
+  }
   @media (max-width: 320px) {
     .sidebar-container {
       .open-sidebar {
@@ -523,7 +594,7 @@ $primaryColor: rgb(218, 90, 247);
     }
   }
 
-  @media (min-width: 1280px) {
+  @media (min-width: 1281px) {
     .sidebar-container {
       display: none;
     }

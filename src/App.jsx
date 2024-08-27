@@ -32,6 +32,8 @@ import { AdminUsersList } from "./components/AdminUsersList";
 import { EditPassword } from "./components/EditPassword";
 
 import { NewsletterSubscribed } from "./components/NewsletterSubscribed";
+import { Lockpick } from "./components/Lockpick";
+import { ChatProvider } from "./components/ChatProvider";
 
 function App() {
   return (
@@ -48,60 +50,64 @@ function App() {
         </video>
         <div className="opacity-background"></div>
       </div> */}
-
-      <Routes>
-        <Route path="/" element={<MainWebpageContainer />}>
-          <Route index element={<Home />} />
-          <Route path="products" element={<Page />} />
-          <Route path="computer" element={<PageComputer />} />
-          <Route path="login" element={<LoginForm />} />
-          <Route path="sign-up" element={<SignUpForm />} />
-          <Route path="user-profile" element={<UserProfile />} />
-          <Route path="edit-profile" element={<EditProfile />} />
-          <Route path="edit-password" element={<EditPassword />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="faq" element={<ContactFAQ />} />
-          <Route
-            path="create-ticket/:category"
-            element={<ContactCreateTicket />}
-          />
-          <Route path="tickets" element={<ContactsTicketList />} />
-          <Route path="tickets/:id" element={<ContactChat />} />
-          <Route path="admin" element={<AdminHome />}>
-            <Route index element={<AdminMenu />} />
-            <Route path="add-product/:type" element={<AdminCreateProducts />} />
-            <Route path="products-list" element={<AdminProductsList />} />
+      <ChatProvider>
+        <Routes>
+          <Route path="/" element={<MainWebpageContainer />}>
+            <Route index element={<Home />} />
+            <Route path="products" element={<Page />} />
+            <Route path="computer" element={<PageComputer />} />
+            <Route path="login" element={<LoginForm />} />
+            <Route path="sign-up" element={<SignUpForm />} />
+            <Route path="user-profile" element={<UserProfile />} />
+            <Route path="edit-profile" element={<EditProfile />} />
+            <Route path="edit-password" element={<EditPassword />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="faq" element={<ContactFAQ />} />
             <Route
-              path="product/gear/:id"
-              element={<AdminSingleProductGear />}
+              path="create-ticket/:category"
+              element={<ContactCreateTicket />}
             />
-            <Route path="product/pc/:id" element={<AdminSingleProductPc />} />
-            <Route path="shippings" element={<AdminShippingList />} />
-            <Route path="users-list" element={<AdminUsersList />} />
-            <Route
+            <Route path="tickets" element={<ContactsTicketList />} />
+            <Route path="tickets/:id" element={<ContactChat />} />
+            <Route path="admin" element={<AdminHome />}>
+              <Route index element={<AdminMenu />} />
+              <Route
+                path="add-product/:type"
+                element={<AdminCreateProducts />}
+              />
+              <Route path="products-list" element={<AdminProductsList />} />
+              <Route
+                path="product/gear/:id"
+                element={<AdminSingleProductGear />}
+              />
+              <Route path="product/pc/:id" element={<AdminSingleProductPc />} />
+              <Route path="shippings" element={<AdminShippingList />} />
+              <Route path="users-list" element={<AdminUsersList />} />
+              <Route
               path="newsletter-subscribed"
               element={<NewsletterSubscribed />}
             />
+            </Route>
+            <Route path="cart" element={<CartUser />} />
+            <Route path="shipping-list" element={<ShippingUserList />} />
+            <Route path="shipping/:id" element={<ShippingProductList />} />
           </Route>
-          <Route path="cart" element={<CartUser />} />
-          <Route path="shipping-list" element={<ShippingUserList />} />
-          <Route path="shipping/:id" element={<ShippingProductList />} />
-        </Route>
-        <Route path="access" element={<OpeningPage />} />
-        <Route path="deep" element={<Deep />}>
-          <Route
-            index
-            element={
-              <img
-                src="./src/assets/logo-hacker-grey.png"
-                alt="logo hacker"
-                className="logo-hacker"
-              />
-            }
-          />
-        </Route>
-      </Routes>
-
+          <Route path="access" element={<OpeningPage />} />
+          <Route path="deep" element={<Deep />}>
+            <Route
+              index
+              element={
+                <img
+                  src="./src/assets/logo-hacker-grey.png"
+                  alt="logo hacker"
+                  className="logo-hacker"
+                />
+              }
+            />
+            <Route path="schiariti" element={<Lockpick />} />
+          </Route>
+        </Routes>
+      </ChatProvider>
       {/* <Footer /> */}
     </>
   );

@@ -8,21 +8,22 @@ import { useEffect, useRef, useState } from "react";
 import { NavbarSidebar } from "./NavbarSidebar";
 import { NavbarSearch } from "./NavbarSearch";
 import { useNavigate, Link } from "react-router-dom";
-import nebulaLogo from "../assets/nebula-tech-1-logo-b.png"
-import {useLocalUser} from "../custom-hooks/useLocalUser"
+import nebulaLogo from "../assets/nebula-tech-1-logo-b.png";
+import { useLocalUser } from "../custom-hooks/useLocalUser";
 import { imageDomain } from "../custom-hooks/usePostImage";
 
 import { HiOutlineShoppingCart } from "react-icons/hi2";
+import { GiProtectionGlasses } from "react-icons/gi";
 
 export function Navbar() {
-  const {user} = useLocalUser()
+  const { user } = useLocalUser();
   const [search, setSearch] = useState(false);
   const [closeSearch, setCloseSearch] = useState(false);
   const [sidebar, setSidebar] = useState(false);
   const [itsClosing, setItsClosing] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const searchRef = useRef(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (search) {
@@ -33,45 +34,101 @@ export function Navbar() {
   }, [search]);
 
   const links = ["Link1", "Link2", "Link3"];
-  const contacts = [{url:"contact", name:"Contact Us"}, {url:"faq", name: "Faq"}, {url:"tickets", name: "Opened Tickets"}]
-  const products = [{url: "products", name:"Products"} , {url:"computer", name: "PC"}]
-  const admin = [{url:"admin", name:"Admin"}]
+  const contacts = [
+    { url: "contact", name: "Contact Us" },
+    { url: "faq", name: "Faq" },
+    { url: "tickets", name: "Opened Tickets" },
+  ];
+  const products = [
+    { url: "products", name: "Products" },
+    { url: "computer", name: "PC" },
+  ];
   const linksWithImages = [
-    { img: imageDomain + "uploads/all_gears.png", url: "products", name: "All Gears" },
-    { img: imageDomain + "uploads/geForce_rtx_4070_ti.png", url: "products", name: "GPU" },
-    { img: imageDomain + "uploads/lexar-2tb.png", url: "products", name: "SSD" },
-    { img: imageDomain + "uploads/intel-core-i7.png", url: "products", name: "CPU" },
-    { img: imageDomain + "uploads/ram-vengeance.png", url: "products", name: "RAM" },
-    { img: imageDomain + "uploads/samsung-viewfinity.png", url: "products", name: "Monitor" },
-    { img: imageDomain + "uploads/corsair-k70.png", url: "products", name: "Keyboard" },
-    { img: imageDomain + "uploads/logitech-g502.png", url: "products", name: "Mouse" },
-    { img: imageDomain + "uploads/corsair-hs65.png", url: "products", name: "Headset" },
+    {
+      img: imageDomain + "uploads/all_gears.png",
+      url: "products",
+      name: "All Gears",
+    },
+    {
+      img: imageDomain + "uploads/geForce_rtx_4070_ti.png",
+      url: "products",
+      name: "GPU",
+    },
+    {
+      img: imageDomain + "uploads/lexar-2tb.png",
+      url: "products",
+      name: "SSD",
+    },
+    {
+      img: imageDomain + "uploads/intel-core-i7.png",
+      url: "products",
+      name: "CPU",
+    },
+    {
+      img: imageDomain + "uploads/ram-vengeance.png",
+      url: "products",
+      name: "RAM",
+    },
+    {
+      img: imageDomain + "uploads/samsung-viewfinity.png",
+      url: "products",
+      name: "Monitor",
+    },
+    {
+      img: imageDomain + "uploads/corsair-k70.png",
+      url: "products",
+      name: "Keyboard",
+    },
+    {
+      img: imageDomain + "uploads/logitech-g502.png",
+      url: "products",
+      name: "Mouse",
+    },
+    {
+      img: imageDomain + "uploads/corsair-hs65.png",
+      url: "products",
+      name: "Headset",
+    },
     { img: imageDomain + "uploads/pc1.png", url: "computer", name: "Pc" },
   ];
-  const loginArray = [{url:"login", name: "Login"}, {url: "sign-up", name: "Sign Up"}, {url: user ? "user-profile" : "login", name: "Profile"}, {url:user ? "shipping-list" : "login", name:"Orders"}];
+  const loginArray = [
+    { url: "login", name: "Login" },
+    { url: "sign-up", name: "Sign Up" },
+    { url: user ? "user-profile" : "login", name: "Profile" },
+    { url: user ? "shipping-list" : "login", name: "Orders" },
+  ];
 
   return (
     <div className="flex justify-between items-center fixed navbar">
       <MetalBg>
         <div className="flex justify-between align-center shade">
           <div className="flex items-center">
-            <div className="flex logo-and-login-container" >
-              <img src={nebulaLogo} alt="logo" onClick={() => navigate("/access")} />
-              <Link to="/" className="flex items-center link"><h4 className="home-link">NEBULA TECH 1</h4></Link>
+            <div className="flex logo-and-login-container">
+              <img
+                src={nebulaLogo}
+                alt="logo"
+                onClick={() => navigate("/access")}
+              />
+              <Link to="/" className="flex items-center link">
+                <h4 className="home-link">NEBULA TECH 1</h4>
+              </Link>
             </div>
             <div className="flex items-center justify-center links">
-              <NavbarCurtains title="TEST" arrayLinks={linksWithImages} />
-              <NavbarCurtains title="products" arrayLinks={products} />
+              <NavbarCurtains title="Products" arrayLinks={linksWithImages} />
               <NavbarCurtains title="Contacts" arrayLinks={contacts} />
-              <NavbarCurtains title="admin" arrayLinks={admin} />
             </div>
           </div>
           <div className="flex items-center logo-and-login-container">
-            <NavbarSearch />
-            <div className="flex items-center justify-center navbar-cart"
-            onClick={() => navigate("cart")}>
-            <HiOutlineShoppingCart />
+            {/* <NavbarSearch /> */}
+            <div
+              className="flex items-center justify-center navbar-cart"
+              onClick={() => navigate("cart")}
+            >
+              <HiOutlineShoppingCart />
             </div>
+            {user && user.admin && <div className="flex items-center justify-center navbar-cart" onClick={() => navigate("admin")}>
+              <GiProtectionGlasses />
+            </div>}
             <div className="flex items-center justify-center links login">
               <NavbarCurtains login={true} arrayLinks={loginArray} />
             </div>
