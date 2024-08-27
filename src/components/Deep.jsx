@@ -3,16 +3,17 @@ import { NodeDeep } from "./NodeDeep";
 import andreaHacker from "../assets/andrea-hacker.png";
 import { DeepDots } from "./DeepDots";
 import { useRandom } from "../custom-hooks/useRandom";
-import { DeepRundomString } from "./DeepRandomString";
+import { DeepRandomString } from "./DeepRandomString";
 import { Button } from "./Button";
 import { useResponsiveWidth } from "../custom-hooks/useResponsiveWidth";
-import { useSpeak } from "../custom-hooks/useSpeak";
 import { useEffect } from "react";
+import { useChat, useSpeaking } from "./ChatProvider";
 
 export function Deep() {
   const navigate = useNavigate();
   const { screenWidth } = useResponsiveWidth();
-  const { chat, setChat } = useSpeak();
+  const chat = useChat()
+  const setChat = useSpeaking()
 
   useEffect(() => setChat("Choose a Node"), []);
 
@@ -43,7 +44,7 @@ export function Deep() {
         <div className="flex flex-col absolute nodes-container">
           <NodeDeep
             employee={screenWidth > 1280 ? "Schiariti A." : "ID 217"}
-            path={"/"}
+            path={"schiariti"}
             gameCleared={testUser.schiariti}
           />
           <NodeDeep
@@ -234,9 +235,9 @@ export function Deep() {
           <div className="absolute third-border-line"></div>
           <div className="absolute forth-border-line"></div>
           <div className="flex flex-col items-start absolute random-strings">
-            <DeepRundomString stringLength={13} />
-            <DeepRundomString stringLength={8} />
-            <DeepRundomString stringLength={22} />
+            <DeepRandomString stringLength={13} />
+            <DeepRandomString stringLength={8} />
+            <DeepRandomString stringLength={22} />
           </div>
         </div>
 
@@ -291,8 +292,8 @@ export function Deep() {
               <DeepDots dotsNumber={5} dotsRows={5} dotsOpacity={0.2} />
             </div>
             <div className="flex flex-col items-end absolute random-strings">
-              <DeepRundomString stringLength={14} />
-              <DeepRundomString stringLength={6} />
+              <DeepRandomString stringLength={14} />
+              <DeepRandomString stringLength={6} />
             </div>
           </div>
         </div>

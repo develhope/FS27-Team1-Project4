@@ -1,8 +1,9 @@
 /* Component author: Andrea */
 
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-export function NavbarSidebarCurtains({ title, arrayLinks, sidebar }) {
+export function NavbarSidebarCurtains({ title, arrayLinks, sidebar, handleOnClick }) {
   const [shown, setShown] = useState(false);
   const [showButton, setShowButton] = useState(false);
 
@@ -19,7 +20,7 @@ export function NavbarSidebarCurtains({ title, arrayLinks, sidebar }) {
       setShowButton(false);
     };
   }, [sidebar]);
-  
+
   return (
     <div
       onMouseOver={() => setShown(true)}
@@ -44,7 +45,7 @@ export function NavbarSidebarCurtains({ title, arrayLinks, sidebar }) {
           <div className="flex flex-col curtain-sidebar">
             {arrayLinks.map((link, index) => (
               <div key={index}>
-                {(typeof link === "object" && <p>{link.product}</p>) || (
+                {(typeof link === "object" && <Link to={link.url} onClick={handleOnClick}>{link.name}</Link>) || (
                   <p>{link}</p>
                 )}
               </div>
