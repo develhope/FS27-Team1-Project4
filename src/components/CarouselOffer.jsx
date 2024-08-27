@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "./Button";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
+import { useRender } from "./ChatProvider";
 
 export function CarouselOffer() {
   const [products, setProducts] = useState([]);
@@ -10,6 +12,9 @@ export function CarouselOffer() {
   const [translateX, setTranslateX] = useState(0);
   const containerRef = useRef(null);
   const [noTransition, setNoTransition] = useState(false);
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user_nt1"));
+  const { onRender } = useRender()
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -18,10 +23,10 @@ export function CarouselOffer() {
           "http://localhost:3000/api/products/gears"
         );
         const data = await response.json();
-        
-        // Filtra i prodotti per includere solo quelli con un valore di discount diverso da null
-        const filteredProducts = data.filter(product => product.discount !== null);
-        
+        const filteredProducts = data.filter(
+          (product) => product.discount !== null
+        );
+
         setProducts(filteredProducts);
       } catch (error) {
         console.error("Error fetching the products:", error);
@@ -66,7 +71,7 @@ export function CarouselOffer() {
   };
 
   useEffect(() => {
-    if (products.length === 0) return; // Ensure there are products before proceeding
+    if (products.length === 0) return;
 
     const cardWidth =
       window.innerWidth <= 380
@@ -90,6 +95,36 @@ export function CarouselOffer() {
       setNoTransition(false);
     }
   }, [currentIndex, products.length]);
+
+  const addToCart = async (product) => {
+    if(user){try {
+      const response = await fetch(
+        "http://localhost:3000/api/cart/add/user/" + user.id,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            gearId: product.id,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to add product to cart");
+      }
+
+      const result = await response.json();
+      console.log("Product added to cart:", result);
+      alert("Product added to cart");
+      onRender()
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+    }}else {
+      navigate("/login")
+    }
+  };
 
   return (
     <div className="carousel">
@@ -118,7 +153,11 @@ export function CarouselOffer() {
             .concat(products.slice(0, 8))
             .concat(products.slice(0, 8))
             .map((product, index) => (
-              <div key={`${product.id}-${index}`} className="card">
+              <div
+                key={`${product.id}-${index}`}
+                className="card"
+                onClick={() => addToCart(product)}
+              >
                 <div className="card-background"></div>
                 <div className="card-inner">
                   <div
@@ -127,7 +166,9 @@ export function CarouselOffer() {
                       backgroundImage: `url(${product.image})`,
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "center",
-                      backgroundSize: [7, 8, 9].includes(product.id) ? "auto 180px" : "90%",
+                      backgroundSize: [7, 8, 9].includes(product.id)
+                        ? "auto 180px"
+                        : "90%",
                       display: "block",
                     }}
                   >
@@ -141,13 +182,18 @@ export function CarouselOffer() {
                           €{product.discount}
                         </span>
                       </div>
-                      <Button text="Buy Now" />
+                      <Button
+                        text="Buy Now"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          addToCart(product);
+                        }}
+                      />
                     </div>
                   </div>
                   <div className="card-back">
                     <div className="back-content">
                       <h2 className="card-title">{product.series}</h2>
-
                       <p className="card-features">
                         {product.features.join(", ")}
                       </p>
@@ -156,12 +202,17 @@ export function CarouselOffer() {
                           <span className="original-price">
                             €{product.originalPrice}
                           </span>
-
                           <span className="discount-price">
                             €{product.discount}
                           </span>
                         </div>
-                        <Button text="Buy Now" />
+                        <Button
+                          text="Buy Now"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            addToCart(product);
+                          }}
+                        />
                       </div>
                     </div>
                   </div>
@@ -171,7 +222,7 @@ export function CarouselOffer() {
         </div>
       </div>
       <button className="arrow right-arrow" onClick={handleNext}>
-        <FaChevronRight />{" "}
+        <FaChevronRight />
       </button>
     </div>
   );
