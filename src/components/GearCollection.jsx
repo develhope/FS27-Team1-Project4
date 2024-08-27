@@ -1,27 +1,16 @@
 import React, { useState } from "react";
 import ProductCard from "./ProductCard";
-import ProductDetails from "./ProductDetails";
 
-const GearCollection = ({ products = [] }) => {
-    const [selectedCategory, setSelectedCategory] = useState("all");
+
+const GearCollection = ({ products }) => {
+    
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const itemsPerPage = 6;
-
-    const categories = ["all", ...Array.from(new Set(products.map((product) => product.type)))];
-
-    const handleCategoryChange = (event) => {
-        setSelectedCategory(event.target.value);
-        setCurrentPage(1);
-    };
-
-    const filteredProducts = selectedCategory === "all"
-        ? products
-        : products.filter((product) => product.type === selectedCategory);
-
-    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+ 
+    const totalPages = Math.ceil(products.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentProducts = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
+    const currentProducts = products.slice(startIndex, startIndex + itemsPerPage);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -49,19 +38,9 @@ const GearCollection = ({ products = [] }) => {
 
     return (
         <div className="gear-collection-page">
-            {selectedProduct ? (
-                <ProductDetails product={selectedProduct} onBack={handleCloseDetail} />
-            ) : (
+             (
                 <>
-                    <div className="filter">
-                        <select value={selectedCategory} onChange={handleCategoryChange}>
-                            {categories.map((category) => (
-                                <option key={category} value={category}>
-                                    {category}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                    
                     <div className="gear-list">
                         {currentProducts.map((product) => (
                             <ProductCard
@@ -101,7 +80,7 @@ const GearCollection = ({ products = [] }) => {
                         </button>
                     </div>
                 </>
-            )}
+            )
         </div>
     );
 };

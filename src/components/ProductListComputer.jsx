@@ -63,6 +63,9 @@ const ProductListComputer = () => {
             />
           ) : (
             <>
+              <div className="filter"> 
+                
+              </div>
               <div className="product-list">
                 {currentProducts.map((product) => (
                   <div key={product.id} onClick={() => handleProductClick(product)}>
@@ -74,6 +77,7 @@ const ProductListComputer = () => {
                       description={product.description}
                       originalPrice={product.originalPrice} 
                       discount={product.discount} 
+                      ids = {product.id}
                     />
                   </div>
                 ))}

@@ -26,11 +26,11 @@ const Footer = () => {
     { to: '/mail', text: 'Mail' }
   ];
   const gamingPc = [
-    { to: "/", text: 'Portable Gaming' },
-    { to: "/", text: 'Fixed Gaming' },
-    { to: "/", text: 'PC Gaming i9' },
-    { to: "/", text: 'PC Gaming i7' },
-    { to: "/", text: 'Workstation Grafiche' },
+    { to: "/", text: 'Graphics Processing Unit' },
+    { to: "/", text: 'Central Processing Unit' },
+    { to: "/", text: 'Monitor' },
+    { to: "/", text: 'Solid state drive' },
+    { to: "/", text: 'Headphones' },
   ];
   const footerSection = [
     { to: "/", text: 'Servers for Business' },
@@ -69,7 +69,7 @@ const Footer = () => {
               </div>
               <div className="footer-section links">
                 <h1 onClick={() => toggleSection('gaming')} className="toggle-button">
-                  GAMING PC
+                 PRODUCTS
                   <span className={`arrow ${activeSection === 'gaming' ? 'active' : ''}`}>&#9660;</span>
                 </h1>
                 {(!isMobile || activeSection === 'gaming') && (!iMobile || activeSection === 'gaming') && (
@@ -84,7 +84,7 @@ const Footer = () => {
               </div>
               <div className="footer-section links">
                 <h1 onClick={() => toggleSection('professional')} className="toggle-button">
-                  PROFESSIONAL PC
+                CONTACTS
                   <span className={`arrow ${activeSection === 'professional' ? 'active' : ''}`}>&#9660;</span>
                 </h1>
                 {(!isMobile || activeSection === 'professional') && (!iMobile || activeSection === 'professional') && (
