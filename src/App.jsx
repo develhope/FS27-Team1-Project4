@@ -36,7 +36,7 @@ import { ChatProvider } from "./components/ChatProvider";
 import { CarouselRedirection } from "./components/CarouselRedirection";
 
 import TermsOfService from "./components/TermsOfService";
-import { CarouselIdRedirection } from "./components/CarouselIdRedirection";
+
 
 
 function App() {
@@ -63,7 +63,6 @@ function App() {
             <Route index element={<Home />} />
             <Route path="products" element={<Page />} />
             <Route path="gear/:category" element={<CarouselRedirection />} />
-            <Route path="offer/:id" element={<CarouselIdRedirection />} />
             <Route path="computer" element={<PageComputer />} />
             <Route path="login" element={<LoginForm />} />
             <Route path="sign-up" element={<SignUpForm />} />
