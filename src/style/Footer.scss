@@ -1,5 +1,6 @@
 /*Component author Massimo*/
 .footer {
+  
   background: #333;
   color: #fff;
   display: flex;
@@ -10,6 +11,15 @@
   box-sizing: border-box;
   width: 100vw;
   bottom: 0;
+
+}
+
+
+.social-icons {
+svg{
+  height: 35px;
+  width: 35px;
+}
 }
 
 .NavbarBorder {
@@ -50,11 +60,7 @@ img.company-logo {
   margin: 10px 0;
 }
 
-.social-icons a img {
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-}
+
 
 .links ul,
 .misc-links ul {

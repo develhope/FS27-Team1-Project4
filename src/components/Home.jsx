@@ -16,6 +16,11 @@ export function Home() {
       <CarouselGear />      
       <SiteGuide />
       <Newsletter />
+<<<<<<< HEAD
     </div>
+=======
+  
+</div>
+>>>>>>> 31d2ea4 (changes footer and TermsOfService)
   );
 }

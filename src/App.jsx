@@ -34,7 +34,11 @@ import { EditPassword } from "./components/EditPassword";
 import { AdminNewsletterSubscribed } from "./components/AdminNewsletterSubscribed";
 import { Lockpick } from "./components/Lockpick";
 import { ChatProvider } from "./components/ChatProvider";
+<<<<<<< HEAD
 import { CarouselRedirection } from "./components/CarouselRedirection";
+=======
+import TermsOfService from "./components/TermsOfService";
+>>>>>>> 31d2ea4 (changes footer and TermsOfService)
 
 function App() {
   return (
@@ -53,6 +57,7 @@ function App() {
       </div> */}
       <ChatProvider>
         <Routes>
+        <Route path="/terms-of-service" element={<TermsOfService/>} />
           <Route path="/" element={<MainWebpageContainer />}>
             <Route index element={<Home />} />
             <Route path="products" element={<Page />} />
@@ -107,6 +112,7 @@ function App() {
               }
             />
             <Route path="schiariti" element={<Lockpick />} />
+            
           </Route>
         </Routes>
       </ChatProvider>

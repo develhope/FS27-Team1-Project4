@@ -1,0 +1,92 @@
+// src/style/TermsOfService.scss
+
+$primary-color: #333;
+$secondary-color: #555;
+$heading-color: #222;
+$link-color: #0066cc;
+$link-hover-color: #004999;
+$background-color: #f9f9f9;
+$card-background-color: #fff;
+$border-color: #ddd;
+$shadow-color: rgba(0, 0, 0, 0.1);
+$card-padding: 20px;
+$card-margin: 20px;
+
+.terms-of-service {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: $background-color;
+    padding: $card-margin;
+
+    .card {
+        background-color: $card-background-color;
+        border: 1px solid $border-color;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px $shadow-color;
+        width: 100%;
+        max-width: 800px;
+        padding: $card-padding;
+        box-sizing: border-box;
+        text-align: left;
+        position: relative; // Aggiungi questa riga per posizionare il bottone all'interno della card
+
+        h1, h2 {
+            color: $heading-color;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            border-bottom: 2px solid $border-color;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: $secondary-color;
+            font-size: 1rem;
+        }
+
+        a {
+            color: $link-color;
+            text-decoration: none;
+
+            &:hover {
+                color: $link-hover-color;
+                text-decoration: underline;
+            }
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center; // Centro orizzontalmente
+            margin-top: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .card {
+                padding: 40px;
+
+                h1 {
+                    font-size: 2.5rem;
+                }
+
+                h2 {
+                    font-size: 2rem;
+                }
+
+                p {
+                    font-size: 1.1rem;
+                }
+            }
+        }
+    }
+}
