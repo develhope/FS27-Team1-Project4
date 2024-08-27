@@ -30,13 +30,13 @@ import { ShippingProductList } from "./components/ShippingProductList";
 import { AdminShippingList } from "./components/AdminShippingList";
 import { AdminUsersList } from "./components/AdminUsersList";
 import { EditPassword } from "./components/EditPassword";
-
 import { AdminNewsletterSubscribed } from "./components/AdminNewsletterSubscribed";
 import { Lockpick } from "./components/Lockpick";
 import { ChatProvider } from "./components/ChatProvider";
 import { CarouselRedirection } from "./components/CarouselRedirection";
 
 import TermsOfService from "./components/TermsOfService";
+
 
 
 function App() {
