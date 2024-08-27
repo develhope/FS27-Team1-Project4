@@ -1,6 +1,6 @@
 /*Component Author Andrea */
 
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { imageDomain, usePostImage } from "../custom-hooks/usePostImage.js";
 
@@ -11,6 +11,7 @@ import { Button } from "./Button.jsx";
 import { RxCross2 } from "react-icons/rx";
 import { AdminCreateGearUnique } from "./AdminCreateGearUnique.jsx";
 import { AdminCreatePcUnique } from "./AdminCreatePcUnique.jsx";
+import { useRender } from "./ChatProvider.jsx";
 
 const blankGear = {
   image: null,
@@ -38,15 +39,15 @@ export function AdminCreateProducts() {
   const { type } = useParams();
   const [newProduct, setNewProduct] = useState({});
   const [newImage, setNewImage] = useState(null);
-  const inputFileRef = useRef(null)
+  const inputFileRef = useRef(null);
+  const { render } = useRender();
 
-  const [typeChecking, setTypeCheking] = useState(false)
+  const [typeChecking, setTypeCheking] = useState(false);
 
   const [offer, setOffer] = useState(false);
   const [discount, setDiscount] = useState("");
 
   const [onUploadImage, imageError] = usePostImage(setNewImage);
-
 
   const [onDeleteImage, deletedImageData, deletedImageError] = useFetch(
     "upload/delete",
@@ -72,28 +73,12 @@ export function AdminCreateProducts() {
   /* This effect gives a little delay to let the type params be calculated
   before setting the state */
 
-  useEffect (() => {
-    setTimeout(()=> setTypeCheking(!typeChecking), 200)
-  }, [])
+  useEffect(() => {
+    setTimeout(() => setTypeCheking(!typeChecking), 200);
+  }, [render]);
 
   useEffect(() => {
-    if (type === "gear") {
-      setNewProduct(blankGear);
-    }
-
-    if (type === "pc") {
-      setNewProduct(blankPc);
-    }
-
-    return () => {
-      if (type === "gear") {
-        setNewProduct(blankGear);
-      }
-
-      if (type === "pc") {
-        setNewProduct(blankPc);
-      }
-    };
+    resetNewProduct();
   }, [typeChecking]);
 
   useEffect(() => {
@@ -145,6 +130,16 @@ export function AdminCreateProducts() {
     }
   }
 
+  function resetNewProduct() {
+    if (type === "gear") {
+      setNewProduct(blankGear);
+    }
+
+    if (type === "pc") {
+      setNewProduct(blankPc);
+    }
+  }
+
   async function handleImageDeleting() {
     try {
       await onDeleteImage({ image: newImage });
@@ -155,7 +150,7 @@ export function AdminCreateProducts() {
       }
 
       setNewImage(null);
-      inputFileRef.current.value = ""
+      inputFileRef.current.value = "";
     } catch (error) {
       console.log(error);
       throw new Error(error);
@@ -185,10 +180,14 @@ export function AdminCreateProducts() {
       if (productsGear || productsPc) {
         let createdProduct = null;
 
-        if (newProduct.discount && newProduct.originalPrice < newProduct.discount) {
-          const errorMessage = "Discount can't be bigger than the Original Price"
-          alert(errorMessage)
-          throw new Error(errorMessage)
+        if (
+          newProduct.discount &&
+          newProduct.originalPrice < newProduct.discount
+        ) {
+          const errorMessage =
+            "Discount can't be bigger than the Original Price";
+          alert(errorMessage);
+          throw new Error(errorMessage);
         }
 
         if (type === "gear") {
@@ -221,6 +220,7 @@ export function AdminCreateProducts() {
         console.log(createdProduct);
 
         alert(JSON.stringify(createdProduct.msg));
+        resetNewProduct()
       }
     } catch (error) {
       throw new Error(error);

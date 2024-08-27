@@ -6,6 +6,7 @@ import { AdminProductsFilter } from "./AdminProductsFilters";
 import { useNavigate } from "react-router-dom";
 
 import { BsFilterLeft } from "react-icons/bs";
+import { imageDomain } from "../custom-hooks/usePostImage";
 
 export function AdminProductsList() {
   const [products, setProducts] = useState(null);
@@ -152,7 +153,7 @@ export function AdminProductsList() {
                         <div className="flex justify-center items-center product-image-container">
                           {product.image && (
                             <img
-                              src={"http://localhost:3000" + product.image}
+                              src={product.image.startsWith("/") ? "http://localhost:3000" + product.image : imageDomain + product.image}
                               alt=""
                             />
                           )}
@@ -194,7 +195,7 @@ export function AdminProductsList() {
                         <div className="flex justify-center items-center product-image-container">
                           {product.image && (
                             <img
-                              src={"http://localhost:3000" + product.image}
+                              src={product.image.startsWith("/") ? "http://localhost:3000" + product.image : imageDomain + product.image}
                               alt=""
                             />
                           )}
