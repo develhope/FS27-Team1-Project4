@@ -36,8 +36,10 @@ export function NavbarCurtains({ title, arrayLinks, login }) {
 
   const handleLogout = async () => {
 
-    const user = localStorage.getItem("user_nt1")
+    const user = JSON.parse(localStorage.getItem("user_nt1"))
     try {
+      console.log(user);
+      
       const response = await fetch("http://localhost:3000/api/users/logout", {
         method: 'GET',
         credentials: 'include', 
@@ -46,12 +48,14 @@ export function NavbarCurtains({ title, arrayLinks, login }) {
           'Content-Type': 'application/json'
         }
       });
+      
 
       if (response.ok) {
         
         console.log('Logout successful');
         alert("Logged out succesfully")
         navigate('/login');
+        localStorage.removeItem("user_nt1");
       } else {
        
         console.error('Logout failed');
