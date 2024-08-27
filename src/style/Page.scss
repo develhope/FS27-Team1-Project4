@@ -29,6 +29,53 @@
     padding: 10px;
   }
 }
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+
+  .arrow {
+    background-color: #6a0dad;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #5a0bb0;
+    }
+
+    &:disabled {
+      background-color: #d1c4e9;
+      cursor: not-allowed;
+    }
+  }
+
+  .page-number {
+    background-color: #6a0dad; 
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #5a0bb0; 
+    }
+
+    &.current-page {
+      background-color: #8a2be2; 
+      font-weight: bold;
+    }
+  }
+}
 
 .pagination {
   display: flex;
@@ -290,8 +337,10 @@
   }
 
   .product-card {
+   
     img {
-      max-width: 100px;
+      display: block;
+      margin: 0 auto;
     }
   }
 

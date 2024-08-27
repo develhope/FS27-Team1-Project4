@@ -78,6 +78,7 @@ const ProductList = () => {
                                 discount={product.discount}
                                 imageUrl={product.image}
                                 onClick={() => handleProductClick(product)}
+                                id={product.id}
                             />
                         ))}
                     </div>
