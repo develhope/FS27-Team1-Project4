@@ -72,7 +72,7 @@ export function Deep() {
               employee={
                 screenWidth > 1280
                   ? upperCaseString(game.name)
-                  : game.employee_id
+                  : game.employeeId
               }
               path={game.name}
               gameCleared={game.completed}

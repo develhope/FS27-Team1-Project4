@@ -7,6 +7,14 @@ $primaryColor: rgb(218, 90, 247);
   z-index: 10;
   // overflow: hidden;
 
+  .cart-number {
+    top: 70%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
+    color: white;
+  }
+
   .home-link {
     color: white;
     font-size: 2rem;

@@ -3,10 +3,15 @@
 import { useNavigate } from "react-router-dom";
 import { DeepDots } from "./DeepDots";
 import { useResponsiveWidth } from "../custom-hooks/useResponsiveWidth"
+import { useEffect } from "react";
 
 export function NodeDeep({ employee, path, gameCleared }) {
   const navigate = useNavigate()
   const { screenWidth } = useResponsiveWidth()
+
+  useEffect(() => {
+    console.log(employee)
+  }, [screenWidth])
 
   return (
     <div className={`flex relative node-deep ${gameCleared ? "node-gained" : ""}`} onClick={() => navigate(path)}>

@@ -14,10 +14,12 @@ import { imageDomain } from "../custom-hooks/usePostImage";
 
 import { HiOutlineShoppingCart } from "react-icons/hi2";
 import { GiProtectionGlasses } from "react-icons/gi";
+import { useRender } from "./ChatProvider";
+import { useGetFetch } from "../custom-hooks/useGetFetch";
 
 
 export function Navbar() {
-  const { user } = useLocalUser();
+  const { user, refreshUser } = useLocalUser();
   const [search, setSearch] = useState(false);
   const [closeSearch, setCloseSearch] = useState(false);
   const [sidebar, setSidebar] = useState(false);
@@ -25,6 +27,18 @@ export function Navbar() {
   const [searchInput, setSearchInput] = useState("");
   const searchRef = useRef(null);
   const navigate = useNavigate();
+  const {render} = useRender()
+
+  const {data, error, loading, onRefresh} = useGetFetch("cart/all-products")
+  const [cartNumber, setCartNumber] = useState(null)
+
+  useEffect(() => {
+    if(data && user) {
+    const userCart = data.filter(item => item.user_id === user.id && item.deleted_at === null && item.status === null)
+    userCart.length === 0 ? setCartNumber(null) : setCartNumber(userCart.length)
+    console.log(userCart)
+    }
+  },[data])
 
   useEffect(() => {
     if (search) {
@@ -33,6 +47,11 @@ export function Navbar() {
       }
     }
   }, [search]);
+
+  useEffect(() => {
+    refreshUser()
+    onRefresh()
+  }, [render])
 
   const links = ["Link1", "Link2", "Link3"];
   const contacts = [
@@ -108,7 +127,7 @@ export function Navbar() {
               <img
                 src={nebulaLogo}
                 alt="logo"
-                onClick={() => navigate("/access")}
+                onClick={() => navigate(user ? "/access" : "/")}
               />
               <Link to="/" className="flex items-center link">
                 <h4 className="home-link">NEBULA TECH 1</h4>
@@ -126,6 +145,7 @@ export function Navbar() {
               onClick={() => navigate("cart")}
             >
               <HiOutlineShoppingCart />
+              {cartNumber && <p className="absolute cart-number">{cartNumber}</p>}
             </div>
             {user && user.admin && <div className="flex items-center justify-center navbar-cart" onClick={() => navigate("admin")}>
               <GiProtectionGlasses />
