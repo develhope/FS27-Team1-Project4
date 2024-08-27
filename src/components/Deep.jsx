@@ -43,8 +43,8 @@ export function Deep() {
   }, [data]);
 
   useEffect(() => {
-    console.log(filteredProducts)
-  }, [filteredProducts])
+    console.log(filteredProducts);
+  }, [filteredProducts]);
 
   return (
     <div
@@ -223,8 +223,15 @@ export function Deep() {
               </div>
               <div className="relative flex items-center justify-center card-carousel">
                 {loading && <LoadingMessage />}
-                {error && <ErrorMessage error={"Couldn't retieve information from the main website"}/>}
-                {filteredProducts && filteredProducts.map(item => <DeepAdvertisement key={item.id} item={item} />)}
+                {error && (
+                  <ErrorMessage
+                    error={"Couldn't retieve information from the main website"}
+                  />
+                )}
+                {filteredProducts &&
+                  filteredProducts.map((item) => (
+                    <DeepAdvertisement key={item.id} item={item} />
+                  ))}
                 <div
                   className="flex items-center justify-center absolute quit-deep"
                   onClick={() => navigate("/")}

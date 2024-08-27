@@ -32,12 +32,11 @@ import { AdminUsersList } from "./components/AdminUsersList";
 import { EditPassword } from "./components/EditPassword";
 import { AdminNewsletterSubscribed } from "./components/AdminNewsletterSubscribed";
 import { Lockpick } from "./components/Lockpick";
+import { GameSwitches } from "./components/GameSwitches";
 import { ChatProvider } from "./components/ChatProvider";
 import { CarouselRedirection } from "./components/CarouselRedirection";
 
 import TermsOfService from "./components/TermsOfService";
-
-
 
 function App() {
   return (
@@ -56,8 +55,7 @@ function App() {
       </div> */}
       <ChatProvider>
         <Routes>
-
-        <Route path="/terms-of-service" element={<TermsOfService/>} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
 
           <Route path="/" element={<MainWebpageContainer />}>
             <Route index element={<Home />} />
@@ -113,8 +111,7 @@ function App() {
               }
             />
             <Route path="schiariti" element={<Lockpick />} />
-
-
+            <Route path="provenzano" element={<GameSwitches />} />
           </Route>
         </Routes>
       </ChatProvider>
