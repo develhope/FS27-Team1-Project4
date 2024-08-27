@@ -1,13 +1,13 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate da React Router
-import '../style/TermsOfService.scss'; // Importa il file SCSS dalla cartella "style"
+import { useNavigate } from 'react-router-dom'; 
+ 
 import { Button } from './Button';
 
 const TermsOfService = () => {
-    const navigate = useNavigate(); // Crea una funzione di navigazione
+    const navigate = useNavigate(); 
 
     const handleBackClick = () => {
-        navigate(-1); // Torna alla pagina precedente
+        navigate(-1); 
     };
 
     return (

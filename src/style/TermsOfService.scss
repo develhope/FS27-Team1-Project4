@@ -1,45 +1,33 @@
-// src/style/TermsOfService.scss
 
-$primary-color: #333;
-$secondary-color: #555;
-$heading-color: #222;
-$link-color: #0066cc;
-$link-hover-color: #004999;
-$background-color: #f9f9f9;
-$card-background-color: #fff;
-$border-color: #ddd;
-$shadow-color: rgba(0, 0, 0, 0.1);
-$card-padding: 20px;
-$card-margin: 20px;
 
 .terms-of-service {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: $background-color;
-    padding: $card-margin;
+    background-color: #f9f9f9; 
+    padding: 20px; 
 
     .card {
-        background-color: $card-background-color;
-        border: 1px solid $border-color;
+        background-color: #fff; 
+        border: 1px solid #ddd; 
         border-radius: 8px;
-        box-shadow: 0 4px 8px $shadow-color;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         width: 100%;
         max-width: 800px;
-        padding: $card-padding;
+        padding: 20px;
         box-sizing: border-box;
         text-align: left;
-        position: relative; // Aggiungi questa riga per posizionare il bottone all'interno della card
+        position: relative;
 
         h1, h2 {
-            color: $heading-color;
+            color: #222; 
             margin-bottom: 10px;
         }
 
         h1 {
             font-size: 2rem;
-            border-bottom: 2px solid $border-color;
+            border-bottom: 2px solid #ddd; 
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
@@ -51,23 +39,23 @@ $card-margin: 20px;
 
         p {
             margin-bottom: 15px;
-            color: $secondary-color;
+            color: #555; 
             font-size: 1rem;
         }
 
         a {
-            color: $link-color;
+            color: #0066cc; 
             text-decoration: none;
 
             &:hover {
-                color: $link-hover-color;
+                color: #004999; 
                 text-decoration: underline;
             }
         }
 
         .button-container {
             display: flex;
-            justify-content: center; // Centro orizzontalmente
+            justify-content: center;
             margin-top: 20px;
         }
 
