@@ -21,7 +21,11 @@ import {
   createUserLastSeenMessage,
   createUserPCCart,
 } from "./controllers/startingDb.js";
-import { chatBuildPc, chatOrhers, chatShippingIssues } from "./arrays_to_create_database/ticketList.js";
+import {
+  chatBuildPc,
+  chatOrhers,
+  chatShippingIssues,
+} from "./arrays_to_create_database/ticketList.js";
 
 /* Let me use the environment variables */
 dotenv.config();
@@ -39,6 +43,7 @@ const {
   PASSWORD_FIRST_USER,
   PASSWORD_SECOND_USER,
   PASSWORD_THIRD_USER,
+  PASSWORD_FORTH_USER,
   DB_USER,
   DB_PASSWORD,
   DB_URL,
@@ -61,7 +66,7 @@ async function setupDB() {
   const passwordUser1 = await bcrypt.hash(PASSWORD_FIRST_USER, 10);
   const passwordUser2 = await bcrypt.hash(PASSWORD_SECOND_USER, 10);
   const passwordUser3 = await bcrypt.hash(PASSWORD_THIRD_USER, 10);
-
+  const passwordUser4 = await bcrypt.hash(PASSWORD_FORTH_USER, 10);
 
   /* using the function extracted from the controller users to encrypt all the credit cards informations */
   const creditCard1 = createEncryptedCCForMockUsers(
@@ -330,6 +335,21 @@ async function setupDB() {
     "1997-01-01"
   );
 
+  await createUser(
+    "Dodo",
+    passwordUser4,
+    "domenicoprovenzano13@gmail.com",
+    "Domenico",
+    "Provy",
+    "Italy",
+    "Palermo",
+    "Piazza la bomba e boom, 60",
+    "00100",
+    true,
+    imagePath("Blobbino.jpg"),
+    "1997-01-01"
+  );
+
   await createCC(
     creditCard1.cardHolder,
     creditCard1.cardNumber,
@@ -366,34 +386,39 @@ async function setupDB() {
   await createUserLastSeenMessage(1, 1, chatBuildPc.length);
   await createUserLastSeenMessage(1, 2, chatBuildPc.length - 1);
 
-  await createTicket(2, "shipping", "123456 - Delivery is late", chatShippingIssues.length)
+  await createTicket(
+    2,
+    "shipping",
+    "123456 - Delivery is late",
+    chatShippingIssues.length
+  );
 
-  await createTicketChat(chatShippingIssues)
+  await createTicketChat(chatShippingIssues);
 
-  await createUserLastSeenMessage(2, 1, chatShippingIssues.length - 1)
-  await createUserLastSeenMessage(2, 2, chatShippingIssues.length)
+  await createUserLastSeenMessage(2, 1, chatShippingIssues.length - 1);
+  await createUserLastSeenMessage(2, 2, chatShippingIssues.length);
 
   await createTicket(
     2,
     "others",
     "Help for mantainance of a component",
     chatOrhers.length
-  )
+  );
 
-  await createTicketChat(chatOrhers)
+  await createTicketChat(chatOrhers);
 
-  await createUserLastSeenMessage(3, 1, chatOrhers.length - 1)
-  await createUserLastSeenMessage(3, 2, chatOrhers.length)
+  await createUserLastSeenMessage(3, 1, chatOrhers.length - 1);
+  await createUserLastSeenMessage(3, 2, chatOrhers.length);
 
-  await createBrands()
+  await createBrands();
 
-  await createMockingNewsletter()
+  await createMockingNewsletter();
 
-  await createUserGearCart(1)
-  await createUserPCCart(1)
+  await createUserGearCart(1);
+  await createUserPCCart(1);
 
-  await createShipping(1, [1,4,7,5])
-  await createShipping(1, [3, 17])
+  await createShipping(1, [1, 4, 7, 5]);
+  await createShipping(1, [3, 17]);
 }
 
 setupDB();

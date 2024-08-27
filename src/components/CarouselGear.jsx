@@ -40,7 +40,6 @@ const cards = [
     image: "http://localhost:3000/uploads/corsair-hs65.png",
   },
 ];
-//array per le card, da compilare
 
 export function CarouselGear() {
   return (
