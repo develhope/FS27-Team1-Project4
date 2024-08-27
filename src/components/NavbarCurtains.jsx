@@ -4,10 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { upperCaseString } from "../custom-hooks/uppercaseString.js";
 
-export function NavbarCurtains({ title, arrayLinks , login }) {
+export function NavbarCurtains({ title, arrayLinks, login }) {
   const [sidebarIsShown, setSidebarIsShown] = useState(false);
   const [sidebarContentShown, setSidebarContentShow] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const productNavbarRef = useRef(null);
   const linkNavbarRef = useRef(null);
@@ -91,7 +91,11 @@ export function NavbarCurtains({ title, arrayLinks , login }) {
                   className="flex flex-col justify-between items-center flex-1"
                 >
                   <div className="flex justify-center items-center h-full products-image-container">
-                  <img src={link.img} alt="product img" onClick={() => navigate(link.url)}/>
+                    <img
+                      src={link.img}
+                      alt="product img"
+                      onClick={() => navigate(link.url)}
+                    />
                   </div>
                   <Link to={link.url}>{link.name}</Link>
                 </div>
@@ -116,13 +120,16 @@ export function NavbarCurtains({ title, arrayLinks , login }) {
                 <p>{upperCaseString(link.name)}</p>
               </Link>
             ))}
+            {login && (
+              <div className={`${sidebarContentShown ? "shown" : ""}`}>
+                <p>Logout</p>
+              </div>
+            )}
           </div>
         </div>
       )}
 
-      {!arrayLinks[0] && (
-        <></>
-      )}
+      {!arrayLinks[0] && <></>}
     </div>
   );
 }
