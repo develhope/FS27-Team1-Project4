@@ -19,8 +19,8 @@ const pcSchema = Joi.object({
   type: Joi.string().valid("PC"),
   image: Joi.string().allow(null, ""),
   description: Joi.string().required(),
-  originalPrice: Joi.number().required(),
-  discount: Joi.number(),
+  originalPrice: Joi.number().greater(0).required(),
+  discount: Joi.number().allow(null, ""). greater(0),
   stock: Joi.number().required(),
 });
 

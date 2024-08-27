@@ -2,8 +2,10 @@
 
 import { Link, Outlet } from "react-router-dom";
 import whiteLogo from "../assets/nebula-tech-1-logo-w.png";
+import { useRender } from "./ChatProvider";
 
 export function AdminHome() {
+  const {onRender} = useRender()
   return (
     <div className="flex justify-end relative admin-home">
       <div className="flex fixed admin-sidebar">
@@ -22,10 +24,10 @@ export function AdminHome() {
             <Link to="products-list" className="link">
               Products
             </Link>
-            <Link to="add-product/gear" className="link">
+            <Link to="add-product/gear" className="link" onClick={onRender}>
               Add Gear
             </Link>
-            <Link to="add-product/pc" className="link">
+            <Link to="add-product/pc" className="link" onClick={onRender}>
               Add Pc
             </Link>
             <Link to="shippings" className="link">
