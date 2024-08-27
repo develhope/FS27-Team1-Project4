@@ -15,6 +15,7 @@ import { imageDomain } from "../custom-hooks/usePostImage";
 import { HiOutlineShoppingCart } from "react-icons/hi2";
 import { GiProtectionGlasses } from "react-icons/gi";
 
+
 export function Navbar() {
   const { user } = useLocalUser();
   const [search, setSearch] = useState(false);
