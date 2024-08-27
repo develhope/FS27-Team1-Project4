@@ -31,9 +31,10 @@ import { AdminShippingList } from "./components/AdminShippingList";
 import { AdminUsersList } from "./components/AdminUsersList";
 import { EditPassword } from "./components/EditPassword";
 
-import { NewsletterSubscribed } from "./components/NewsletterSubscribed";
+import { AdminNewsletterSubscribed } from "./components/AdminNewsletterSubscribed";
 import { Lockpick } from "./components/Lockpick";
 import { ChatProvider } from "./components/ChatProvider";
+import { CarouselRedirection } from "./components/CarouselRedirection";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
           <Route path="/" element={<MainWebpageContainer />}>
             <Route index element={<Home />} />
             <Route path="products" element={<Page />} />
+            <Route path="gear/:category" element={<CarouselRedirection />} />
             <Route path="computer" element={<PageComputer />} />
             <Route path="login" element={<LoginForm />} />
             <Route path="sign-up" element={<SignUpForm />} />
@@ -84,9 +86,9 @@ function App() {
               <Route path="shippings" element={<AdminShippingList />} />
               <Route path="users-list" element={<AdminUsersList />} />
               <Route
-              path="newsletter-subscribed"
-              element={<NewsletterSubscribed />}
-            />
+                path="newsletter-subscribed"
+                element={<AdminNewsletterSubscribed />}
+              />
             </Route>
             <Route path="cart" element={<CartUser />} />
             <Route path="shipping-list" element={<ShippingUserList />} />

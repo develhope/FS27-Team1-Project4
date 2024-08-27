@@ -4,19 +4,18 @@ import { Builded } from "./Builded";
 import { CarouselGear } from "./CarouselGear";
 import { SiteGuide } from "./SiteGuide";
 import { Newsletter } from "./Newsletter";
-
 import Banner from "./Banner";
+
 export function Home() {
   return (
     <div id="home" className="home">
-      <Banner/>
+      <Banner />
       <Builded />
       <CarouselOffer />
       <BuildYourPc />
-      <CarouselGear />
+      <CarouselGear />      
       <SiteGuide />
       <Newsletter />
-
-</div>
+    </div>
   );
 }
