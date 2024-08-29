@@ -50,26 +50,6 @@ export function UserProfile() {
       closeDeleteModal();
     }
   };
-
-  const handleDeleteAccountHard = async () => {
-    try {
-      await fetch("http://localhost:3000/api/user/hard/" + user.id, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-
-      localStorage.removeItem("user_nt1");
-     
-
-      navigate("/login");
-    } catch (error) {
-      console.error("Error deleting account:", error);
-    } finally {
-      closeDeleteModal();
-    }
-  };
   return (
     <div className="user-container">
       <div className="user-profile">
@@ -141,10 +121,7 @@ export function UserProfile() {
             <div className="modal-buttons">
               <button onClick={closeDeleteModal}>Cancel</button>
               <button onClick={handleDeleteAccountSoft}>
-              Temporarily delete
-              </button>
-              <button onClick={handleDeleteAccountHard}>
-              Permanently delete
+              Yes, confirm delete
               </button>
             </div>
           </div>
