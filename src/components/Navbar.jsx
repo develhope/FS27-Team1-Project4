@@ -142,7 +142,7 @@ export function Navbar() {
             {/* <NavbarSearch /> */}
             <div
               className="flex items-center justify-center navbar-cart"
-              onClick={() => navigate("cart")}
+              onClick={() => navigate(user ? "cart" : "login")}
             >
               <HiOutlineShoppingCart />
               {cartNumber && <p className="absolute cart-number">{cartNumber}</p>}
