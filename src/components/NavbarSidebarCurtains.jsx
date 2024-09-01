@@ -45,9 +45,7 @@ export function NavbarSidebarCurtains({ title, arrayLinks, sidebar, handleOnClic
           <div className="flex flex-col curtain-sidebar">
             {arrayLinks.map((link, index) => (
               <div key={index}>
-                {(typeof link === "object" && <Link to={link.url} onClick={handleOnClick}>{link.name}</Link>) || (
-                  <p>{link}</p>
-                )}
+                 <Link to={link.url} onClick={handleOnClick} className="pointer">{link.name}</Link>
               </div>
             ))}
           </div>

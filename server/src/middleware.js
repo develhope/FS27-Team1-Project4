@@ -27,13 +27,19 @@ export async function checkUsernameOrEmailUnique(req, res, next) {
 
     if (id) {
       existingUser = await db.manyOrNone(
-        `SELECT id, username, email FROM users
-         WHERE (username=$2 OR email=$3) AND id<>$1`,
+        `SELECT id, username, email
+        FROM users
+        WHERE (username=$2 OR email=$3)
+         AND id<>$1
+          AND deleted_at IS NULL`,
         [id, username, email]
       );
     } else {
       existingUser = await db.manyOrNone(
-        `SELECT username, email FROM users WHERE username=$1 OR email=$2`,
+        `SELECT username, email
+        FROM users
+        WHERE (username=$1 OR email=$2)
+          AND deleted_at IS NULL`,
         [username, email]
       );
     }

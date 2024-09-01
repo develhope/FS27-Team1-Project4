@@ -11,11 +11,14 @@ export function OpeningPage() {
   useEffect(() => {
     window.addEventListener("keydown", handleOpening);
 
-    return window.addEventListener("keydown", handleOpening);
+    return () => {
+      window.removeEventListener("keydown", handleOpening);
+    };
   }, []);
 
   function handleOpening() {
     gridRef.current?.classList.add("opened-page");
+    console.log("opening");
     setTimeout(() => navigate("/deep"), 3000);
   }
 

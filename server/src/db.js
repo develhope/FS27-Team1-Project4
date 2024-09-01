@@ -91,6 +91,7 @@ async function setupDB() {
     DROP TABLE IF EXISTS shipping;
     DROP TABLE IF EXISTS newsletter_subscribers;
     DROP TABLE IF EXISTS brands;
+    DROP TABLE IF EXISTS last_message_admin;
     DROP TABLE IF EXISTS last_message;
     DROP TABLE IF EXISTS chat_messages;
     DROP TABLE IF EXISTS tickets;
@@ -115,9 +116,9 @@ async function setupDB() {
     CREATE TABLE users(
       id SERIAL NOT NULL PRIMARY KEY,
       avatar_url VARCHAR(255),
-      username VARCHAR(255) NOT NULL UNIQUE,
+      username VARCHAR(255) NOT NULL,
       password VARCHAR(255) NOT NULL,
-      email VARCHAR(255) NOT NULL UNIQUE,
+      email VARCHAR(255) NOT NULL,
       firstname VARCHAR(255) NOT NULL,
       lastname VARCHAR(255) NOT NULL,
       country VARCHAR(255) NOT NULL,
@@ -125,7 +126,8 @@ async function setupDB() {
       city VARCHAR(255) NOT NULL,
       address VARCHAR(255) NOT NULL,
       postal_code VARCHAR(255) NOT NULL,
-      phone VARCHAR(255) UNIQUE,
+      default_card INT,
+      phone VARCHAR(255),
       admin BOOLEAN NOT NULL,
       token TEXT,
       created_at TIMESTAMP DEFAULT NOW(),
@@ -243,6 +245,13 @@ async function setupDB() {
       FOREIGN KEY (ticket_id) REFERENCES tickets(id),
       FOREIGN KEY (user_id) REFERENCES users(id)
     );
+
+    CREATE TABLE last_message_admin(
+      id SERIAL NOT NULL PRIMARY KEY,
+      ticket_id INT NOT NULL,
+      last_message INT,
+      FOREIGN KEY (ticket_id) REFERENCES tickets(id)
+      );
 
     CREATE TABLE brands(
       id SERIAL NOT NULL PRIMARY KEY,
@@ -383,7 +392,6 @@ async function setupDB() {
 
   await createTicketChat(chatBuildPc);
 
-  await createUserLastSeenMessage(1, 1, chatBuildPc.length);
   await createUserLastSeenMessage(1, 2, chatBuildPc.length - 1);
 
   await createTicket(
@@ -395,7 +403,6 @@ async function setupDB() {
 
   await createTicketChat(chatShippingIssues);
 
-  await createUserLastSeenMessage(2, 1, chatShippingIssues.length - 1);
   await createUserLastSeenMessage(2, 2, chatShippingIssues.length);
 
   await createTicket(
@@ -407,7 +414,6 @@ async function setupDB() {
 
   await createTicketChat(chatOrhers);
 
-  await createUserLastSeenMessage(3, 1, chatOrhers.length - 1);
   await createUserLastSeenMessage(3, 2, chatOrhers.length);
 
   await createBrands();
