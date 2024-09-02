@@ -11,7 +11,6 @@ import { useNavigate, Link } from "react-router-dom";
 import nebulaLogo from "../assets/nebula-tech-1-logo-b.png";
 import { useLocalUser } from "../custom-hooks/useLocalUser";
 import { imageDomain } from "../custom-hooks/usePostImage";
-
 import { HiOutlineShoppingCart } from "react-icons/hi2";
 import { GiProtectionGlasses } from "react-icons/gi";
 import { useRender } from "./ChatProvider";
@@ -32,8 +31,24 @@ export function Navbar() {
   const [cartNumber, setCartNumber] = useState(null);
 
   useEffect(() => {
+<<<<<<< HEAD
     checkCart()
   }, [data, render]);
+=======
+    if (data && user) {
+      const userCart = data.filter(
+        (item) =>
+          item.user_id === user.id &&
+          item.deleted_at === null &&
+          item.status === null
+      );
+      userCart.length === 0
+        ? setCartNumber(null)
+        : setCartNumber(userCart.length);
+      console.log(userCart);
+    }
+  }, [data]);
+>>>>>>> 086308a (My Order section complete)
 
   useEffect(() => {
     if (search) {
@@ -110,8 +125,13 @@ export function Navbar() {
     { url: "login", name: "Login" },
     { url: "sign-up", name: "Sign Up" },
     { url: user ? "user-profile" : "login", name: "Profile" },
+<<<<<<< HEAD
     { url: user ? "shipping-list" : "login", name: "Orders" },
     { url: user ? "cc-management" : "login", name: "Billing Informations"}
+=======
+    { url: user ? "shipping-list" : "login", name: "Shippings list" },
+    { url: user ? "orders" : "login", name: "My Orders" },
+>>>>>>> 086308a (My Order section complete)
   ];
 
   function checkCart() {

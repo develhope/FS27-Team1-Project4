@@ -1,3 +1,5 @@
+/*React Component author Domenico*/
+
 import { Link } from "react-router-dom";
 
 export function AdminMenu() {

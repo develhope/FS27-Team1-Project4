@@ -1,3 +1,5 @@
+/*React Component author Domenico*/
+
 import { useGetFetch } from "../custom-hooks/useGetFetch";
 import { LoadingMessage } from "./LoadingMessage";
 import { ErrorMessage } from "./ErrorMessage";

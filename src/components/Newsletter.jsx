@@ -1,3 +1,5 @@
+/*React Component author Domenico*/
+
 import { useState } from "react";
 import { useFetch } from "../custom-hooks/useFetch";
 
