@@ -7,7 +7,8 @@ import { Button } from "./Button";
 import { useFetch } from "../custom-hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 import { LoadingMessage } from "../components/LoadingMessage";
-import { ErrorMessage } from "../components/ErrorMessage"
+import { ErrorMessage } from "../components/ErrorMessage";
+import { useRender } from "./ChatProvider";
 
 export function CartUser() {
   const [user, setUser] = useState(
@@ -18,6 +19,7 @@ export function CartUser() {
   const [order, setOrder] = useState([]);
   const [total, setTotal] = useState(0);
   const navigate = useNavigate();
+  const { onRender } = useRender();
 
   const { data, error, loading, onRefresh } = useGetFetch(
     `cart/user/${user.id}`
@@ -109,7 +111,9 @@ export function CartUser() {
 
     if (boolean === false) {
       setTotal(0);
+      setOrder([]);
     } else {
+      setOrder([...cart].map((id) => id.id));
       const tempTotal = cart.reduce((a, item) => {
         if (item.discount) {
           return a + item.discount;
@@ -137,6 +141,7 @@ export function CartUser() {
 
       alert(response.msg);
       navigate(`/shipping/${response.id}`);
+      onRender()
     } catch (error) {
       alert(JSON.stringify(error));
       throw new Error(JSON.stringify(error));
@@ -150,9 +155,7 @@ export function CartUser() {
         <div className="flex flex-col admin-products-list-container">
           <div className="flex flex-col products-container">
             {loading && <LoadingMessage />}
-            {error && (
-             <ErrorMessage error={error} />
-            )}
+            {error && <ErrorMessage error={error} />}
             {cart &&
               cart.length > 0 &&
               cart.map((item, index) => (
@@ -165,7 +168,7 @@ export function CartUser() {
                   onRefresh={onRefresh}
                 />
               ))}
-              {(!cart || cart.length === 0) && <h2>The Cart is empty</h2>}
+            {(!cart || cart.length === 0) && <h2>The Cart is empty</h2>}
           </div>
           <div className="flex items-center justify-between w-full select-buttons">
             <div

@@ -3,11 +3,11 @@ import { LockpickCircle } from "./LockpickCircle";
 import { useSpeak } from "../custom-hooks/useSpeak";
 import { useRender, useSpeaking } from "./ChatProvider";
 import { DeepStolenNode } from "./DeepStolenNode";
-import { useLocalUser } from "../custom-hooks/useLocalUser"
+import { useLocalUser } from "../custom-hooks/useLocalUser";
 import { useGameCompleted } from "../custom-hooks/useGameCompleted";
 
 export function Lockpick() {
-  const {user, refreshUser} = useLocalUser()
+  const { user, refreshUser } = useLocalUser();
   const [firstAngle, setFirstAngle] = useState(0);
   const [secondAngle, setSecondAngle] = useState(0);
   const [thirdAngle, setThirdAngle] = useState(0);
@@ -18,12 +18,12 @@ export function Lockpick() {
   const [forthUnlocked, setforthUnlocked] = useState(false);
 
   const [success, setSuccess] = useState(false);
-  const [stolen, setStolen] = useState(false)
+  const [stolen, setStolen] = useState(false);
 
   const setChat = useSpeaking();
-  const {onRender} = useRender()
+  const { onRender } = useRender();
 
-  const gameRef = useRef(user.games.find(game => game.name === "schiariti"))
+  const gameRef = useRef(user.games.find((game) => game.name === "schiariti"));
 
   const winningRef = useRef({
     first: 172,
@@ -32,20 +32,22 @@ export function Lockpick() {
     forth: 156,
   });
 
-  const onCompleted = useGameCompleted(gameRef.current.id)
+  const onCompleted = useGameCompleted(gameRef.current.id);
 
-  useEffect (() => {
+  useEffect(() => {
     if (gameRef.current.completed) {
-      setStolen(true)
+      setStolen(true);
     }
-    console.log(gameRef.current)
-  }, [])
+    console.log(gameRef.current);
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
       if (firstUnlocked && secondUnlocked && thirdUnlocked && forthUnlocked) {
         setSuccess(true);
-        setChat("Well done, now take the informations and pass to another node")
+        setChat(
+          "Well done, now take the informations and pass to another node"
+        );
       }
     }, 1000);
   }, [firstUnlocked, secondUnlocked, thirdUnlocked, forthUnlocked]);
@@ -162,9 +164,16 @@ export function Lockpick() {
           <button onClick={() => handleRotation(incrementAngle)}>{">"}</button>
         </div>
       </div>
-      { success && (
-        <div className="flex justify-center items-center data" onClick={onCompleted}>
-          <DeepStolenNode setStolen={setStolen} stolen={stolen} id={gameRef.current.employeeId}/>
+      {success && (
+        <div
+          className="flex justify-center items-center data"
+          onClick={onCompleted}
+        >
+          <DeepStolenNode
+            setStolen={setStolen}
+            stolen={stolen}
+            id={gameRef.current.employeeId}
+          />
         </div>
       )}
     </div>

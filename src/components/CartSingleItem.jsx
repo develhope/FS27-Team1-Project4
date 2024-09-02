@@ -41,7 +41,7 @@ export function CartSingleItem({
           <img src={"http://localhost:3000" + product.image} alt="" />
         )}
       </div>
-      <div className="flex flex-col justify-between admin-product-info">
+      <div className="flex flex-col justify-between items-center admin-product-info">
         <div className="flex items-center justify-center name">
           <h3>{product.series ? product.series : product.name}</h3>
         </div>
