@@ -11,13 +11,12 @@ export function Home() {
   return (
     <div id="home" className="home">
       <Banner />
-      <AboutUs/>
       <Builded />
       <CarouselOffer />
       <BuildYourPc />
       <CarouselGear />      
       <SiteGuide />
       <Newsletter />
-    </div>
+      </div>
   );
 }

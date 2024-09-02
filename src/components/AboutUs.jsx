@@ -5,20 +5,19 @@ function AboutUs() {
   return (
     <div className="about-us-container">
       <header className="header-section">
-        <h1>The foremost computer expert in Europea</h1>
-        <p>We specialize in custom-built PCs and laptops.</p>
+        <h1>THE FOREMOST COMPUTER EXPERT IN EUROPE</h1>
+        <p>We specialize in custom-built PC and laptops.</p>
       </header>
       
-      <section className="about-section">
+      <section className="about-section-hello">
         <h2>About Us</h2>
         <h3>We've been operating in this field for 2 years</h3>
         <h4>We deliver a computer every 1 hour.</h4>
-        <p>
-        Nebula Tech 1 stands as Europe's top IT systems integrator, specializing in building custom 
-        PCs and laptops. Our mission is to deliver the highest-performance systems for enthusiasts, 
+        <p className='para'>
+        Nebula Tech 1 stands as Europe's top IT systems integrator,specializing in building custom PCs and laptops. Our mission is to deliver the highest-performance systems for enthusiasts, 
         gamers, and professionals alike.
         </p>
-        <p>
+        <p className='para'>
         Established in 2022, we operate in 11 languages and supply computers to more than 30 countries across Europe. 
         Our offices are located in Germany, the Netherlands, and the United Kingdom, with additional branches in Austria and Italy. In 2024, we 
         launched a cutting-edge center in Heerlen, Netherlands.
@@ -50,6 +49,25 @@ function AboutUs() {
           <li>ISO 14001: Environmental Management</li>
           <li>ISO 45001: Health and Safety Management System</li>
         </ul>
+      </section>
+      
+      <section className="environment-section">
+        <h2>OUR FEEDBACKS!</h2>
+        <p>
+          
+        </p>
+        <div className="environment-stats">
+          <div className="stat">
+            <h3>REVIEWS</h3>
+            <h2>1000+</h2>
+            <h3>FOR YEAR</h3>
+          </div>
+          <div className="stat">
+            <h3>GARANTEE BACK</h3>
+            <h2>100%</h2>
+            <h3>OUR COMPANY </h3>
+          </div>
+        </div>
       </section>
 
       <footer className="footer-section-ab">

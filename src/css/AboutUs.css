@@ -12,43 +12,58 @@
   .header-section h1 {
     font-size: 3em;
     margin: 0;
+    padding-top: 40px;
+  }
+  .header-section p{
+    font-size: 1.2em;
   }
   
-  .header-section p {
-    font-size: 1.5em;
+  .about-section p{
+    font-size: 1.2em;
     margin-top: 10px;
+    align-items: end;
+    
   }
   
-  .about-section {
+  .about-section-hello {
     background-color: #f9f9f9;
-    padding: 60px 20px;
+    padding: 20px 40px;
+    
+  }
+  
+  .about-section-hello h2 {
+    font-size: 2.5em;
+    color: #007f5f;
     text-align: center;
   }
   
-  .about-section h2 {
-    font-size: 2.5em;
-    color: #007f5f;
-  }
-  
-  .about-section h3 {
+  .about-section-hello h3 {
     font-size: 2em;
     margin-top: 10px;
+    text-align: center;
   }
   
-  .about-section h4 {
+  .about-section-hello h4 {
+    align-items: center;
     font-size: 1.5em;
     margin-top: 5px;
+    text-align: center;
   }
   
-  .about-section p {
+
+  .para{
+    text-align: center;
     font-size: 1.2em;
-    max-width: 800px;
-    margin: 20px auto;
+    padding: 10px;
+    
+  }
+  .recognition-section p{
+    font-size: 1.2em;
   }
   
   .recognition-section {
     background-color: #f9f9f9;
-    padding: 60px 20px;
+    padding: 10px 20px;
     text-align: center;
   }
   
@@ -97,6 +112,9 @@
     font-size: 2em;
     color: #007f5f;
   }
+  .certification-section p{
+    font-size: 1.2em;
+  }
   
   .certification-section {
     background-color: #f9f9f9;
@@ -134,4 +152,32 @@
   .footer-section-ab p {
     font-size: 1.2em;
   }
+  .environment-section {
+    background-color: #f9f9f9;
+    padding: 1PX 20px;
+    text-align: center;
+  }
   
+  .environment-section h2 {
+    font-size: 2.5em;
+    color: #007f5f;
+  }
+  
+  .environment-stats {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    margin: 30px 0;
+  }
+  
+  .stat {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stat h2 {
+    font-size: 2em;
+    color: #007f5f;
+  }
