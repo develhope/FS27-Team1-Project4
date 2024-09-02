@@ -1,24 +1,22 @@
-/* Component author Massimo */
 .footer {
   background: #333;
   color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 10px;
+  padding: 30px 10px;
   z-index: 0;
   width: 100vw;
   bottom: 0;
-
+  box-sizing: border-box;
 }
 
 .footer-contect {
   display: flex;
   width: 100%;
-  justify-content: flex-start; /* Align all columns to the right */
+  justify-content: flex-start; 
   align-items: flex-start;
   gap: 0; 
- 
 }
 
 .footer-section {
@@ -35,16 +33,18 @@
   justify-content: flex-start;
   text-align: left;
   position: relative;
- 
+}
+
+.company-description{
+    text-align: end;
 }
 
 .scroll-button-container {
   display: flex;
-  align-items: flex-start;
-  position: absolute; 
-  bottom: 10px;
-  right: 10px;
-  margin-top: 50px; 
+  justify-content: center; 
+  align-items: center; 
+  margin-top: 20px; 
+  position: relative; 
 }
 
 .scroll-to-top-btn {
@@ -65,19 +65,23 @@
   text-align: center;
   font-size: 30px;
   margin: 20px;
+  position: absolute;
+  top: -90px;
+  transform: translateY(-100%);
+  right: 10px;
+}
 
-  &:hover {
-    background-color: rgba(106, 0, 118, 0.271);
-    transition: all 0.3s ease;
-    border: 2px solid rgba(177, 0, 177, 0.438);
-    box-shadow: 2px 2px 15px #8707ff inset;
-  }
+.scroll-to-top-btn:hover {
+  background-color: rgba(106, 0, 118, 0.271);
+  transition: all 0.3s ease;
+  border: 2px solid rgba(177, 0, 177, 0.438);
+  box-shadow: 2px 2px 15px #8707ff inset;
+}
 
-  &:active {
-    box-shadow: 2px 2px 20px #8707ff inset;
-    transform: scale(0.9);
-    background-color: #4b00915d;
-  }
+.scroll-to-top-btn:active {
+  box-shadow: 2px 2px 20px #8707ff inset;
+  transform: scale(0.9);
+  background-color: #4b00915d;
 }
 
 .social-icons {
@@ -107,7 +111,7 @@
   max-width: 100px;
   height: auto;
   margin-bottom: 5px;
-  margin-top: 20px; /* Reduced margin for more compact layout */
+  margin-top: 20px; 
 }
 
 .company-logo-container {
@@ -117,15 +121,11 @@
   justify-content: center;
   text-align: center;
   position: relative;
-  margin-bottom: 10px; /* Reduced for a more compact layout */
+  margin-bottom: 10px; 
 }
-
-.scroll-button-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 80px;
-  position: relative;
+.social-icons svg{
+  height: 40px;
+  width: auto;
 }
 
 @media (max-width: 1280px) {
@@ -137,23 +137,24 @@
   }
 
   .company-logo-container {
-    align-items: center; /* Center items horizontally */
-    text-align: center; /* Center text */
+    align-items: center; 
+    text-align: center; 
+    margin: 0 auto; 
   }
 
   .company-logo {
-    max-width: 120px; /* Adjust the size of the logo for smaller screens */
+    max-width: 120px; 
     margin-bottom: 5px;
   }
 
   .scroll-to-top-btn {
     font-size: 20px;
-  
   }
 
   .footer-contect {
     flex-direction: column;
     width: 100%;
+    align-items: center; 
   }
 
   .footer-section {
@@ -163,31 +164,15 @@
     font-size: 1rem;
   }
 
-  .company-info,
-  .company-description {
-    text-align: center;
+  .scroll-button-container {
+    width: 100%; 
+    justify-content: center;
+    align-items: center;
+ 
   }
 
   .social-icons {
     justify-content: center;
-  }
-
-  .company-logo-container {
-    margin: 0 auto;
-  }
-
-  .toggle-button {
-    display: flex;
-    justify-content: center;
-
-    .arrow {
-      transition: transform 0.3s ease;
-      display: inline-block;
-    }
-
-    .arrow.active {
-      transform: rotate(180deg);
-    }
   }
 }
 
@@ -209,11 +194,15 @@
   }
 
   .social-icons {
-    justify-content: center;
+    justify-content: center; 
+    margin: 10px 0; 
   }
 
-  .company-logo-container {
-    margin: 0 auto;
+  .scroll-button-container {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px; 
   }
 
   .toggle-button {
@@ -232,3 +221,4 @@
     }
   }
 }
+

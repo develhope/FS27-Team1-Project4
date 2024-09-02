@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { CiYoutube, CiFacebook, CiHome } from "react-icons/ci";
+import { SlArrowUp } from "react-icons/sl";
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import logo from '../assets/nebula-tech-1-logo-b.png';
 import { MetalBg } from "./MetalBg";
 import { NavbarBorder } from './NavbarBorder';
+import TermsOfService from './TermsOfService';
 
 const Footer = () => {
   const [activeSection, setActiveSection] = useState('');
@@ -19,8 +22,8 @@ const Footer = () => {
   };
   const gamingPc = [
     { to: "/products", text: 'Products' },
-    { to: "/computer", text: 'Assembled Computers' },
-    { to: "/products", text: 'Peripherals' },
+    { to: "/computer", text: 'Pc' },
+    
   ];
   const footerSection = [
     { to: "/contact", text: 'Contact us' },
@@ -35,25 +38,11 @@ const Footer = () => {
             <NavbarBorder />
           </div>
           <MetalBg>
-          
             <div className='flex footer-contect'>
-              
-              
-                
-                <div className="company-logo-container">
-                  <img src={logo} alt="Company Logo" className="company-logo" />
-                  <div className="scroll-button-container">
-                    <button onClick={scrollToTop} className="scroll-to-top-btn">
-                      <CiHome />
-                    </button>
-                  </div>
-                </div>
-              
-
-
-             
+              <div className="company-logo-container">
+                <img src={logo} alt="Company Logo" className="company-logo" />
+              </div>
               <div className="footer-section links products-section">
-               
                 <h1 onClick={() => toggleSection('gaming')} className="toggle-button">
                   PRODUCTS
                   <span className={`arrow ${activeSection === 'gaming' ? 'active' : ''}`}>&#9660;</span>
@@ -67,7 +56,6 @@ const Footer = () => {
                     ))}
                   </ul>
                 )}
-                
               </div>
 
               {/* Contacts Section */}
@@ -95,6 +83,7 @@ const Footer = () => {
                   <CiFacebook />
                   <FaInstagram />
                   <FaWhatsapp />
+                  <FaXTwitter />
                 </div>
               </div>
 
@@ -106,10 +95,16 @@ const Footer = () => {
                   VAT number: IT0899XXXXX<br />
                   Telephone Number: 3420541376
                 </address>
+                <Link to="/terms-of-service">Terms of Service</Link>
               </div>
-              </div>
-       
               
+              {/* Scroll Button Moved Below the Content */}
+              <div className="scroll-button-container">
+                <button onClick={scrollToTop} className="scroll-to-top-btn">
+                  <SlArrowUp />
+                </button>
+              </div>
+            </div>
           </MetalBg>
         </div>
       </footer>
@@ -118,3 +113,4 @@ const Footer = () => {
 };
 
 export default Footer;
+/* Component author Massimo */
