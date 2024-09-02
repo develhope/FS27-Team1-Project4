@@ -1,25 +1,88 @@
-/*Component author Massimo*/
+/* Component author Massimo */
 .footer {
-  
   background: #333;
   color: #fff;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: space-between;
-  padding: 20px;
+  padding: 10px;
   z-index: 0;
-  box-sizing: border-box;
   width: 100vw;
   bottom: 0;
 
 }
 
+.footer-contect {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start; /* Align all columns to the right */
+  align-items: flex-start;
+  gap: 0; 
+ 
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 150px;
+  padding: 0px;
+  margin: 20px;
+}
+
+.company-logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  position: relative;
+ 
+}
+
+.scroll-button-container {
+  display: flex;
+  align-items: flex-start;
+  position: absolute; 
+  bottom: 10px;
+  right: 10px;
+  margin-top: 50px; 
+}
+
+.scroll-to-top-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(221, 0, 255);
+  border: 2px solid violet;
+  border-radius: 50%;
+  box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
+    0px 0px 25px 2px rgba(82, 0, 129, 0.568);
+  height: 60px;
+  width: 60px;
+  text-align: center;
+  font-size: 30px;
+  margin: 20px;
+
+  &:hover {
+    background-color: rgba(106, 0, 118, 0.271);
+    transition: all 0.3s ease;
+    border: 2px solid rgba(177, 0, 177, 0.438);
+    box-shadow: 2px 2px 15px #8707ff inset;
+  }
+
+  &:active {
+    box-shadow: 2px 2px 20px #8707ff inset;
+    transform: scale(0.9);
+    background-color: #4b00915d;
+  }
+}
 
 .social-icons {
-svg{
-  height: 35px;
-  width: 35px;
-}
+  display: flex;
+  gap: 5px; 
 }
 
 .NavbarBorder {
@@ -29,6 +92,7 @@ svg{
 
 .toggle-button {
   font-size: 24px;
+  cursor: pointer;
 
   .arrow {
     display: none;
@@ -39,53 +103,29 @@ svg{
   }
 }
 
-.footer-section {
-  flex: 1;
-  min-width: 200px;
-  margin: 10px;
-  padding: 10px;
+.company-logo {
+  max-width: 100px;
+  height: auto;
+  margin-bottom: 5px;
+  margin-top: 20px; /* Reduced margin for more compact layout */
 }
 
-img.company-logo {
-  width: 150px;
-  display: block;
+.company-logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  margin-bottom: 10px; /* Reduced for a more compact layout */
 }
 
-.company-info {
-  width: 12px;
-}
-
-.company-info address,
-.company-info form {
-  margin: 10px 0;
-}
-
-
-
-.links ul,
-.misc-links ul {
-  list-style: none;
-  padding: 0;
-}
-
-.links ul li,
-.misc-links ul li {
-  margin: 5px 0;
-}
-
-.links ul li a,
-.misc-links ul li a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.links ul li a:hover,
-.misc-links ul li a:hover {
-  text-decoration: underline;
-}
-
-.company-description p {
-  margin: 10px 0;
+.scroll-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80px;
+  position: relative;
 }
 
 @media (max-width: 1280px) {
@@ -94,44 +134,59 @@ img.company-logo {
     align-items: center;
     box-sizing: border-box;
     width: 100vw;
+  }
 
-    .footer-contect {
-      flex-direction: column;
-      width: 100%;
+  .company-logo-container {
+    align-items: center; /* Center items horizontally */
+    text-align: center; /* Center text */
+  }
+
+  .company-logo {
+    max-width: 120px; /* Adjust the size of the logo for smaller screens */
+    margin-bottom: 5px;
+  }
+
+  .scroll-to-top-btn {
+    font-size: 20px;
+  
+  }
+
+  .footer-contect {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .footer-section {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px; 
+    font-size: 1rem;
+  }
+
+  .company-info,
+  .company-description {
+    text-align: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  .company-logo-container {
+    margin: 0 auto;
+  }
+
+  .toggle-button {
+    display: flex;
+    justify-content: center;
+
+    .arrow {
+      transition: transform 0.3s ease;
+      display: inline-block;
     }
 
-    .footer-section {
-      width: 100%;
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 1rem;
-    }
-
-    .company-info,
-    .company-description {
-      text-align: center;
-    }
-
-    .social-icons {
-      justify-content: center;
-    }
-
-    img.company-logo {
-      margin: 0 auto; /* Centratura orizzontale */
-    }
-
-    .toggle-button {
-      display: flex;
-      justify-content: center;
-
-      .arrow {
-        transition: transform 0.3s ease;
-        display: inline-block;
-      }
-
-      .arrow.active {
-        transform: rotate(180deg);
-      }
+    .arrow.active {
+      transform: rotate(180deg);
     }
   }
 }
@@ -140,40 +195,40 @@ img.company-logo {
   .footer {
     flex-direction: column;
     align-items: center;
+  }
 
-    .footer-section {
-      width: 100%;
-      text-align: center;
-      margin-bottom: 20px;
+  .footer-section {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px; 
+  }
+
+  .company-info,
+  .company-description {
+    text-align: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  .company-logo-container {
+    margin: 0 auto;
+  }
+
+  .toggle-button {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .arrow {
+      transition: transform 0.3s ease;
+      display: inline-block;
     }
 
-    .company-info,
-    .company-description {
-      text-align: center;
-    }
-
-    .social-icons {
-      justify-content: center;
-    }
-
-    img.company-logo {
-      margin: 0 auto;
-    }
-
-    .toggle-button {
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      .arrow {
-        transition: transform 0.3s ease;
-        display: inline-block;
-      }
-
-      .arrow.active {
-        transform: rotate(180deg);
-      }
+    .arrow.active {
+      transform: rotate(180deg);
     }
   }
 }

@@ -14,7 +14,7 @@ const ProductList = () => {
     const itemsPerPage = 6;
 
     const products = data || [];
-    const categories = ["all", ...Array.from(new Set(products.map((product) => product.type)))];
+    const categories = ["all", ...Array.from(new Set(products.map((product) => product.gear)))];
 
     const handleCategoryChange = (event) => {
         setSelectedCategory(event.target.value);
@@ -23,7 +23,7 @@ const ProductList = () => {
 
     const filteredProducts = selectedCategory === "all"
         ? products
-        : products.filter((product) => product.type === selectedCategory);
+        : products.filter((product) => product.gear === selectedCategory);
 
     const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
