@@ -40,6 +40,7 @@ import TermsOfService from "./components/TermsOfService";
 import { CreditCardManagment } from "./components/CreditCardManagment";
 import { ChangingGame } from "./components/ChangingGame";
 import { SpotTheWord } from "./components/SpotTheWord";
+import { FindNumberGame } from "./components/FindNumberGame";
 
 function App() {
   return (
@@ -118,6 +119,7 @@ function App() {
             <Route path="provenzano" element={<GameSwitches />} />
             <Route path="begin" element={<ChangingGame />} />
             <Route path="valentine" element={<SpotTheWord />} />
+            <Route path="vitale" element={<FindNumberGame />} />
           </Route>
         </Routes>
       </ChatProvider>

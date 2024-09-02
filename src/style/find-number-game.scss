@@ -1,0 +1,75 @@
+ .find-number-game {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    top: -30px;
+  
+  .game-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .fixed-numbers {
+    display: flex;
+    gap: 10px;
+    
+  }
+  
+  .fixed-number {
+    background-color: #008e00;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    
+  }
+  
+  .stats {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .timer, .life, .score {
+    font-weight: bold;
+    position: relative;
+    color: #005a0c;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    overflow: visible;
+    gap: 5px;
+    background-color: #000000;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+  }
+  
+  .cell {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #005a0c;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    gap: 5px;
+  }
+
+  
+  
+  .cell:hover {
+    background-color: #e0e0e0;
+  }
+
+  .data {
+    position: relative;
+  }
+}
