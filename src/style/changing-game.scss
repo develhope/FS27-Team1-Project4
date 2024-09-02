@@ -1,0 +1,40 @@
+.changing-game-container {
+  width: 100%;
+
+  .game {
+    width: 90%;
+    box-sizing: border-box;
+    padding: 20px;
+
+    input {
+      width: 100%;
+      background-color: transparent;
+      border-bottom: 2px solid $primaryDeepColor;
+      font-size: 3rem;
+      color: $primaryDeepColor;
+      text-align: center;
+      outline: none;
+    }
+  }
+
+  .changing-data {
+    width: 200px;
+    aspect-ratio: 1;
+  }
+
+  @media(min-width: 768px) {
+    .game {
+      input {
+        font-size: 6rem;
+      }
+    }
+  }
+
+  @media(min-width: 1280px) {
+    .game {
+      input {
+        font-size: 10rem;
+      }
+    }
+  }
+}

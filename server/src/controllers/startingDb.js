@@ -42,7 +42,7 @@ export async function createUser(
         address,
         postalCode,
         admin,
-        birthdate
+        birthdate,
       ]
     );
 
@@ -58,10 +58,18 @@ export async function createUser(
       INSERT INTO games (name, employee_id, completed)
       VALUES ('vitale', 'id 208', false) RETURNING id`);
 
+    const begin = await db.one(`
+        INSERT INTO games (name, employee_id, completed)
+        VALUES ('begin', 'id 200', false) RETURNING id`);
+
+    const valentine = await db.one(`
+      INSERT INTO games (name, employee_id, completed)
+      VALUES ('valentine', 'id 234', false) RETURNING id`);
+
     await db.none(
       `INSERT INTO users_games (user_id, game_id)
-    VALUES ($1, $2),($1, $3), ($1, $4)`,
-      [user.id, schiariti.id, provenzano.id, vitale.id]
+      VALUES ($1, $2),($1, $3), ($1, $4), ($1, $5), ($1, $6)`,
+      [user.id, schiariti.id, provenzano.id, vitale.id, begin.id, valentine.id]
     );
 
     await db.none(`UPDATE users SET avatar_url=$2 WHERE id=$1`, [user.id, img]);
@@ -230,7 +238,7 @@ export async function createUserLastSeenMessage(ticketId, userId, lastMessage) {
       `INSERT INTO last_message_admin(ticket_id, last_message)
       VALUES ($1, 0)`,
       [ticketId]
-    )
+    );
   } catch (error) {
     console.log(error);
   }
@@ -313,13 +321,12 @@ export async function createShipping(userId, arrayOfItems) {
       [userId]
     );
 
-      await db.none(
-        `UPDATE cart_products
+    await db.none(
+      `UPDATE cart_products
         SET shipping_id=$2, ordered_at=NOW(), status='Pending'
         WHERE id= ANY($1)`,
-        [arrayOfItems, id]
-      );
-
+      [arrayOfItems, id]
+    );
   } catch (error) {
     console.log(error);
   }

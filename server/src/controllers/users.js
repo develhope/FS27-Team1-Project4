@@ -506,10 +506,18 @@ export async function signUp(req, res) {
           INSERT INTO games (name, employee_id, completed)
           VALUES ('vitale', 'id 208', false) RETURNING id`);
 
+    const begin = await db.one(`
+          INSERT INTO games (name, employee_id, completed)
+          VALUES ('begin', 'id 200', false) RETURNING id`);
+
+    const valentine = await db.one(`
+         INSERT INTO games (name, employee_id, completed)
+         VALUES ('valentine', 'id 234', false) RETURNING id`);
+
     await db.none(
       `INSERT INTO users_games (user_id, game_id)
-        VALUES ($1, $2),($1, $3), ($1, $4)`,
-      [user.id, schiariti.id, provenzano.id, vitale.id]
+      VALUES ($1, $2),($1, $3), ($1, $4), ($1, $5), ($1, $6)`,
+      [user.id, schiariti.id, provenzano.id, vitale.id, begin.id, valentine.id]
     );
 
     const newUser = await selectUserByUsernameOrEmail(user.username);
@@ -628,49 +636,50 @@ export async function changeDefaultCard(req, res) {
   }
 }
 
-export async function getLastFourDigit (req, res) {
-  const {id} = req.params
+export async function getLastFourDigit(req, res) {
+  const { id } = req.params;
 
   try {
-   const creditCardIdSelect = await db.manyOrNone(
+    const creditCardIdSelect = await db.manyOrNone(
       `SELECT credit_card_id
       FROM users_cards
       WHERE user_id=1`,
       [Number(id)]
-    )
+    );
 
     if (!creditCardIdSelect) {
-      return res.status(404).json({msg: "No card found"})
+      return res.status(404).json({ msg: "No card found" });
     }
 
-    const creditCardIds = creditCardIdSelect.map(id => id.credit_card_id)
+    const creditCardIds = creditCardIdSelect.map((id) => id.credit_card_id);
 
-    console.log(creditCardIdSelect)
+    console.log(creditCardIdSelect);
 
     const lastFourDigitSelect = await db.manyOrNone(
       `SELECT last_four_digits
       FROM credit_cards
       WHERE id = ANY($1)`,
       [creditCardIds]
-    )
+    );
 
-    const lastFourDigit = lastFourDigitSelect.map(four => decryptData(four.last_four_digits))
+    const lastFourDigit = lastFourDigitSelect.map((four) =>
+      decryptData(four.last_four_digits)
+    );
 
-    res.status(200).json(lastFourDigit)
-
+    res.status(200).json(lastFourDigit);
   } catch (error) {
-    console.log(error)
-    res.status(500).json({msg: error})
+    console.log(error);
+    res.status(500).json({ msg: error });
   }
 }
 
 export async function getCards(req, res) {
   try {
-  const cards = await db.manyOrNone(`SELECT * from credit_cards`);
-  res.status(200).json(cards);
-  } catch(error) {
-    console.log(error)
-    res.status(500).json({error})
+    const cards = await db.manyOrNone(`SELECT * from credit_cards`);
+    res.status(200).json(cards);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error });
   }
 }
 
@@ -914,8 +923,6 @@ export async function hardDeleteUser(req, res) {
     res.status(500).json({ msg: error });
   }
 }
-
-
 
 /* This function encrypts informations */
 export function encryptData(data) {
