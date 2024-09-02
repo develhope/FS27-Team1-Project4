@@ -79,7 +79,13 @@ export function UserOrders() {
                   </div>
                   <div className="flex flex-col justify-between items-center cart-managment">
                     <p>Estimated delivery: </p>
-                    <p className="product-discount">{item.deliveryDate} days</p>
+                    <p className="product-discount">
+                      {item.status === "Delivered"
+                        ? "Delivered"
+                        : item.deliveryDate
+                        ? new Date(item.deliveryDate).toLocaleDateString()
+                        : "Work in Progress"}
+                    </p>
                   </div>
                 </div>
               ))
