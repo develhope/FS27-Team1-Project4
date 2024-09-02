@@ -54,10 +54,14 @@ export async function createUser(
     INSERT INTO games (name, employee_id, completed)
     VALUES ('provenzano', 'id 210', false) RETURNING id`);
 
+    const vitale = await db.one(`
+      INSERT INTO games (name, employee_id, completed)
+      VALUES ('vitale', 'id 208', false) RETURNING id`);
+
     await db.none(
       `INSERT INTO users_games (user_id, game_id)
-    VALUES ($1, $2),($1, $3)`,
-      [user.id, schiariti.id, provenzano.id]
+    VALUES ($1, $2),($1, $3), ($1, $4)`,
+      [user.id, schiariti.id, provenzano.id, vitale.id]
     );
 
     await db.none(`UPDATE users SET avatar_url=$2 WHERE id=$1`, [user.id, img]);
@@ -221,6 +225,12 @@ export async function createUserLastSeenMessage(ticketId, userId, lastMessage) {
       VALUES ($1, $2, $3)`,
       [ticketId, userId, lastMessage]
     );
+
+    await db.none(
+      `INSERT INTO last_message_admin(ticket_id, last_message)
+      VALUES ($1, 0)`,
+      [ticketId]
+    )
   } catch (error) {
     console.log(error);
   }

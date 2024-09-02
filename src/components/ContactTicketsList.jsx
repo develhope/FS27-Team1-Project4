@@ -5,34 +5,23 @@ import shipping from "../assets/space-travel_violet.png";
 import others from "../assets/assistant_violet.png";
 import { HiMiniChevronDoubleUp } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
+import { useLocalUser } from "../custom-hooks/useLocalUser";
 
 export function ContactsTicketList() {
+  const {user} = useLocalUser()
   const [userId, setUserId] = useState(2);
   const [tickets, setTickets] = useState(null);
   const [read, setRead] = useState(null);
-  const [user, setUser] = useState(null);
   const ticketsData = useGetFetch("tickets");
-  const userData = useGetFetch(`user/id/${userId}`);
-  const readData = useGetFetch(`last/user/${userId}`);
+  const readData = useGetFetch(user && user.admin ? "last/admin" : `last/user/${userId}`);
   const navigate = useNavigate();
 
   useEffect(() => {
     setTickets(ticketsData.data);
-    setUser(userData.data);
     setRead(readData.data);
     console.log(tickets)
     console.log(read)
-  }, [ticketsData, userData, readData]);
-
-  useEffect(() => {
-    changeUserFetch()
-    console.log(userId)
-  }, [userId])
-
-  async function changeUserFetch() {
-    await userData.onRefresh()
-    await readData.onRefresh()
-  }
+  }, [ticketsData, readData]);
 
   function checkMessageRead(readMessage, ticket) {
     if (readMessage) {
@@ -54,8 +43,8 @@ export function ContactsTicketList() {
     <div className="flex flex-col items-center relative ticket-list">
       <div className="flex flex-col items-center relative ticket-list-frame">
         <div className="flex flex-col items-center relative ticket-list-container">
-          {(ticketsData.loading || userData.loading) && <h1>Loading...</h1>}
-          {(ticketsData.error || userData.error) && (
+          {(ticketsData.loading ) && <h1>Loading...</h1>}
+          {(ticketsData.error ) && (
             <h1>
               {ticketsData.error
                 ? "Couldn't retrieve the list"

@@ -17,7 +17,6 @@ import { GiProtectionGlasses } from "react-icons/gi";
 import { useRender } from "./ChatProvider";
 import { useGetFetch } from "../custom-hooks/useGetFetch";
 
-
 export function Navbar() {
   const { user, refreshUser } = useLocalUser();
   const [search, setSearch] = useState(false);
@@ -27,18 +26,14 @@ export function Navbar() {
   const [searchInput, setSearchInput] = useState("");
   const searchRef = useRef(null);
   const navigate = useNavigate();
-  const {render} = useRender()
+  const { render } = useRender();
 
-  const {data, error, loading, onRefresh} = useGetFetch("cart/all-products")
-  const [cartNumber, setCartNumber] = useState(null)
+  const { data, error, loading, onRefresh } = useGetFetch("cart/all-products");
+  const [cartNumber, setCartNumber] = useState(null);
 
   useEffect(() => {
-    if(data && user) {
-    const userCart = data.filter(item => item.user_id === user.id && item.deleted_at === null && item.status === null)
-    userCart.length === 0 ? setCartNumber(null) : setCartNumber(userCart.length)
-    console.log(userCart)
-    }
-  },[data])
+    checkCart()
+  }, [data, render]);
 
   useEffect(() => {
     if (search) {
@@ -49,9 +44,9 @@ export function Navbar() {
   }, [search]);
 
   useEffect(() => {
-    refreshUser()
-    onRefresh()
-  }, [render])
+    refreshUser();
+    onRefresh();
+  }, [render]);
 
   const links = ["Link1", "Link2", "Link3"];
   const contacts = [
@@ -116,7 +111,25 @@ export function Navbar() {
     { url: "sign-up", name: "Sign Up" },
     { url: user ? "user-profile" : "login", name: "Profile" },
     { url: user ? "shipping-list" : "login", name: "Orders" },
+    { url: user ? "cc-management" : "login", name: "Billing Informations"}
   ];
+
+  function checkCart() {
+    if (data && user) {
+      const userCart = data.filter(
+        (item) =>
+          item.user_id === user.id &&
+          item.deleted_at === null &&
+          item.status === null
+      );
+      userCart.length === 0
+        ? setCartNumber(null)
+        : setCartNumber(userCart.length);
+      console.log("cart" + userCart.length);
+    } if (!user) {
+      setCartNumber(null)
+    }
+  }
 
   return (
     <div className="flex justify-between items-center fixed navbar">
@@ -142,14 +155,21 @@ export function Navbar() {
             {/* <NavbarSearch /> */}
             <div
               className="flex items-center justify-center navbar-cart"
-              onClick={() => navigate("cart")}
+              onClick={() => navigate(user ? "cart" : "login")}
             >
               <HiOutlineShoppingCart />
-              {cartNumber && <p className="absolute cart-number">{cartNumber}</p>}
+              {cartNumber && (
+                <p className="absolute cart-number">{cartNumber}</p>
+              )}
             </div>
-            {user && user.admin && <div className="flex items-center justify-center navbar-cart" onClick={() => navigate("admin")}>
-              <GiProtectionGlasses />
-            </div>}
+            {user && user.admin && (
+              <div
+                className="flex items-center justify-center navbar-cart"
+                onClick={() => navigate("admin")}
+              >
+                <GiProtectionGlasses />
+              </div>
+            )}
             <div className="flex items-center justify-center links login">
               <NavbarCurtains login={true} arrayLinks={loginArray} />
             </div>

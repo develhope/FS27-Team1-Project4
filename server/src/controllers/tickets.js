@@ -316,11 +316,20 @@ export async function createLastMessages(req, res) {
         .json({ msg: createLastMessageValidation.error.details[0].message });
     }
 
-    db.none(
+   await db.none(
       `INSERT INTO last_message (ticket_id, user_id, last_message)
       VALUES ($1, $2, 0)`,
       [ticketId, userId]
     );
+
+    const admin = await db.one(
+      `INSERT INTO last_message_admin (ticket_id, last_message)
+      VALUES ($1, 0)
+      returning *`,
+      [ticketId]
+    )
+
+    console.log(admin)
 
     return res.status(201).json({ msg: "last message count added" });
   } catch (error) {
@@ -338,6 +347,25 @@ export async function getLastMessages(req, res) {
         user_id AS "userId",
         last_message AS "lastMessage"
       FROM last_message
+      ORDER BY id
+      `
+    );
+
+   return res.status(200).json(lastMessages);
+  } catch (error) {
+    console.log(error);
+   return res.status(500).json({ msg: error });
+  }
+}
+
+export async function getLastMessagesAdmin(req, res) {
+  try {
+    const lastMessages = await db.manyOrNone(
+      `SELECT
+        id,
+        ticket_id AS "ticketId",
+        last_message AS "lastMessage"
+      FROM last_message_admin
       ORDER BY id
       `
     );
@@ -396,3 +424,28 @@ export async function updateReadMessages(req, res) {
    return res.status(500).json({ msg: error });
   }
 }
+
+export async function updateReadMessagesAdmin(req, res) {
+  const { ticketId } = req.params;
+
+  try {
+    const ticket = await db.one(`SELECT * FROM tickets WHERE id=$1`, [
+      ticketId,
+    ]);
+    await db.none(
+      `UPDATE last_message_admin
+      SET last_message = t.number_of_messages
+      FROM tickets t
+      WHERE last_message_admin.ticket_id=$1`,
+      [ticketId, userId]
+    );
+
+   return res
+      .status(200)
+      .json({ msg: "Last Message seen updated succesfully", ticket });
+  } catch (error) {
+    console.log(error);
+   return res.status(500).json({ msg: error });
+  }
+}
+

@@ -6,8 +6,10 @@ import cors from "cors";
 import {
   addAlternativeAddress,
   addCreditCard,
+  changeDefaultCard,
   checkPassword,
   getCards,
+  getLastFourDigit,
   getUserById,
   getUserByUsername,
   getUsers,
@@ -68,11 +70,13 @@ import {
   deleteMessage,
   getAllTickets,
   getLastMessages,
+  getLastMessagesAdmin,
   getLastMessagesByUserId,
   getTicketById,
   getTicketsByUserId,
   modifyChatMessage,
   updateReadMessages,
+  updateReadMessagesAdmin,
 } from "./controllers/tickets.js";
 import path from "path";
 import {
@@ -133,6 +137,7 @@ app.get("/api/user/id/:id", getUserById);
 app.get("/api/user/username/:username", getUserByUsername);
 app.get("/api/users/logout", authorize, logout);
 app.get("/api/users/cc", getCards);
+app.get("/api/users/cc/lfd/:id", getLastFourDigit)
 
 app.post("/api/users/login", login);
 app.post("/api/users/signup", checkUsernameOrEmailUnique, signUp);
@@ -142,6 +147,7 @@ app.post("/api/user/check/:id", checkPassword);
 
 app.put("/api/user/update/:id", checkUsernameOrEmailUnique, updateUser);
 app.put("/api/user/update/password/:id", updatePassword);
+app.put("/api/users/cc/default/:id", changeDefaultCard)
 
 app.put("/api/user/soft/:id", softUserDelete);
 
@@ -197,8 +203,10 @@ app.put("/api/ticket/close/:id", closeTicket);
 
 app.get("/api/last", getLastMessages);
 app.get("/api/last/user/:id", getLastMessagesByUserId);
+app.get("/api/last/admin", getLastMessagesAdmin)
 app.post("/api/last/add", createLastMessages);
 app.put("/api/last/:ticketId", updateReadMessages);
+app.put("/api/last/admin/:id", updateReadMessagesAdmin)
 
 /* api newsletter related */
 app.get("/api/newsletter/subscribers", getNewsletterEmails);

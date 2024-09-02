@@ -37,7 +37,7 @@ const signUpSchema = Joi.object({
     .pattern(/^\d+$/)
     .required()
     .messages({ msg: "Value must contain only numbers" }),
-  phone: Joi.string().allow(null),
+  phone: Joi.string().allow(null, ""),
   avatarUrl: Joi.string().allow(null),
 });
 
@@ -54,7 +54,7 @@ const updateUserSchema = Joi.object({
     .pattern(/^\d+$/)
     .required()
     .messages({ msg: "Value must contain only numbers" }),
-  phone: Joi.string().allow(null),
+  phone: Joi.string().allow(null, ""),
   avatarUrl: Joi.string().allow(null),
 });
 
@@ -98,6 +98,10 @@ const addCreditCardSchema = Joi.object({
     .messages({ msg: "Value must contain only numbers" }),
 });
 
+const changeDefaultCardSchema = Joi.object({
+  card: Joi.number().integer().required().allow(null, ""),
+});
+
 export async function selectUserByUsernameOrEmail(username) {
   const user = await db.oneOrNone(
     `
@@ -125,8 +129,10 @@ export async function selectUserByUsernameOrEmail(username) {
           'completed', g.completed
         )
       ) AS "games",
+       u.default_card AS "defaultCard",
       jsonb_agg(
         DISTINCT jsonb_build_object(
+          'id', c.id,
           'cardHolderName', c.card_holder_name,
           'cardNumber', c.card_number,
           'lastFourDigit', c.last_four_digits,
@@ -152,7 +158,7 @@ export async function selectUserByUsernameOrEmail(username) {
     LEFT JOIN credit_cards c ON uc.credit_card_id = c.id
     LEFT JOIN users_alternative_address ua ON u.id = ua.user_id
     LEFT JOIN alternative_address a ON ua.address_id = a.id
-    WHERE u.username=$1 OR u.email=$1 AND deleted_at IS NULL
+    WHERE (u.username=$1 OR u.email=$1) AND deleted_at IS NULL
     GROUP BY u.id, u.avatar_url, u.username, u.password, u.email, u.firstname, u.lastname, u.country, u.city, u.address, u.postal_code, u.phone, u.admin, u.created_at
     `,
     [username]
@@ -180,6 +186,7 @@ export async function selectUserById(id) {
         'postalCode', u.postal_code,
         'phone', u.phone
       ) AS "informations",
+        u.default_card AS "defaultCard",
        jsonb_agg(
         DISTINCT jsonb_build_object(
           'id', g.id,
@@ -190,6 +197,7 @@ export async function selectUserById(id) {
       ) AS "games",
       jsonb_agg(
         DISTINCT jsonb_build_object(
+          'id', c.id,
           'cardHolderName', c.card_holder_name,
           'cardNumber', c.card_number,
           'lastFourDigit', c.last_four_digits,
@@ -254,6 +262,7 @@ export async function getUsers(req, res) {
       ) AS "games",
         jsonb_agg(
           DISTINCT jsonb_build_object(
+            'id', c.id,
             'cardHolderName', c.card_holder_name,
             'cardNumber', c.card_number,
             'lastFourDigit', c.last_four_digits,
@@ -261,6 +270,7 @@ export async function getUsers(req, res) {
             'cvv', c.cvv
           )
         ) AS "billingInformations",
+          u.default_card AS "defaultCard",
         jsonb_agg(
           DISTINCT jsonb_build_object(
             'country', a.country,
@@ -323,6 +333,7 @@ export async function getUserById(req, res) {
       ) AS "games",
         jsonb_agg(
           DISTINCT jsonb_build_object(
+            'id', c.id,
             'cardHolderName', c.card_holder_name,
             'cardNumber', c.card_number,
             'lastFourDigit', c.last_four_digits,
@@ -330,6 +341,7 @@ export async function getUserById(req, res) {
             'cvv', c.cvv
           )
         ) AS "billingInformations",
+          u.default_card AS "defaultCard",
         jsonb_agg(
           DISTINCT jsonb_build_object(
             'country', a.country,
@@ -394,15 +406,15 @@ export async function login(req, res) {
         .json({ msg: validateLogin.error.details[0].message });
     }
 
-    const deletedUser = await db.one(
+    const deletedUser = await db.oneOrNone(
       `SELECT deleted_at AS "deletedAt"
       FROM users
-      WHERE username=$1 OR email=$1`,
+      WHERE (username=$1 OR email=$1) AND deleted_at IS NULL`,
       [username]
-    )
+    );
 
-    if (deletedUser.deletedAt !== null) {
-      return res.status(404).json({msg: "User not found"})
+    if (!deletedUser) {
+      return res.status(404).json({ msg: "User not found" });
     }
 
     const user = await selectUserByUsernameOrEmail(username);
@@ -484,16 +496,20 @@ export async function signUp(req, res) {
 
     const schiariti = await db.one(`
         INSERT INTO games (name, employee_id, completed)
-        VALUES ('A. Schiariti', 'id 212', false) RETURNING id`);
+        VALUES ('schiariti', 'id 212', false) RETURNING id`);
 
     const provenzano = await db.one(`
         INSERT INTO games (name, employee_id, completed)
-        VALUES ('D. Provenzano', 'id 210', false) RETURNING id`);
+        VALUES ('provenzano', 'id 210', false) RETURNING id`);
+
+    const vitale = await db.one(`
+          INSERT INTO games (name, employee_id, completed)
+          VALUES ('vitale', 'id 208', false) RETURNING id`);
 
     await db.none(
       `INSERT INTO users_games (user_id, game_id)
-        VALUES ($1, $2),($1, $3)`,
-      [user.id, schiariti.id, provenzano.id]
+        VALUES ($1, $2),($1, $3), ($1, $4)`,
+      [user.id, schiariti.id, provenzano.id, vitale.id]
     );
 
     const newUser = await selectUserByUsernameOrEmail(user.username);
@@ -582,6 +598,79 @@ export async function addCreditCard(req, res) {
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: error });
+  }
+}
+
+export async function changeDefaultCard(req, res) {
+  const { id } = req.params;
+  const { card } = req.body;
+
+  try {
+    const changeCardValidation = changeDefaultCardSchema.validate(req.body);
+
+    if (changeCardValidation.error) {
+      res
+        .status(400)
+        .json({ msg: changeCardValidation.error.details[0].message });
+    }
+
+    await db.none(
+      `UPDATE users
+    SET default_card=$2
+    WHERE id=$1`,
+      [Number(id), Number(card)]
+    );
+
+    res.status(200).json({ msg: "Default card changed" });
+  } catch {
+    console.log(error);
+    res.status(500).json({ msg: error });
+  }
+}
+
+export async function getLastFourDigit (req, res) {
+  const {id} = req.params
+
+  try {
+   const creditCardIdSelect = await db.manyOrNone(
+      `SELECT credit_card_id
+      FROM users_cards
+      WHERE user_id=1`,
+      [Number(id)]
+    )
+
+    if (!creditCardIdSelect) {
+      return res.status(404).json({msg: "No card found"})
+    }
+
+    const creditCardIds = creditCardIdSelect.map(id => id.credit_card_id)
+
+    console.log(creditCardIdSelect)
+
+    const lastFourDigitSelect = await db.manyOrNone(
+      `SELECT last_four_digits
+      FROM credit_cards
+      WHERE id = ANY($1)`,
+      [creditCardIds]
+    )
+
+    const lastFourDigit = lastFourDigitSelect.map(four => decryptData(four.last_four_digits))
+
+    res.status(200).json(lastFourDigit)
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({msg: error})
+  }
+}
+
+export async function getCards(req, res) {
+  try {
+  const cards = await db.manyOrNone(`SELECT * from credit_cards`);
+  res.status(200).json(cards);
+  } catch(error) {
+    console.log(error)
+    res.status(500).json({error})
   }
 }
 
@@ -826,10 +915,7 @@ export async function hardDeleteUser(req, res) {
   }
 }
 
-export async function getCards(req, res) {
-  const cards = await db.manyOrNone(`SELECT * from credit_cards`);
-  res.status(200).json(cards);
-}
+
 
 /* This function encrypts informations */
 export function encryptData(data) {

@@ -37,6 +37,7 @@ import { ChatProvider } from "./components/ChatProvider";
 import { CarouselRedirection } from "./components/CarouselRedirection";
 
 import TermsOfService from "./components/TermsOfService";
+import { CreditCardManagment } from "./components/CreditCardManagment";
 
 function App() {
   return (
@@ -97,6 +98,7 @@ function App() {
             <Route path="cart" element={<CartUser />} />
             <Route path="shipping-list" element={<ShippingUserList />} />
             <Route path="shipping/:id" element={<ShippingProductList />} />
+            <Route path="cc-management" element={<CreditCardManagment />} />
           </Route>
           <Route path="access" element={<OpeningPage />} />
           <Route path="deep" element={<Deep />}>

@@ -5,6 +5,7 @@ import { useFetch } from "./useFetch";
 import { useLocalUser } from "./useLocalUser";
 import { useRender } from "../components/ChatProvider";
 
+
 export function useGameCompleted(id){
   const {refreshUser} = useLocalUser()
   const [onComplete, completeData, completeError] = useFetch(`game/completed/${Number(id)}`, "PUT")

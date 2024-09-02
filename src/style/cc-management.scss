@@ -1,0 +1,147 @@
+.cc-management {
+  width: 100vw;
+  min-height: 72vh;
+  box-sizing: border-box;
+  padding: 100px 0 40px 0;
+  color: white;
+  gap: 30px;
+
+  h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+}
+
+.cc-header {
+  width: 100%;
+
+  p {
+    font-size: 0.6rem;
+  }
+}
+
+.cc-container {
+  width: 90%;
+  gap: 20px;
+}
+
+.cc-list {
+  gap: 10px;
+}
+
+.cc {
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: rgba($color: #000000, $alpha: 0.4);
+  border: 2px solid $primaryColor;
+  box-shadow: 0 0 15px 5px rgba($color: $primaryColor, $alpha: 0.4),
+    inset 0 0 15px 5px rgba($color: $primaryColor, $alpha: 0.5);
+}
+
+.default-card-button {
+  width: 100%;
+  margin-top: 20px;
+
+  .buy-now-button {
+    width: unset;
+    padding: 5px 10px;
+
+    &:hover {
+      background-color: $primaryColor;
+      box-shadow: inset 0 0 15px 5px rgba($color: #902b5a, $alpha: 1);
+    }
+  }
+}
+
+.credit-card-add {
+  width: 95%;
+  background-color: rgba($color: #000000, $alpha: 0.4);
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid $primaryColor;
+  box-shadow: 0 0 15px 5px rgba($color: $primaryColor, $alpha: 0.4),
+    inset 0 0 15px 5px rgba($color: $primaryColor, $alpha: 0.5);
+
+  input {
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: white;
+    outline: none;
+    border: 2px solid rgb(148, 12, 252);
+  }
+}
+
+.credit-card-add-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.card-number-container {
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 2px solid rgb(148, 12, 252);
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  gap: 5px;
+
+  input {
+    padding: unset;
+    background-color: transparent;
+    width: 50px;
+    text-align: center;
+    border: none;
+  }
+}
+
+.expire {
+  width: fit-content;
+  input {
+    width: 25px;
+  }
+}
+
+.cvv {
+  input {
+    width: 60px;
+  }
+}
+
+@media(min-width: 768px) {
+  .cc-management {
+    padding-top: 120px;
+    padding-bottom: 50px;
+
+    h1 {
+      font-size: 1.8rem;
+    }
+  }
+
+  .cc-container {
+    gap: 40px;
+  }
+  .cc-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+}
+
+@media(min-width: 1280px) {
+  .cc-management {
+    padding-top: 140px;
+    padding-bottom: 60px;
+
+    h1 {
+      font-size: 2.1rem;
+    }
+  }
+
+  .cc-container {
+    flex-direction: row;
+    gap: 50px;
+  }
+}
