@@ -5,6 +5,7 @@ import { CarouselGear } from "./CarouselGear";
 import { SiteGuide } from "./SiteGuide";
 import { Newsletter } from "./Newsletter";
 import Banner from "./Banner";
+import AboutUs from "./AboutUs";
 
 export function Home() {
   return (
@@ -16,6 +17,6 @@ export function Home() {
       <CarouselGear />      
       <SiteGuide />
       <Newsletter />
-    </div>
+      </div>
   );
 }

@@ -43,6 +43,7 @@ import { SpotTheWord } from "./components/SpotTheWord";
 import { FindNumberGame } from "./components/FindNumberGame";
 import { UserOrders } from "./components/UserOrders";
 import { RiddleWithImages } from "./components/RiddleWithImages";
+import AboutUs from "./components/AboutUs";
 
 function App() {
   return (
@@ -75,6 +76,7 @@ function App() {
             <Route path="edit-password" element={<EditPassword />} />
             <Route path="contact" element={<Contact />} />
             <Route path="faq" element={<ContactFAQ />} />
+            <Route path="aboutus" element={<AboutUs/>}/>
             <Route
               path="create-ticket/:category"
               element={<ContactCreateTicket />}
