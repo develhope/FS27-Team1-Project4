@@ -41,6 +41,7 @@ import { CreditCardManagment } from "./components/CreditCardManagment";
 import { ChangingGame } from "./components/ChangingGame";
 import { SpotTheWord } from "./components/SpotTheWord";
 import { FindNumberGame } from "./components/FindNumberGame";
+import { UserOrders } from "./components/UserOrders";
 
 function App() {
   return (
@@ -99,6 +100,7 @@ function App() {
               />
             </Route>
             <Route path="cart" element={<CartUser />} />
+            <Route path="orders" element={<UserOrders />} />
             <Route path="shipping-list" element={<ShippingUserList />} />
             <Route path="shipping/:id" element={<ShippingProductList />} />
             <Route path="cc-management" element={<CreditCardManagment />} />

@@ -1,3 +1,5 @@
+/*React Component author Domenico*/
+
 import { useNavigate } from "react-router-dom";
 
 const cards = [

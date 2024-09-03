@@ -1,3 +1,5 @@
+/*React Component author Domenico*/
+
 import { useParams } from "react-router-dom";
 import GearCollection from "./GearCollection";
 import { useGetFetch } from "../custom-hooks/useGetFetch";

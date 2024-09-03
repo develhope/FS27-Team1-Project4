@@ -1,3 +1,5 @@
+/*React Component author Domenico*/
+
 export function SiteGuide() {
   return (
     <div className="banner-guide">
