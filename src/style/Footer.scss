@@ -14,16 +14,15 @@
 .footer-contect {
   display: flex;
   width: 100%;
-  justify-content: flex-start; 
+  justify-content: flex-start;
   align-items: flex-start;
-  gap: 0; 
 }
 
 .footer-section {
   flex: 1;
   min-width: 150px;
-  padding: 0px;
-  margin: 20px;
+  padding: 10px 20px; 
+  margin: 10px; 
 }
 
 .company-logo-container {
@@ -35,16 +34,16 @@
   position: relative;
 }
 
-.company-description{
-    text-align: end;
+.company-description {
+  text-align: end;
 }
 
 .scroll-button-container {
   display: flex;
-  justify-content: center; 
-  align-items: center; 
-  margin-top: 20px; 
-  position: relative; 
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  position: relative;
 }
 
 .scroll-to-top-btn {
@@ -58,8 +57,7 @@
   color: rgb(221, 0, 255);
   border: 2px solid violet;
   border-radius: 50%;
-  box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615),
-    0px 0px 25px 2px rgba(82, 0, 129, 0.568);
+  box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615), 0px 0px 25px 2px rgba(82, 0, 129, 0.568);
   height: 60px;
   width: 60px;
   text-align: center;
@@ -86,7 +84,7 @@
 
 .social-icons {
   display: flex;
-  gap: 5px; 
+  gap: 15px; /* Aumentato gap per più spazio tra le icone */
 }
 
 .NavbarBorder {
@@ -111,7 +109,7 @@
   max-width: 100px;
   height: auto;
   margin-bottom: 5px;
-  margin-top: 20px; 
+  margin-top: 20px;
 }
 
 .company-logo-container {
@@ -121,12 +119,20 @@
   justify-content: center;
   text-align: center;
   position: relative;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 }
-.social-icons svg{
+
+.social-icons svg {
   height: 40px;
   width: auto;
 }
+.terms-link {
+  color: #fff; 
+  text-decoration: underline; 
+  cursor: pointer; 
+} 
+
+
 
 @media (max-width: 1280px) {
   .footer {
@@ -137,43 +143,57 @@
   }
 
   .company-logo-container {
-    align-items: center; 
-    text-align: center; 
-    margin: 0 auto; 
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
   }
 
   .company-logo {
-    max-width: 120px; 
+    max-width: 120px;
     margin-bottom: 5px;
   }
 
-  .scroll-to-top-btn {
-    font-size: 20px;
+  .scroll-to-top-btn{
+    position: absolute;
+    top: -610px;
+    transform: translateY(-100%);
+    right: -20px;
   }
+  
 
   .footer-contect {
     flex-direction: column;
     width: 100%;
-    align-items: center; 
+    align-items: center;
   }
 
   .footer-section {
     width: 100%;
     text-align: center;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
     font-size: 1rem;
   }
 
   .scroll-button-container {
-    width: 100%; 
+    width: 100%;
     justify-content: center;
     align-items: center;
- 
   }
 
   .social-icons {
     justify-content: center;
   }
+}
+@media (max-width: 768px) {
+  .scroll-to-top-btn{
+    position: absolute;
+    top: -635px;
+    transform: translateY(-90%);
+    right: 200px;
+    height: 50px;
+    width: 50px;
+  }
+
 }
 
 @media (max-width: 320px) {
@@ -181,11 +201,21 @@
     flex-direction: column;
     align-items: center;
   }
+ 
+    .scroll-to-top-btn{
+      position: absolute;
+      top: -700px;
+      transform: translateY(-100%);
+      right: 200px;
+      height: 50px;
+      width: 50px;
+    }
+  
 
   .footer-section {
     width: 100%;
     text-align: center;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
   }
 
   .company-info,
@@ -194,15 +224,15 @@
   }
 
   .social-icons {
-    justify-content: center; 
-    margin: 10px 0; 
+    justify-content: center;
+    margin: 10px 0;
   }
 
   .scroll-button-container {
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-top: 20px; 
+    margin-top: 20px;
   }
 
   .toggle-button {
@@ -221,4 +251,3 @@
     }
   }
 }
-

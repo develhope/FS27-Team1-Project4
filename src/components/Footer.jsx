@@ -95,7 +95,7 @@ const Footer = () => {
                   VAT number: IT0899XXXXX<br />
                   Telephone Number: 3420541376
                 </address>
-                <Link to="/terms-of-service">Terms of Service</Link>
+                <Link to="/terms-of-service"  className="terms-link">Terms of Service</Link>
               </div>
               
               {/* Scroll Button Moved Below the Content */}
