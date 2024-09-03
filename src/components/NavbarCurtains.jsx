@@ -58,7 +58,7 @@ export function NavbarCurtains({ title, arrayLinks, login }) {
         alert("Logged out succesfully")
         localStorage.removeItem("user_nt1");
         onRender()
-        navigate('/login');
+        navigate('/');
       } else {
 
         console.error('Logout failed');
