@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { imageDomain } from "../custom-hooks/usePostImage";
+import { useRender } from "./ChatProvider";
 
 export function UserProfile() {
   const [user, setUser] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const navigate = useNavigate();
+  const {onRender} = useRender()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -43,6 +45,7 @@ export function UserProfile() {
 
       localStorage.removeItem("user_nt1");
 
+      onRender()
       navigate("/login");
     } catch (error) {
       console.error("Error deleting account:", error);

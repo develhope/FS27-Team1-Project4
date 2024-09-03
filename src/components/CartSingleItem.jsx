@@ -2,6 +2,7 @@
 
 import { useFetch } from "../custom-hooks/useFetch";
 import { Button } from "./Button";
+import { useRender } from "./ChatProvider";
 
 export function CartSingleItem({
   product,
@@ -16,6 +17,8 @@ export function CartSingleItem({
     "PUT"
   );
 
+  const {onRender} = useRender()
+
   async function handleRemoveItem(productId) {
     try {
       await onRemove({}, `cart/delete-item/${productId}`);
@@ -28,6 +31,7 @@ export function CartSingleItem({
       alert("Item removed succesfully from cart")
 
       await onRefresh()
+      onRender()
 
     } catch (error) {
       throw new Error(JSON.stringify(error));
