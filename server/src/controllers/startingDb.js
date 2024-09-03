@@ -66,10 +66,14 @@ export async function createUser(
       INSERT INTO games (name, employee_id, completed)
       VALUES ('valentine', 'id 234', false) RETURNING id`);
 
+    const shepherd = await db.one(`
+        INSERT INTO games (name, employee_id, completed)
+        VALUES ('shepherd', 'id 221', false) RETURNING id`);
+
     await db.none(
       `INSERT INTO users_games (user_id, game_id)
-      VALUES ($1, $2),($1, $3), ($1, $4), ($1, $5), ($1, $6)`,
-      [user.id, schiariti.id, provenzano.id, vitale.id, begin.id, valentine.id]
+      VALUES ($1, $2),($1, $3), ($1, $4), ($1, $5), ($1, $6), ($1, $7)`,
+      [user.id, schiariti.id, provenzano.id, vitale.id, begin.id, valentine.id, shepherd.id]
     );
 
     await db.none(`UPDATE users SET avatar_url=$2 WHERE id=$1`, [user.id, img]);

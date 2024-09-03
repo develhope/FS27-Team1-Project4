@@ -42,6 +42,7 @@ import { ChangingGame } from "./components/ChangingGame";
 import { SpotTheWord } from "./components/SpotTheWord";
 import { FindNumberGame } from "./components/FindNumberGame";
 import { UserOrders } from "./components/UserOrders";
+import { RiddleWithImages } from "./components/RiddleWithImages";
 
 function App() {
   return (
@@ -122,6 +123,7 @@ function App() {
             <Route path="begin" element={<ChangingGame />} />
             <Route path="valentine" element={<SpotTheWord />} />
             <Route path="vitale" element={<FindNumberGame />} />
+            <Route path="shepherd" element={<RiddleWithImages />} />
           </Route>
         </Routes>
       </ChatProvider>
