@@ -29,4 +29,57 @@
 .spot-data {
   height: 100%;
   aspect-ratio: 1;
+  box-sizing: border-box;
+  padding: 5px;
+}
+
+@media(min-width: 768px) {
+  .spot-the-word {
+    font-size: 1rem;
+  }
+
+  .spot-container {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .grid-words-container {
+    width: 70%;
+  }
+  .words-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  .show-results {
+    width: 30%;
+    height: 100%;
+    border-top: none;
+    border-left: 1px solid $primaryDeepColor;
+
+  }
+
+  .spot-data {
+    height: unset;
+    width: 100%;
+    padding: 20px;
+  }
+}
+
+@media(min-width: 1000px) {
+  .spot-the-word {
+    font-size: 1.5rem
+  }
+
+  .spot-data {
+    width: 250px;
+  }
+}
+
+@media(min-width: 1440px) {
+  .spot-the-word {
+    font-size: 1.8rem
+  }
 }

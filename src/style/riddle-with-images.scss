@@ -1,0 +1,153 @@
+.riddle-game {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 20px 10px;
+  color: $primaryDeepColor;
+  max-height: calc(100vh - 70px);
+
+  .tries {
+    width: 100%;
+  }
+
+  svg {
+    color: $primaryDeepColor;
+    background-color: rgba(0, 128, 0, 0.388);
+  }
+
+  .riddle {
+    width: 100%;
+    height: 80%;
+    padding: 20px;
+    gap: 10px;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    p {
+      font-size: 0.75rem;
+      text-align: center;
+    }
+  }
+
+  .riddle-header {
+    width: 100%;
+    gap: 20px;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    h2 {
+      font-size: 1rem;
+    }
+  }
+
+  button {
+    border: 2px solid $primaryDeepColor;
+    text-justify: center;
+    text-align: center;
+    font-size: 1rem;
+    aspect-ratio: 1;
+    height: 25px;
+
+    &:hover {
+      background-color: $primaryDeepColor;
+      color: white;
+
+      svg {
+      color: white;
+      }
+    }
+  }
+
+  button.awnser {
+    border: 2px solid $primaryDeepColor;
+    width: fit-content;
+    padding: 5px 20px ;
+    font-size: 1rem;
+    aspect-ratio: unset;
+  }
+
+  .images {
+    width: 50%;
+    gap: 10px;
+
+    img{
+      border:2px solid $primaryDeepColor;
+      width: 90%;
+      height: 100%;
+    }
+  }
+
+  .change-image {
+    width: 60%;
+  }
+
+  .riddle-node-container {
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color: #000000, $alpha: 0.8);
+
+    .riddle-data {
+      width: 200px;
+      aspect-ratio: 1;
+    }
+  }
+
+  @media(min-width: 768px) {
+    .riddle {
+      flex-direction: row;
+
+    p {
+      font-size: 1.2rem;
+    }
+    }
+
+    .image-container {
+      width: 50%;
+    }
+
+    .riddle-header {
+      width: unset;
+      gap: 20px;
+
+      button {
+        height: 40px;
+      }
+      h2 {
+      font-size: 2rem;
+      }
+    }
+
+    .riddle-text {
+      width: 50%;
+    }
+
+    button {
+      height: 30px;
+    }
+
+    .images {
+      width: 60%;
+    }
+
+    button.awnser {
+      font-size: 1.5rem;
+      padding: 15px 30px;
+    }
+  }
+
+  @media(min-width: 1280px) {
+    .riddle {
+      p {
+        font-size: 1.8rem;
+      }
+    }
+  }
+}
+
+
