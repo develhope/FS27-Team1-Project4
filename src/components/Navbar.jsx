@@ -43,6 +43,10 @@ export function Navbar() {
         : setCartNumber(userCart.length);
       console.log(userCart);
     }
+
+    if (!user) {
+      setCartNumber(null)
+    }
   }, [data]);
 
   useEffect(() => {
@@ -54,6 +58,7 @@ export function Navbar() {
   }, [search]);
 
   useEffect(() => {
+    console.log("refresh")
     refreshUser();
     onRefresh();
   }, [render]);
@@ -62,7 +67,7 @@ export function Navbar() {
   const contacts = [
     { url: "contact", name: "Contact Us" },
     { url: "faq", name: "Faq" },
-    { url: "tickets", name: "Opened Tickets" },
+    { url: user ? "tickets" : "login", name: "Opened Tickets" },
   ];
   const products = [
     { url: "products", name: "Products" },
@@ -148,7 +153,7 @@ export function Navbar() {
             {/* <NavbarSearch /> */}
             <div
               className="flex items-center justify-center navbar-cart"
-              onClick={() => navigate("cart")}
+              onClick={() => navigate(user ? "cart": "login")}
             >
               <HiOutlineShoppingCart />
               {cartNumber && (
