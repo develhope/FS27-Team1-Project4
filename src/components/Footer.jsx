@@ -101,7 +101,7 @@ const Footer = () => {
               {/* Scroll Button Moved Below the Content */}
               <div className="scroll-button-container">
                 <button onClick={scrollToTop} className="scroll-to-top-btn">
-                  <SlArrowUp />
+                  < SlArrowUp />
                 </button>
               </div>
             </div>

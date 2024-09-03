@@ -84,7 +84,7 @@
 
 .social-icons {
   display: flex;
-  gap: 15px; /* Aumentato gap per più spazio tra le icone */
+  gap: 15px; 
 }
 
 .NavbarBorder {
@@ -185,33 +185,48 @@
   }
 }
 @media (max-width: 768px) {
-  .scroll-to-top-btn{
-    position: absolute;
-    top: -635px;
-    transform: translateY(-90%);
-    right: 200px;
-    height: 50px;
-    width: 50px;
+  .scroll-to-top-btn {
+    background-color: transparent; 
+    color: white; 
+    border: 4px solid white ; 
+    box-shadow: none; 
+    position: static; 
+    margin: 20px auto; 
+    transform: none; 
+
+    
   }
 
+  .scroll-button-container {
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 20px; 
+  }
 }
-
 @media (max-width: 320px) {
   .footer {
     flex-direction: column;
     align-items: center;
   }
- 
-    .scroll-to-top-btn{
-      position: absolute;
-      top: -700px;
-      transform: translateY(-100%);
-      right: 200px;
-      height: 50px;
-      width: 50px;
-    }
+  .scroll-to-top-btn {
   
+    border: 3px solid white ; 
+    box-shadow: none; 
+    position: static; 
+    margin: 20px auto; 
+    transform: none; 
+  }
 
+  .scroll-button-container {
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 20px; 
+  }
+  
   .footer-section {
     width: 100%;
     text-align: center;
