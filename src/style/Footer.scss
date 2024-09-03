@@ -1,25 +1,91 @@
-/*Component author Massimo*/
+/* Component author Massimo */
 .footer {
-  
   background: #333;
   color: #fff;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: space-between;
-  padding: 20px;
+  padding: 30px 10px;
   z-index: 0;
-  box-sizing: border-box;
   width: 100vw;
   bottom: 0;
-
+  box-sizing: border-box;
 }
 
+.footer-contect {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 150px;
+  padding: 10px 20px; 
+  margin: 10px; 
+}
+
+.company-logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  position: relative;
+}
+
+.company-description {
+  text-align: end;
+}
+
+.scroll-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  position: relative;
+}
+
+.scroll-to-top-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(221, 0, 255);
+  border: 2px solid violet;
+  border-radius: 50%;
+  box-shadow: inset 1px 0px 25px 2px rgba(201, 0, 247, 0.615), 0px 0px 25px 2px rgba(82, 0, 129, 0.568);
+  height: 60px;
+  width: 60px;
+  text-align: center;
+  font-size: 30px;
+  margin: 20px;
+  position: absolute;
+  top: -90px;
+  transform: translateY(-100%);
+  right: 10px;
+}
+
+.scroll-to-top-btn:hover {
+  background-color: rgba(106, 0, 118, 0.271);
+  transition: all 0.3s ease;
+  border: 2px solid rgba(177, 0, 177, 0.438);
+  box-shadow: 2px 2px 15px #8707ff inset;
+}
+
+.scroll-to-top-btn:active {
+  box-shadow: 2px 2px 20px #8707ff inset;
+  transform: scale(0.9);
+  background-color: #4b00915d;
+}
 
 .social-icons {
-svg{
-  height: 35px;
-  width: 35px;
-}
+  display: flex;
+  gap: 15px; 
 }
 
 .NavbarBorder {
@@ -29,6 +95,7 @@ svg{
 
 .toggle-button {
   font-size: 24px;
+  cursor: pointer;
 
   .arrow {
     display: none;
@@ -39,54 +106,34 @@ svg{
   }
 }
 
-.footer-section {
-  flex: 1;
-  min-width: 200px;
-  margin: 10px;
-  padding: 10px;
+.company-logo {
+  max-width: 100px;
+  height: auto;
+  margin-bottom: 5px;
+  margin-top: 20px;
 }
 
-img.company-logo {
-  width: 150px;
-  display: block;
+.company-logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  margin-bottom: 10px;
 }
 
-.company-info {
-  width: 12px;
+.social-icons svg {
+  height: 40px;
+  width: auto;
 }
+.terms-link {
+  color: #fff; 
+  text-decoration: underline; 
+  cursor: pointer; 
+} 
 
-.company-info address,
-.company-info form {
-  margin: 10px 0;
-}
 
-
-
-.links ul,
-.misc-links ul {
-  list-style: none;
-  padding: 0;
-}
-
-.links ul li,
-.misc-links ul li {
-  margin: 5px 0;
-}
-
-.links ul li a,
-.misc-links ul li a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.links ul li a:hover,
-.misc-links ul li a:hover {
-  text-decoration: underline;
-}
-
-.company-description p {
-  margin: 10px 0;
-}
 
 @media (max-width: 1280px) {
   .footer {
@@ -94,86 +141,129 @@ img.company-logo {
     align-items: center;
     box-sizing: border-box;
     width: 100vw;
+  }
 
-    .footer-contect {
-      flex-direction: column;
-      width: 100%;
-    }
+  .company-logo-container {
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+  }
 
-    .footer-section {
-      width: 100%;
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 1rem;
-    }
+  .company-logo {
+    max-width: 120px;
+    margin-bottom: 5px;
+  }
 
-    .company-info,
-    .company-description {
-      text-align: center;
-    }
+  .scroll-to-top-btn{
+    position: absolute;
+    top: -610px;
+    transform: translateY(-100%);
+    right: -20px;
+  }
+  
 
-    .social-icons {
-      justify-content: center;
-    }
+  .footer-contect {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
 
-    img.company-logo {
-      margin: 0 auto; /* Centratura orizzontale */
-    }
+  .footer-section {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
 
-    .toggle-button {
-      display: flex;
-      justify-content: center;
+  .scroll-button-container {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
 
-      .arrow {
-        transition: transform 0.3s ease;
-        display: inline-block;
-      }
-
-      .arrow.active {
-        transform: rotate(180deg);
-      }
-    }
+  .social-icons {
+    justify-content: center;
   }
 }
+@media (max-width: 768px) {
+  .scroll-to-top-btn {
+    background-color: transparent; 
+    color: white; 
+    border: 4px solid white ; 
+    box-shadow: none; 
+    position: static; 
+    margin: 20px auto; 
+    transform: none; 
 
+    
+  }
+
+  .scroll-button-container {
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 20px; 
+  }
+}
 @media (max-width: 320px) {
   .footer {
     flex-direction: column;
     align-items: center;
+  }
+  .scroll-to-top-btn {
+  
+    border: 3px solid white ; 
+    box-shadow: none; 
+    position: static; 
+    margin: 20px auto; 
+    transform: none; 
+  }
 
-    .footer-section {
-      width: 100%;
-      text-align: center;
-      margin-bottom: 20px;
+  .scroll-button-container {
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 20px; 
+  }
+  
+  .footer-section {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .company-info,
+  .company-description {
+    text-align: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+    margin: 10px 0;
+  }
+
+  .scroll-button-container {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .toggle-button {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .arrow {
+      transition: transform 0.3s ease;
+      display: inline-block;
     }
 
-    .company-info,
-    .company-description {
-      text-align: center;
-    }
-
-    .social-icons {
-      justify-content: center;
-    }
-
-    img.company-logo {
-      margin: 0 auto;
-    }
-
-    .toggle-button {
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      .arrow {
-        transition: transform 0.3s ease;
-        display: inline-block;
-      }
-
-      .arrow.active {
-        transform: rotate(180deg);
-      }
+    .arrow.active {
+      transform: rotate(180deg);
     }
   }
 }
