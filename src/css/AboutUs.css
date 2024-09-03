@@ -181,3 +181,87 @@
     font-size: 2em;
     color: #007f5f;
   }
+  
+  @media (max-width: 566px) {
+    .header-section h1 {
+      font-size: 2em;
+    }
+  
+    .header-section p {
+      font-size: 1em;
+    }
+  
+    .about-section h2, .recognition-section h2, .environment-section h2, .certification-section h2 {
+      font-size: 1.5em;
+    }
+  
+    .about-section p {
+      font-size: 0.9em;
+    }
+  
+    .recognition-logos {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      
+    }
+  
+    .recognition-logos img {
+      max-width: 50%;
+      max-height: 50%;
+    
+      
+    }
+  
+    .environment-stats {
+      gap: 15px;
+    }
+  
+    .stat h2 {
+      font-size: 1.5em;
+    }
+  }
+  
+  
+  @media (min-width: 728px) and (max-width: 1023px) {
+    .header-section h1 {
+      font-size: 2.8em;
+    }
+  
+    .header-section p {
+      font-size: 1.3em;
+    }
+  
+    .about-section-hello h2, .recognition-section h2, .environment-section h2, .certification-section h2 {
+      font-size: 1.8em;
+    }
+  
+    .about-section-hello p {
+      font-size: 1em;
+    }
+  
+    .environment-stats {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+  
+    .stat {
+      max-width: 250px;
+    }
+    .recognition-logos {
+      display: flex;
+    }
+  
+    .recognition-logos img {
+      
+  align-content: center;
+
+    }
+  
+    .footer-section-ab h2 {
+      font-size: 1.5em;
+    }
+  }
