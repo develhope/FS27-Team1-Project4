@@ -1,10 +1,15 @@
 /*React Component author Domenico*/
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFetch } from "../custom-hooks/useFetch";
+import { useNavigate } from "react-router-dom";
+import { TermsNewsletter } from "./TermsNewsletter";
 
 export function Newsletter() {
   const [email, setEmail] = useState("");
+  const [terms, setTerms] = useState(false);
+  const [newsletterTerms, setNewsletterTerms] = useState(false);
+  const navigate = useNavigate();
   const [onSubscribe, dataSub, errorSub] = useFetch(
     "newsletter/subscriber/add",
     "POST"
@@ -15,6 +20,12 @@ export function Newsletter() {
   );
 
   async function handleSubscribe() {
+    if (!terms) {
+      alert(
+        "We need your agreement to our Terms before subscribing to the newsletter"
+      );
+      return;
+    }
     const emailRegex = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       alert("Email not valid");
@@ -41,6 +52,7 @@ export function Newsletter() {
 
     alert(`${email} subscribed`);
     setEmail("");
+    setTerms(false)
   }
 
   return (
@@ -60,12 +72,52 @@ export function Newsletter() {
         placeholder="Enter your email here!"
         value={email}
       />
-      <button
-        onClick={handleSubscribe}
-        className="newsletter-button buy-now-button"
-      >
-        SIGN UP
-      </button>
+      <div className="flex w-full justify-end gap-8 subscribe-container">
+        <div className="flex items-center gap-3 newsletter-checkbox-container">
+          <label
+            htmlFor="terms"
+            className="flex flex-col newsletter-terms items-end justify-center"
+          >
+            <h6>I agree to receive newsletters and promotional emails</h6>
+            <p>
+              By subscribing, you agree to our{" "}
+              <span onClick={() => navigate("/privacy-terms")}>
+                Privacy Policy
+              </span>
+              ,{" "}
+              <span onClick={() => navigate("terms-of-service")}>
+                Terms of Service
+              </span>{" "}
+              and our{" "}
+              <span onClick={(event) => {
+                event.stopPropagation()
+                event.preventDefault()
+                setNewsletterTerms(true)}}>
+                Newsletter Terms
+              </span>
+              . You can unsubscribe anytime by contacting us at
+              <span> newsletter@nabulatech1.com</span>
+            </p>
+          </label>
+          <input
+            type="checkbox"
+            className="newsletter-checkbox"
+            onChange={() => setTerms(!terms)}
+            checked={terms}
+            name="terms"
+            id="terms"
+          />
+        </div>
+        <button
+          onClick={handleSubscribe}
+          className="newsletter-button buy-now-button"
+        >
+          SIGN UP
+        </button>
+      </div>
+      {newsletterTerms && (
+        <TermsNewsletter onClose={() => setNewsletterTerms(false)} />
+      )}
     </div>
   );
 }

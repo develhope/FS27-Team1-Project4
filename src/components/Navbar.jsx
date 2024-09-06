@@ -15,7 +15,6 @@ import { HiOutlineShoppingCart } from "react-icons/hi2";
 import { GiProtectionGlasses } from "react-icons/gi";
 import { useRender } from "./ChatProvider";
 import { useGetFetch } from "../custom-hooks/useGetFetch";
-import AboutUs from "./AboutUs";
 
 export function Navbar() {
   const { user, refreshUser } = useLocalUser();
@@ -124,13 +123,14 @@ export function Navbar() {
     },
     { img: imageDomain + "uploads/pc1.png", url: "computer", name: "Pc" },
   ];
- 
+
   const loginArray = [
     { url: "login", name: "Login" },
     { url: "sign-up", name: "Sign Up" },
     { url: user ? "user-profile" : "login", name: "Profile" },
     { url: user ? "shipping-list" : "login", name: "Shippings list" },
     { url: user ? "orders" : "login", name: "My Orders" },
+    { url: user ? "cc-management" : "login", name: "Billing Informations" },
   ];
 
   return (
@@ -151,8 +151,8 @@ export function Navbar() {
             <div className="flex items-center justify-center links">
               <NavbarCurtains title="Products" arrayLinks={linksWithImages} />
               <NavbarCurtains title="Contacts" arrayLinks={contacts} />
-              
-              
+
+
             </div>
           </div>
           <div className="flex items-center logo-and-login-container">

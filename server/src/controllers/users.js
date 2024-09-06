@@ -647,7 +647,7 @@ export async function getLastFourDigit(req, res) {
     const creditCardIdSelect = await db.manyOrNone(
       `SELECT credit_card_id
       FROM users_cards
-      WHERE user_id=1`,
+      WHERE user_id=$1`,
       [Number(id)]
     );
 

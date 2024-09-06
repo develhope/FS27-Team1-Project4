@@ -167,6 +167,20 @@
       0px 0px 25px 2px rgba(82, 0, 129, 0.568);
   }
 
+  .newsletter-checkbox-container {
+    width: 70%;
+    align-items: start;
+    justify-content: start;
+
+    .newsletter-terms {
+      text-align: start;
+    }
+
+    span {
+      color: rgb(0, 229, 255);
+    }
+  }
+
   .google-icon {
     font-size: 18px;
     margin-bottom: 1px;
@@ -198,6 +212,21 @@
 
     .input {
       margin-bottom: 15px;
+    }
+
+    .terms-and-login {
+      flex-direction: column-reverse;
+      align-items: end;
+      gap: 20px;
+    }
+
+    .newsletter-checkbox-container {
+      flex-direction: row-reverse;
+      width: fit-content;
+
+      .newsletter-terms {
+        text-align: end;
+      }
     }
   }
 

@@ -70,23 +70,32 @@ export function CreditCardManagment() {
           <h1>{user.username}'s Cards</h1>
           <div className="flex flex-col items-center cc-container">
             <div className="flex flex-col w-full card-list">
-              <div className="flex justify-between cc-header">
-                <div></div>
-                <p>Choose the default card for your puchases:</p>
-              </div>
-              <div className="flex flex-col cc-list">
-                <CreditCardList
-                  cc={data}
-                  chosenCC={chosenCC}
-                  onChange={handleChosenCard}
-                />
-              </div>
-              <div className="flex justify-between items-center default-card-button">
-                <div></div>
-                <div onClick={handleChangeDefault}>
-                  <Button text="Set the default Card" />
+              {data.length <= 0 && (
+                <div className="cc">
+                  <h2>No Credit Card available</h2>
                 </div>
-              </div>
+              )}
+              {data.length > 0 && (
+                <>
+                  <div className="flex justify-between cc-header">
+                    <div></div>
+                    <p>Choose the default card for your puchases:</p>
+                  </div>
+                  <div className="flex flex-col cc-list">
+                    <CreditCardList
+                      cc={data}
+                      chosenCC={chosenCC}
+                      onChange={handleChosenCard}
+                    />
+                  </div>
+                  <div className="flex justify-between items-center default-card-button">
+                    <div></div>
+                    <div onClick={handleChangeDefault}>
+                      <Button text="Set the default Card" />
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
             <CreaditCardAdd />
           </div>

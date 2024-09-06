@@ -44,6 +44,11 @@ import { FindNumberGame } from "./components/FindNumberGame";
 import { UserOrders } from "./components/UserOrders";
 import { RiddleWithImages } from "./components/RiddleWithImages";
 import AboutUs from "./components/AboutUs";
+import { TermsSignUp } from "./components/TermsSignUp";
+import { TermsNewsletter } from "./components/TermsNewsletter";
+import { TermsPrivacy } from "./components/TermPrivacy";
+import { Loader } from "./components/Loader";
+import { AuthenticatingPayment } from "./components/AuthenticatingPayment";
 
 function App() {
   return (
@@ -107,6 +112,7 @@ function App() {
             <Route path="shipping-list" element={<ShippingUserList />} />
             <Route path="shipping/:id" element={<ShippingProductList />} />
             <Route path="cc-management" element={<CreditCardManagment />} />
+            <Route path="privacy-terms" element={<TermsPrivacy />} />
           </Route>
           <Route path="access" element={<OpeningPage />} />
           <Route path="deep" element={<Deep />}>
@@ -127,6 +133,7 @@ function App() {
             <Route path="vitale" element={<FindNumberGame />} />
             <Route path="shepherd" element={<RiddleWithImages />} />
           </Route>
+          <Route path="loader" element={<AuthenticatingPayment />} />
         </Routes>
       </ChatProvider>
       {/* <Footer /> */}
