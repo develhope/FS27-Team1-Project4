@@ -20,7 +20,17 @@ export function UserOrders() {
   useEffect(() => {
     if (data) {
       console.log(data);
-      setItems([...data.gearList, ...data.pcList]);
+      if (data.gearList && data.pcList) {
+        setItems([...data.gearList, ...data.pcList]);
+      }
+
+      if (data.gearList && !data.pcList) {
+        setItems([...data.gearList]);
+      }
+
+      if (!data.gearList && data.pcList) {
+        setItems([...data.pcList]);
+      }
     }
   }, [data]);
 

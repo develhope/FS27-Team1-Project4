@@ -1,80 +1,115 @@
-
-
 .terms-of-service {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f9f9f9; 
-    padding: 20px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  padding: 20px;
 
-    .card {
-        background-color: #fff; 
-        border: 1px solid #ddd; 
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 800px;
-        padding: 20px;
-        box-sizing: border-box;
-        text-align: left;
-        position: relative;
+  .card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: left;
+    position: relative;
 
-        h1, h2 {
-            color: #222; 
-            margin-bottom: 10px;
+    h1,
+    h2 {
+      color: #222;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 20px;
+    }
+
+    p {
+      margin-bottom: 15px;
+      color: #555;
+      font-size: 1rem;
+    }
+
+    a {
+      color: #0066cc;
+      text-decoration: none;
+
+      &:hover {
+        color: #004999;
+        text-decoration: underline;
+      }
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+
+      .buy-now-button {
+        &:hover {
+          background-color: $primaryColor;
         }
+      }
+    }
+
+    @media (min-width: 768px) {
+      .card {
+        padding: 40px;
 
         h1 {
-            font-size: 2rem;
-            border-bottom: 2px solid #ddd; 
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+          font-size: 2.5rem;
         }
 
         h2 {
-            font-size: 1.5rem;
-            margin-top: 20px;
+          font-size: 2rem;
         }
 
         p {
-            margin-bottom: 15px;
-            color: #555; 
-            font-size: 1rem;
+          font-size: 1.1rem;
         }
-
-        a {
-            color: #0066cc; 
-            text-decoration: none;
-
-            &:hover {
-                color: #004999; 
-                text-decoration: underline;
-            }
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        @media (min-width: 768px) {
-            .card {
-                padding: 40px;
-
-                h1 {
-                    font-size: 2.5rem;
-                }
-
-                h2 {
-                    font-size: 2rem;
-                }
-
-                p {
-                    font-size: 1.1rem;
-                }
-            }
-        }
+      }
     }
+  }
+}
+
+.terms-of-service.privacy {
+  .card {
+    margin-top: 120px;
+    margin-bottom: 40px;
+    padding: 20px 40px;
+  }
+
+  span {
+    color: black;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  li {
+    color: #555;
+  }
+
+  ul {
+    padding-left: 40px;
+    list-style-type: disc;
+  }
+
+  ul.contact-privacy {
+    list-style-type: none;
+    padding-top: 50px;
+  }
 }

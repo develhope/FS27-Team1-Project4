@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { LoadingMessage } from "../components/LoadingMessage";
 import { ErrorMessage } from "../components/ErrorMessage";
 import { useRender } from "./ChatProvider";
+import { AuthenticatingPayment } from "./AuthenticatingPayment";
 
 export function CartUser() {
   const [user, setUser] = useState(
@@ -18,6 +19,9 @@ export function CartUser() {
   const [checkboxes, setCheckboxes] = useState([]);
   const [order, setOrder] = useState([]);
   const [total, setTotal] = useState(0);
+  const [shippingId, setShippingId] = useState(null);
+  const [confirmAuth, setConfirmAuth] = useState(null);
+  const [auth, setAuth] = useState(false);
   const navigate = useNavigate();
   const { onRender } = useRender();
 
@@ -131,6 +135,11 @@ export function CartUser() {
       return;
     }
 
+    if (user.defaultCard === null) {
+      navigate("/cc-management");
+      return;
+    }
+
     try {
       const response = await onOrdering({ userId: user.id, order });
 
@@ -139,9 +148,9 @@ export function CartUser() {
         throw new Error(orderingError);
       }
 
-      alert(response.msg);
-      navigate(`/shipping/${response.id}`);
-      onRender()
+      setConfirmAuth(response.msg);
+      setShippingId(response.id);
+      setAuth(true)
     } catch (error) {
       alert(JSON.stringify(error));
       throw new Error(JSON.stringify(error));
@@ -192,6 +201,7 @@ export function CartUser() {
           </div>
         </div>
       </div>
+      {auth && <AuthenticatingPayment id={shippingId} message={confirmAuth} />}
     </div>
   );
 }

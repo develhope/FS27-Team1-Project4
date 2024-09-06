@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { TermsSignUp } from "./TermsSignUp";
 
 export function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -16,9 +17,11 @@ export function SignUpForm() {
     phone: "",
   });
 
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const [errorMessage, setErrorMessage] = useState("");
+  const [terms, setTerms] = useState(false);
+  const [signUpTerms, setSignUpTerms] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -68,12 +71,18 @@ export function SignUpForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!terms) {
+      alert("We need your agreement to our Terms before subscribing to the newsletter")
+      return
+    }
+
     if (validateForm()) {
       try {
-        const response = await fetch( "http://localhost:3000/api/users/signup" , {
-          method: 'POST',
+        const response = await fetch("http://localhost:3000/api/users/signup", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
         });
@@ -81,12 +90,14 @@ export function SignUpForm() {
         if (response.ok) {
           const data = await response.json();
           console.log("Registration successful:", data);
-          navigate('/login');
+          navigate("/login");
         } else {
           const errorData = await response.json();
           console.log(errorData);
-          
-          setErrorMessage(errorData.msg || "Registration failed. Please try again.");
+
+          setErrorMessage(
+            errorData.msg || "Registration failed. Please try again."
+          );
         }
       } catch (error) {
         console.error("Error during registration:", error);
@@ -152,11 +163,11 @@ export function SignUpForm() {
                 placeholder="Confirm Password*"
                 name="confirmPassword"
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value) }
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
             <div className="form-column">
-            <input
+              <input
                 type="date"
                 className="input"
                 placeholder="Birthdate*"
@@ -212,13 +223,54 @@ export function SignUpForm() {
             Create account
           </button>
         </form>
-        <p className="sign-up-label">
-          Already have an account?{" "}
-          <Link to="/login" className="sign-up-link">
-            {" "}
-            Log in
-          </Link>
-        </p>
+        <div className="flex w-full justify-between items-center terms-and-login">
+          <div className="flex items-center gap-3 newsletter-checkbox-container">
+            <input
+              type="checkbox"
+              className="newsletter-checkbox"
+              name="terms"
+              id="terms"
+              onChange={() => setTerms(!terms)}
+              checked={terms}
+            />
+            <label
+              htmlFor="terms"
+              className="flex flex-col newsletter-terms items-start justify-center"
+            >
+              <h6>
+                {" "}
+                I agree to the{" "}
+                <span onClick={() => navigate("/terms-of-service")}>
+                  Terms of Service
+                </span>
+                ,{" "}
+                <span onClick={() => navigate("/privacy-terms")}>
+                  Privacy Policy
+                </span>{" "}
+                and{" "}
+                <span
+                  onClick={(event) => {
+                    event.preventDefault();
+                    setSignUpTerms(true);
+                  }}
+                >
+                  Sign up Terms
+                </span>
+              </h6>
+              <p>
+                By creating an account, you consent to the collection and use of
+                your information in accordance with our policies.
+              </p>
+            </label>
+          </div>
+          <p className="sign-up-label">
+            Already have an account?{" "}
+            <Link to="/login" className="sign-up-link">
+              {" "}
+              Log in
+            </Link>
+          </p>
+        </div>
         <div className="buttons-container">
           <div className="google-login-button">
             <svg
@@ -250,6 +302,7 @@ export function SignUpForm() {
           </div>
         </div>
       </div>
+      {signUpTerms && <TermsSignUp onClose={() => setSignUpTerms(false)}/>}
     </div>
   );
 }
